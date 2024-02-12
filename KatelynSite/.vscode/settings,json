@@ -1,0 +1,25 @@
+{
+    "workbench.colorCustomizations": {
+        "activityBar.activeBackground": "#8b5fdc",
+        "activityBar.activeBorder": "#ffffff",
+        "activityBar.background": "#af8bf0",
+        "activityBar.foreground": "#ffffff",
+        "activityBar.inactiveForeground": "#3c008a",
+        "activityBarBadge.background": "#af8bf0",
+        "activityBarBadge.foreground": "#e7e7e7",
+        "commandCenter.border": "#15202b99",
+        "sash.hoverBorder": "#af8bf0",
+        "statusBar.background": "#af8bf0",
+        "statusBar.foreground": "#15202b",
+        "statusBarItem.hoverBackground": "#af8bf0",
+        "statusBarItem.remoteBackground": "#af8bf0",
+        "statusBarItem.remoteForeground": "#15202b",
+        "titleBar.activeBackground": "#af8bf0",
+        "titleBar.activeForeground": "#460097",
+        "titleBar.inactiveBackground": "#c6c0fb",
+        "titleBar.inactiveForeground": "#460097"
+    },
+    "cSpell.words": [
+        "Merlinie"
+    ]
+}

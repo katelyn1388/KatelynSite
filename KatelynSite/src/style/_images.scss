@@ -1,0 +1,9 @@
+.image-thumbnail {
+    //border: 2px solid #5f46ac;
+    box-shadow: 3px 4px rgba(0, 0, 0, 0.202);
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+}
