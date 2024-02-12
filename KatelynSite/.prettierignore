@@ -1,9 +1,0 @@
-# Ignore artifacts:
-bin
-build
-coverage
-search.tsx
-apply-filters-button.tsx
-
-# Ignore all HTML files:
-**/*.html
