@@ -1,4 +1,5 @@
-export const washingtonImages = [ { img_id: '1U7_sHGUgBKoHB8AT6bhJte0aOJ4Z4W1O',
+export const washingtonImages = [ 
+  { img_id: '1U7_sHGUgBKoHB8AT6bhJte0aOJ4Z4W1O',
     description: 'Port Angeles' },
   { img_id: '1UJiDsJE3KinXSPDN0VcDVePrCXG5lbzQ',
     description: 'Port Angeles' },

@@ -4,22 +4,34 @@ import BusAnimation from './animations/busAnimation';
 import BookAnimation from './animations/book-loading-animation';
 import AlienAnimation from './animations/alien-loading-animation';
 import Board from './games/tic-tac-toe-game';
+import { UseMobileView } from '../../hooks/use-mobile-view';
 
 export default function Page() {
+	const mobileView = UseMobileView();
+
 	return (
 		<AppLayout title='Cool Stuff'>
 			<div>
 				<h3 className='mt-2 ms-3'>Animations</h3>
 				{/* <MultipleUsersAndGroupsAnimation /> */}
-				<div className='w-50'>
+				<div className='w-75'>
 					<BusAnimation />
 				</div>
-				<div className='w-25'>
-					<BookAnimation />
-				</div>
-				<div className='w-25'>
-					<AlienAnimation />
-				</div>
+				{mobileView ? (
+					<div>
+						<div className='w-50'>
+							<BookAnimation />
+						</div>
+						<div className='w-50'>
+							<AlienAnimation />
+						</div>
+					</div>
+				) : (
+					<div className='d-flex justify-content-between'>
+						<BookAnimation />
+						<AlienAnimation />
+					</div>
+				)}
 			</div>
 			<br />
 			<br />
