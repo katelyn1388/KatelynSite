@@ -9,6 +9,7 @@ export default function ImageModal({ imgIndex, show, close }: { imgIndex: number
 	const [index, setIndex] = useState(imgIndex);
 	const [orientation, setOrientation] = useState('portrait');
 	const [imgWidth, setImgWidth] = useState('100%');
+	const [ratio, setRatio] = useState(0);
 
 	const mobileView = UseMobileView();
 
@@ -19,7 +20,13 @@ export default function ImageModal({ imgIndex, show, close }: { imgIndex: number
 	useEffect(() => {
 		if (mobileView) {
 			if (orientation === 'portrait') {
-				setImgWidth('60%');
+				if (ratio < 0.82 && ratio > 0.7) {
+					setImgWidth('100%');
+					console.log('iPhone pic');
+				} else {
+					setImgWidth('70%');
+					console.log('Not iPhone pic');
+				}
 			} else {
 				setImgWidth('100%');
 			}
@@ -30,7 +37,7 @@ export default function ImageModal({ imgIndex, show, close }: { imgIndex: number
 				setImgWidth('100%');
 			}
 		}
-	}, [orientation, mobileView]);
+	}, [orientation, mobileView, ratio]);
 
 	useEffect(() => {
 		console.log(orientation);
@@ -62,6 +69,8 @@ export default function ImageModal({ imgIndex, show, close }: { imgIndex: number
 							onLoad={(e) => {
 								const image = e.target as HTMLImageElement;
 								const aspectRatio = image.naturalWidth / image.naturalHeight;
+								setRatio(aspectRatio);
+								console.log(aspectRatio);
 
 								if (aspectRatio > 1) {
 									setOrientation('landscape');
@@ -72,7 +81,7 @@ export default function ImageModal({ imgIndex, show, close }: { imgIndex: number
 								}
 							}}
 							src={`${modalLinkFirst}${washingtonImages[index].img_id}${modalLinkSecond}`}
-							alt='Modal Pic'
+							alt={`Modal Pic: ${ratio}`}
 							width={imgWidth}
 							className='align-self-center'
 						/>
