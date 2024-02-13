@@ -9,3 +9,11 @@
 .board-row {
     display: flex;
 }
+
+
+@media only screen and (max-width: 900px) {
+    .game-square {
+        width: 5rem;
+        height: 5rem;
+    }
+}
