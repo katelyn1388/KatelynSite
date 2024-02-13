@@ -5,6 +5,11 @@
     box-shadow: 0px 3px 2px #3218637c;
     font-family: fantasy;
 
+    // .page-title {
+    //     margin: 0;
+    //     padding: 0;
+    // }
+
     .nav-bar {
         margin-top: 2rem;
 
@@ -36,6 +41,21 @@
  @media only screen and (max-width: 900px) {
     .header {
         height: 4.5rem;
+        font-size: 20px;
+
+
+        .page-title {
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+        }
+
+        .mobile-nav {
+            min-width: fit-content;
+            min-height: 10rem;
+        }
+        
+
     }
 
 }

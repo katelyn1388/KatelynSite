@@ -1,133 +1,147 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AppLayout } from '../layout';
 import ImageModal from '../../components/image-modal';
 import { washingtonImages } from './images-array';
 import { Weather } from '../../components/weather';
 
 export default function Page() {
-	const [selectedImage, setSelectedImage] = useState<number | null>(null);
-	const [showImageModal, setShowImageModal] = useState(false);
-	const date = useMemo(() => new Date(), []);
-	const seattleDate = useMemo(
-		() => date.toLocaleString(undefined, { timeZone: 'America/Los_Angeles', timeStyle: 'short', dateStyle: 'short' }),
-		[date]
-	);
-	const thumbnailLink = useMemo(() => 'https://drive.google.com/thumbnail?id=', []);
+  const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const [showImageModal, setShowImageModal] = useState(false);
+  const date = useMemo(() => new Date(), []);
+  const seattleDate = useMemo(() => date.toLocaleString(undefined, { timeZone: 'America/Los_Angeles', timeStyle: 'short', dateStyle: 'short' }), [date]);
+  const thumbnailLink = useMemo(() => 'https://drive.google.com/thumbnail?id=', []);
 
-	const displayImage = useCallback((img: number) => {
-		setShowImageModal(true);
-		setSelectedImage(img);
-	}, []);
+  const [viewState, setViewState] = useState({
+    mobileView: false,
+  });
+  const { mobileView } = viewState;
 
-	const close = useCallback(() => {
-		setShowImageModal(false);
-		setSelectedImage(null);
-	}, []);
+  useEffect(() => {
+    const setResponsiveness = () => {
+      return window.innerWidth < 910 ? setViewState((prevState) => ({ ...prevState, mobileView: true })) : setViewState((prevState) => ({ ...prevState, mobileView: false }));
+    };
 
-	return (
-		<AppLayout title='Washington'>
-			<div className='d-print-none'>
-				<Weather lat={47.6061} long={-122.3328} date={seattleDate} />
-				<h3 className='mt-2 ms-3'>Seattle</h3>
-				{washingtonImages.map((img) => {
-					if (img.description === 'Seattle') {
-						return (
-							<span
-								onClick={() => displayImage(washingtonImages.indexOf(img))}
-								// onClick={() => displayImage(`${modalLinkFirst}${img.img_id}${modalLinkSecond}`)}
-								key={img.img_id}>
-								<img src={`${thumbnailLink}${img.img_id}`} alt='Seattle Img' className='m-3 rounded image-thumbnail' />
-							</span>
-						);
-					} else {
-						return <span></span>;
-					}
-				})}
-				<br />
+    setResponsiveness();
+    window.addEventListener('resize', () => setResponsiveness());
 
-				<h3 className='mt-2 ms-3'>Port Angeles</h3>
-				{washingtonImages.map((img) => {
-					if (img.description === 'Port Angeles') {
-						return (
-							<span
-								className=''
-								onClick={() => displayImage(washingtonImages.indexOf(img))}
-								//onClick={() => displayImage(`${modalLinkFirst}${img.img_id}${modalLinkSecond}`)}
-								key={img.img_id}>
-								<img src={`${thumbnailLink}${img.img_id}`} alt='Port Angeles Img' className='m-3 rounded image-thumbnail' />
-							</span>
-						);
-					} else {
-						return <span></span>;
-					}
-				})}
-				<br />
+    return () => {
+      window.removeEventListener('resize', () => setResponsiveness());
+    };
+  }, []);
 
-				<h3 className='mt-2 ms-3'>Cape Flattery</h3>
-				{washingtonImages.map((img) => {
-					if (img.description === 'Cape Flattery') {
-						return (
-							<span
-								className=''
-								onClick={() => displayImage(washingtonImages.indexOf(img))}
-								//onClick={() => displayImage(`${modalLinkFirst}${img.img_id}${modalLinkSecond}`)}
-								key={img.img_id}>
-								<img
-									src={`${thumbnailLink}${img.img_id}`}
-									alt='Cape Flattery Img'
-									className='m-3 rounded image-thumbnail'
-								/>
-							</span>
-						);
-					} else {
-						return <span></span>;
-					}
-				})}
-				<br />
+  const displayImage = useCallback((img: number) => {
+    setShowImageModal(true);
+    setSelectedImage(img);
+  }, []);
 
-				<h3 className='mt-2 ms-3'>Random</h3>
-				{washingtonImages.map((img) => {
-					if (img.description === 'Random') {
-						return (
-							<span
-								className=''
-								onClick={() => displayImage(washingtonImages.indexOf(img))}
-								//onClick={() => displayImage(`${modalLinkFirst}${img.img_id}${modalLinkSecond}`)}
-								key={img.img_id}>
-								<img src={`${thumbnailLink}${img.img_id}`} alt='Random Img' className='m-3 rounded image-thumbnail' />
-							</span>
-						);
-					} else {
-						return <span></span>;
-					}
-				})}
+  const close = useCallback(() => {
+    setShowImageModal(false);
+    setSelectedImage(null);
+  }, []);
 
-				<br />
+  return (
+    <AppLayout title="Washington">
+      <div className="d-print-none">
+        <Weather lat={47.6061} long={-122.3328} date={seattleDate} />
+        <h3 className="mt-2 ms-3">Seattle</h3>
+        {washingtonImages.map((img) => {
+          if (img.description === 'Seattle') {
+            return (
+              <span
+                onClick={() => displayImage(washingtonImages.indexOf(img))}
+                // onClick={() => displayImage(`${modalLinkFirst}${img.img_id}${modalLinkSecond}`)}
+                key={img.img_id}
+              >
+                <img src={`${thumbnailLink}${img.img_id}`} alt="Seattle Img" className="m-3 rounded image-thumbnail" key={img.img_id} />
+              </span>
+            );
+          } else {
+            return <span></span>;
+          }
+        })}
+        <br />
 
-				<h3 className='mt-2 ms-3'>Video</h3>
-				{washingtonImages.map((img) => {
-					if (img.description === 'Video') {
-						return (
-							<span className='embed-responsive embed-responsive-16by9 m-3'>
-								<iframe
-									title='Video'
-									src={`https://drive.google.com/file/d/${img.img_id}/preview`}
-									width='550'
-									height='400'
-									allow='autoplay'></iframe>
-							</span>
-						);
-					} else {
-						return <span></span>;
-					}
-				})}
-			</div>
+        <h3 className="mt-2 ms-3">Port Angeles</h3>
+        {washingtonImages.map((img) => {
+          if (img.description === 'Port Angeles') {
+            return (
+              <span
+                className=""
+                onClick={() => displayImage(washingtonImages.indexOf(img))}
+                //onClick={() => displayImage(`${modalLinkFirst}${img.img_id}${modalLinkSecond}`)}
+                key={img.img_id}
+              >
+                <img src={`${thumbnailLink}${img.img_id}`} alt="Port Angeles Img" className="m-3 rounded image-thumbnail" key={img.img_id} />
+              </span>
+            );
+          } else {
+            return <span></span>;
+          }
+        })}
+        <br />
 
-			<div className='print-only'>
-				<h1>Why you trying to print this you weirdo?</h1>
-			</div>
+        <h3 className="mt-2 ms-3">Cape Flattery</h3>
+        {washingtonImages.map((img) => {
+          if (img.description === 'Cape Flattery') {
+            return (
+              <span
+                className=""
+                onClick={() => displayImage(washingtonImages.indexOf(img))}
+                //onClick={() => displayImage(`${modalLinkFirst}${img.img_id}${modalLinkSecond}`)}
+                key={img.img_id}
+              >
+                <img src={`${thumbnailLink}${img.img_id}`} alt="Cape Flattery Img" className="m-3 rounded image-thumbnail" key={img.img_id} />
+              </span>
+            );
+          } else {
+            return <span></span>;
+          }
+        })}
+        <br />
 
-			<ImageModal close={close} show={showImageModal} imgIndex={selectedImage} />
-		</AppLayout>
-	);
+        <h3 className="mt-2 ms-3">Random</h3>
+        {washingtonImages.map((img) => {
+          if (img.description === 'Random') {
+            return (
+              <span
+                className=""
+                onClick={() => displayImage(washingtonImages.indexOf(img))}
+                //onClick={() => displayImage(`${modalLinkFirst}${img.img_id}${modalLinkSecond}`)}
+                key={img.img_id}
+              >
+                <img src={`${thumbnailLink}${img.img_id}`} alt="Random Img" className="m-3 rounded image-thumbnail" key={img.img_id} />
+              </span>
+            );
+          } else {
+            return <span></span>;
+          }
+        })}
+
+        <br />
+
+        <h3 className="mt-2 ms-3">Video</h3>
+        {washingtonImages.map((img) => {
+          if (img.description === 'Video') {
+            return (
+              <span className="embed-responsive embed-responsive-16by9 m-3">
+                {mobileView ? (
+                  <iframe title="Video" className="video" src={`https://drive.google.com/file/d/${img.img_id}/preview`} allow="autoplay" key={img.img_id}></iframe>
+                ) : (
+                  <iframe title="Video" className="video" src={`https://drive.google.com/file/d/${img.img_id}/preview`} allow="autoplay" key={img.img_id} width={600} height={450}></iframe>
+                )}
+              </span>
+            );
+          } else {
+            return <span></span>;
+          }
+        })}
+      </div>
+
+      <div className="print-only">
+        <h1>Why you trying to print this you weirdo?</h1>
+      </div>
+
+      <ImageModal close={close} show={showImageModal} imgIndex={selectedImage} />
+    </AppLayout>
+  );
 }
