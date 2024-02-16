@@ -17,4 +17,5 @@ export interface CountryBigFactsType {
             common: string;
             official: string;
         }
+        population: number;
 }

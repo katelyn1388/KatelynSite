@@ -3,6 +3,7 @@ import fetchWashingtonImageIds from '../../api/washington-google-photos';
 import { AppLayout } from '../layout';
 import { ImageId } from '../../types/image-response-type';
 import { Weather } from '../../components/weather';
+import CountryBigFacts from '../../components/country-big-facts';
 
 export default function Page() {
 	const [washingtonIds, setWashingtonIds] = useState<string[]>([]);
@@ -11,11 +12,6 @@ export default function Page() {
 		() => date.toLocaleString(undefined, { timeZone: 'Pacific/Auckland', timeStyle: 'short', dateStyle: 'short' }),
 		[date]
 	);
-	//const [washingtonIds, setWashingtonIds] = useState<ImageId[]>([]);
-
-	// const getWashingtonIds = useMemo(async () => {
-	// 	setWashingtonIds((await getIds()) || []);
-	// }, []);
 
 	useEffect(() => {
 		async function fetchIds() {
@@ -32,16 +28,12 @@ export default function Page() {
 
 	return (
 		<AppLayout title='New Zealand'>
-			<Weather lat={-36.850109} long={174.7677} date={newZealandDate} />
-			<div>New Zealand goodies</div>
+			<div className='country-header'>
+				<CountryBigFacts country='New Zealand' />
+				<Weather lat={-36.850109} long={174.7677} date={newZealandDate} />
+			</div>
+
 			<p>Coming soon...</p>
-			{washingtonIds.map((id) => {
-				return (
-					<div className='m-3'>
-						<img src={`https://drive.google.com/thumbnail?id=${id}`} alt='washington' />
-					</div>
-				);
-			})}
 		</AppLayout>
 	);
 }

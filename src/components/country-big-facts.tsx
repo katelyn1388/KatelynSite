@@ -18,19 +18,33 @@ export default function CountryBigFacts({ country }: { country: string }) {
 
 	return (
 		<div className='country-facts'>
-			<div>
-				{countryFacts?.map((country) => {
-					return (
-						<div key={country.name.common}>
-							<p>{country.name.common}</p>
-							<p>{country.name.official}</p>
-							<p>{country.name.common + ' capital: ' + country.capital}</p>
-							<img src={country.flags.png} alt={country.flags.alt}></img>
-							<img src={country.coatOfArms.png} alt='Australia coat of arms' width='200rem'></img>
+			{countryFacts?.map((country) => {
+				return (
+					<div key={country.name.common} className='big-facts'>
+						<h5 className='text-decoration-underline'>{country.name.common}</h5>
+						<div className='d-flex justify-content-between'>
+							<div>
+								<h6>Capital</h6>
+								<p>{country.capital}</p>
+							</div>
+							<div>
+								<h6>Population</h6>
+								<p>{country.population.toLocaleString()}</p>
+							</div>
 						</div>
-					);
-				})}
-			</div>
+						<div className='flags'>
+							<div>
+								<h6>Flag</h6>
+								<img src={country.flags.png} alt={country.flags.alt}></img>
+							</div>
+							<div className='mt-3'>
+								<h6>Coat of Arms</h6>
+								<img src={country.coatOfArms.png} alt='Australia coat of arms' width='200rem'></img>
+							</div>
+						</div>
+					</div>
+				);
+			})}
 		</div>
 	);
 }
