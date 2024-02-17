@@ -5,6 +5,7 @@ import BookAnimation from './animations/book-loading-animation';
 import AlienAnimation from './animations/alien-loading-animation';
 import Board from './games/tic-tac-toe-game';
 import { UseMobileView } from '../../hooks/use-mobile-view';
+import { AgeGuesser } from './games/age-guessing';
 
 export default function Page() {
 	const mobileView = UseMobileView();
@@ -38,9 +39,17 @@ export default function Page() {
 			<br />
 			<div className='m-3 mt-5'>
 				<h3 className='mt-5 ms-3'>Games</h3>
-				<div>
-					<h4 className='mt-4 ms-3'>Tic-Tac-Toe</h4>
-					<Board />
+				<div className='game-row'>
+					<div>
+						<h4 className='mt-4 ms-3 text-center me-3'>Tic-Tac-Toe</h4>
+						<div className=' d-flex justify-content-center'>
+							<Board />
+						</div>
+					</div>
+					<div className='mt-5'>
+						<h4 className='mt-5 ms-3 text-center me-3'>Age Guesser</h4>
+						<AgeGuesser />
+					</div>
 				</div>
 			</div>
 		</AppLayout>

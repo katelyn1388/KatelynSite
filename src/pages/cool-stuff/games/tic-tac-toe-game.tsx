@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { UseMobileView } from '../../../hooks/use-mobile-view';
 
 export default function Board() {
