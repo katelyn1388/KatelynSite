@@ -1,9 +1,19 @@
 import Modal from 'react-bootstrap/Modal';
-import { washingtonImages } from '../pages/washington/images-array';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { UseMobileView } from '../hooks/use-mobile-view';
+import { ImageType } from '../types/image-type';
 
-export default function ImageModal({ imgIndex, show, close }: { imgIndex: number | null; show: boolean; close: () => void }) {
+export default function ImageModal({
+	imgIndex,
+	show,
+	close,
+	imageArray,
+}: {
+	imgIndex: number | null;
+	show: boolean;
+	close: () => void;
+	imageArray: ImageType[];
+}) {
 	const modalLinkFirst = useMemo(() => 'https://lh3.googleusercontent.com/d/', []);
 	const modalLinkSecond = useMemo(() => '=s4000?authuser=0', []);
 	const [index, setIndex] = useState(imgIndex);
@@ -22,10 +32,8 @@ export default function ImageModal({ imgIndex, show, close }: { imgIndex: number
 			if (orientation === 'portrait') {
 				if (ratio < 0.82 && ratio > 0.7) {
 					setImgWidth('100%');
-					console.log('iPhone pic');
 				} else {
 					setImgWidth('70%');
-					console.log('Not iPhone pic');
 				}
 			} else {
 				setImgWidth('100%');
@@ -46,16 +54,16 @@ export default function ImageModal({ imgIndex, show, close }: { imgIndex: number
 	const changePhoto = useCallback(
 		(next: boolean) => {
 			if (index) {
-				if (next && washingtonImages[index + 1]) {
+				if (next && imageArray[index + 1]) {
 					setIndex(index + 1);
-				} else if (!next && washingtonImages[index - 1]) {
+				} else if (!next && imageArray[index - 1]) {
 					setIndex(index - 1);
 				} else {
 					setIndex(1);
 				}
 			}
 		},
-		[index]
+		[imageArray, index]
 	);
 
 	return (
@@ -80,7 +88,7 @@ export default function ImageModal({ imgIndex, show, close }: { imgIndex: number
 									setOrientation('square');
 								}
 							}}
-							src={`${modalLinkFirst}${washingtonImages[index].img_id}${modalLinkSecond}`}
+							src={`${modalLinkFirst}${imageArray[index].img_id}${modalLinkSecond}`}
 							alt={`Modal Pic: ${ratio}`}
 							width={imgWidth}
 							className='align-self-center'

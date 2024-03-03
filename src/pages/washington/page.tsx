@@ -12,15 +12,19 @@ export default function Page() {
 		() => date.toLocaleString(undefined, { timeZone: 'America/Los_Angeles', timeStyle: 'short', dateStyle: 'short' }),
 		[date]
 	);
+
 	const thumbnailLink = useMemo(() => 'https://drive.google.com/thumbnail?id=', []);
+
 	const displayImage = useCallback((img: number) => {
 		setShowImageModal(true);
 		setSelectedImage(img);
 	}, []);
+
 	const close = useCallback(() => {
 		setShowImageModal(false);
 		setSelectedImage(null);
 	}, []);
+
 	return (
 		<AppLayout title='Washington'>
 			<div className='d-print-none'>
@@ -100,7 +104,7 @@ export default function Page() {
 			<div className='print-only'>
 				<h1>Why you trying to print this you weirdo?</h1>
 			</div>
-			<ImageModal close={close} show={showImageModal} imgIndex={selectedImage} />
+			<ImageModal close={close} show={showImageModal} imgIndex={selectedImage} imageArray={washingtonImages} />
 		</AppLayout>
 	);
 }
