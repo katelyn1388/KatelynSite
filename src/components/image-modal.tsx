@@ -3,6 +3,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { UseMobileView } from '../hooks/use-mobile-view';
 import { ImageType } from '../types/image-type';
 
+type ModalSize = 'sm' | 'lg' | 'xl' | undefined;
+
 export default function ImageModal({
 	imgIndex,
 	show,
@@ -20,6 +22,7 @@ export default function ImageModal({
 	const [orientation, setOrientation] = useState('portrait');
 	const [imgWidth, setImgWidth] = useState('100%');
 	const [ratio, setRatio] = useState(0);
+	const [modalSize, setModalSize] = useState<ModalSize>(undefined);
 
 	const mobileView = UseMobileView();
 
@@ -51,6 +54,16 @@ export default function ImageModal({
 		console.log(orientation);
 	}, [orientation]);
 
+	useEffect(() => {
+		if (mobileView) {
+			setModalSize('sm');
+		} else if (orientation === 'portrait') {
+			setModalSize(undefined);
+		} else {
+			setModalSize('xl');
+		}
+	}, [orientation, mobileView]);
+
 	const changePhoto = useCallback(
 		(next: boolean) => {
 			if (index) {
@@ -68,7 +81,8 @@ export default function ImageModal({
 
 	return (
 		<div>
-			<Modal show={show} onHide={close} centered size={mobileView ? 'sm' : undefined}>
+			<Modal show={show} onHide={close} centered size={modalSize}>
+				{/* <Modal show={show} onHide={close} centered size={mobileView ? 'sm' : 'xl'}> */}
 				<Modal.Header closeButton></Modal.Header>
 
 				<Modal.Body className='modal-body'>
