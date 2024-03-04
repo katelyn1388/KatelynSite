@@ -50,6 +50,8 @@ export default function Page() {
 					return <span key={img.img_id}></span>;
 				}
 			})}
+			<br />
+			<iframe src='https://www.youtube.com/embed/8Ymew8YpAGM' title='Skyjump Auckland' allowFullScreen width={500} height={250} />
 
 			<h3 className='mt-2 ms-3'>Hamilton Gardens</h3>
 			{newZealandPictures.map((img) => {
@@ -86,6 +88,10 @@ export default function Page() {
 					return <span key={img.img_id}></span>;
 				}
 			})}
+			<br />
+
+			<iframe src='https://www.youtube.com/embed/2pHpjD82wUo' title='Skyline Rotorua' allowFullScreen width={500} height={250} />
+			<iframe src='https://www.youtube.com/embed/M51vGr-fg80' title='Luge Ride' allowFullScreen width={500} height={250} />
 
 			<div className='print-only'>
 				<h1>Why you trying to print this you weirdo?</h1>
