@@ -93,6 +93,24 @@ export default function Page() {
 			<iframe src='https://www.youtube.com/embed/2pHpjD82wUo' title='Skyline Rotorua' allowFullScreen width={500} height={250} />
 			<iframe src='https://www.youtube.com/embed/M51vGr-fg80' title='Luge Ride' allowFullScreen width={500} height={250} />
 
+			<h3 className='mt-2 ms-3'>Random</h3>
+			{newZealandPictures.map((img) => {
+				if (img.description === 'Random') {
+					return (
+						<span onClick={() => displayImage(newZealandPictures.indexOf(img))} key={img.img_id}>
+							<img
+								src={`${thumbnailLink}${img.img_id}`}
+								alt='Rotorua Img'
+								className='m-3 rounded image-thumbnail'
+								key={img.img_id}
+							/>
+						</span>
+					);
+				} else {
+					return <span key={img.img_id}></span>;
+				}
+			})}
+
 			<div className='print-only'>
 				<h1>Why you trying to print this you weirdo?</h1>
 			</div>
