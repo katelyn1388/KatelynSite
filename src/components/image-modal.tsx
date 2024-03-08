@@ -10,11 +10,13 @@ export default function ImageModal({
 	show,
 	close,
 	imageArray,
+	description,
 }: {
 	imgIndex: number | null;
 	show: boolean;
 	close: () => void;
 	imageArray: ImageType[];
+	description?: string;
 }) {
 	const modalLinkFirst = useMemo(() => 'https://lh3.googleusercontent.com/d/', []);
 	const modalLinkSecond = useMemo(() => '=s4000?authuser=0', []);
@@ -83,7 +85,7 @@ export default function ImageModal({
 		<div>
 			<Modal show={show} onHide={close} centered size={modalSize}>
 				{/* <Modal show={show} onHide={close} centered size={mobileView ? 'sm' : 'xl'}> */}
-				<Modal.Header closeButton></Modal.Header>
+				<Modal.Header closeButton>{description}</Modal.Header>
 
 				<Modal.Body className='modal-body'>
 					{index !== null && index !== undefined && (

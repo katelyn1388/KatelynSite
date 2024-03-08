@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AppLayout } from '../layout';
 import { Weather } from '../../components/weather';
 import CountryBigFacts from '../../components/country-big-facts';
@@ -8,6 +8,7 @@ import ImageModal from '../../components/image-modal';
 export default function Page() {
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
 	const [showImageModal, setShowImageModal] = useState(false);
+	const [imageDescription, setImageDescription] = useState('');
 	const date = useMemo(() => new Date(), []);
 	const newZealandDate = useMemo(
 		() => date.toLocaleString(undefined, { timeZone: 'Pacific/Auckland', timeStyle: 'short', dateStyle: 'short' }),
@@ -25,6 +26,14 @@ export default function Page() {
 		setShowImageModal(false);
 		setSelectedImage(null);
 	}, []);
+
+	useEffect(() => {
+		if (selectedImage && newZealandPictures[selectedImage].description.startsWith('Random')) {
+			setImageDescription(newZealandPictures[selectedImage].description.split(';')[1]);
+		} else {
+			setImageDescription('');
+		}
+	}, [selectedImage]);
 
 	return (
 		<AppLayout title='New Zealand'>
@@ -95,7 +104,7 @@ export default function Page() {
 
 			<h3 className='mt-2 ms-3'>Random</h3>
 			{newZealandPictures.map((img) => {
-				if (img.description === 'Random') {
+				if (img.description.startsWith('Random')) {
 					return (
 						<span onClick={() => displayImage(newZealandPictures.indexOf(img))} key={img.img_id}>
 							<img
@@ -114,7 +123,13 @@ export default function Page() {
 			<div className='print-only'>
 				<h1>Why you trying to print this you weirdo?</h1>
 			</div>
-			<ImageModal close={close} show={showImageModal} imgIndex={selectedImage} imageArray={newZealandPictures} />
+			<ImageModal
+				close={close}
+				show={showImageModal}
+				imgIndex={selectedImage}
+				imageArray={newZealandPictures}
+				description={imageDescription}
+			/>
 		</AppLayout>
 	);
 }
