@@ -33,7 +33,7 @@ export default function Page() {
 	}, []);
 
 	useEffect(() => {
-		if (selectedImage && newZealandPictures[selectedImage].description.startsWith('Random')) {
+		if (selectedImage && newZealandPictures[selectedImage].description.includes(';')) {
 			setImageDescription(newZealandPictures[selectedImage].description.split(';')[1]);
 		} else {
 			setImageDescription('');
@@ -93,7 +93,7 @@ export default function Page() {
 
 			<h3 className='mt-2 ms-3'>Rotorua</h3>
 			{newZealandPictures.map((img) => {
-				if (img.description === 'Rotorua') {
+				if (img.description.startsWith('Rotorua')) {
 					return (
 						<span onClick={() => displayImage(newZealandPictures.indexOf(img))} key={img.img_id}>
 							<img
