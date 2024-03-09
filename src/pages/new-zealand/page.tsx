@@ -4,11 +4,16 @@ import { Weather } from '../../components/weather';
 import CountryBigFacts from '../../components/country-big-facts';
 import { newZealandPictures } from './pictures';
 import ImageModal from '../../components/image-modal';
+import { UseMobileView } from '../../hooks/use-mobile-view';
 
 export default function Page() {
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
 	const [showImageModal, setShowImageModal] = useState(false);
 	const [imageDescription, setImageDescription] = useState('');
+	const isMobile = UseMobileView();
+	const videoWidth = useMemo(() => (isMobile ? 300 : 500), [isMobile]);
+	const videoHeight = useMemo(() => (isMobile ? 175 : 250), [isMobile]);
+
 	const date = useMemo(() => new Date(), []);
 	const newZealandDate = useMemo(
 		() => date.toLocaleString(undefined, { timeZone: 'Pacific/Auckland', timeStyle: 'short', dateStyle: 'short' }),
@@ -60,7 +65,13 @@ export default function Page() {
 				}
 			})}
 			<br />
-			<iframe src='https://www.youtube.com/embed/8Ymew8YpAGM' title='Skyjump Auckland' allowFullScreen width={500} height={250} />
+			<iframe
+				src='https://www.youtube.com/embed/8Ymew8YpAGM'
+				title='Skyjump Auckland'
+				allowFullScreen
+				width={videoWidth}
+				height={videoHeight}
+			/>
 
 			<h3 className='mt-2 ms-3'>Hamilton Gardens</h3>
 			{newZealandPictures.map((img) => {
@@ -99,8 +110,20 @@ export default function Page() {
 			})}
 			<br />
 
-			<iframe src='https://www.youtube.com/embed/2pHpjD82wUo' title='Skyline Rotorua' allowFullScreen width={500} height={250} />
-			<iframe src='https://www.youtube.com/embed/M51vGr-fg80' title='Luge Ride' allowFullScreen width={500} height={250} />
+			<iframe
+				src='https://www.youtube.com/embed/2pHpjD82wUo'
+				title='Skyline Rotorua'
+				allowFullScreen
+				width={videoWidth}
+				height={videoHeight}
+			/>
+			<iframe
+				src='https://www.youtube.com/embed/M51vGr-fg80'
+				title='Luge Ride'
+				allowFullScreen
+				width={videoWidth}
+				height={videoHeight}
+			/>
 
 			<h3 className='mt-2 ms-3'>Random</h3>
 			{newZealandPictures.map((img) => {
