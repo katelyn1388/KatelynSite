@@ -49,7 +49,7 @@ export default function Page() {
 
 			<h3 className='mt-2 ms-3'>Auckland</h3>
 			{newZealandPictures.map((img) => {
-				if (img.description === 'Auckland') {
+				if (img.description.startsWith('Auckland')) {
 					return (
 						<span onClick={() => displayImage(newZealandPictures.indexOf(img))} key={img.img_id}>
 							<img
