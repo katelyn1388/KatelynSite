@@ -25,6 +25,7 @@ export default function Page() {
 	const displayImage = useCallback((img: number) => {
 		setShowImageModal(true);
 		setSelectedImage(img);
+		//newZealandPictures.sort((a, b) => a.description.localeCompare(b.description));
 	}, []);
 
 	const close = useCallback(() => {
@@ -48,22 +49,24 @@ export default function Page() {
 			</div>
 
 			<h3 className='mt-2 ms-3'>Auckland</h3>
-			{newZealandPictures.map((img) => {
-				if (img.description.startsWith('Auckland')) {
-					return (
-						<span onClick={() => displayImage(newZealandPictures.indexOf(img))} key={img.img_id}>
-							<img
-								src={`${thumbnailLink}${img.img_id}`}
-								alt='Auckland Img'
-								className='m-3 rounded image-thumbnail'
-								key={img.img_id}
-							/>
-						</span>
-					);
-				} else {
-					return <span key={img.img_id}></span>;
-				}
-			})}
+			{newZealandPictures
+				.sort((a, b) => a.description.localeCompare(b.description))
+				.map((img) => {
+					if (img.description.startsWith('Auckland')) {
+						return (
+							<span onClick={() => displayImage(newZealandPictures.indexOf(img))} key={img.img_id}>
+								<img
+									src={`${thumbnailLink}${img.img_id}`}
+									alt='Auckland Img'
+									className='m-3 rounded image-thumbnail'
+									key={img.img_id}
+								/>
+							</span>
+						);
+					} else {
+						return <span key={img.img_id}></span>;
+					}
+				})}
 			<br />
 			<iframe
 				src='https://www.youtube.com/embed/8Ymew8YpAGM'
@@ -74,40 +77,44 @@ export default function Page() {
 			/>
 
 			<h3 className='mt-2 ms-3'>Hamilton Gardens</h3>
-			{newZealandPictures.map((img) => {
-				if (img.description === 'Hamilton Gardens') {
-					return (
-						<span onClick={() => displayImage(newZealandPictures.indexOf(img))} key={img.img_id}>
-							<img
-								src={`${thumbnailLink}${img.img_id}`}
-								alt='Auckland Img'
-								className='m-3 rounded image-thumbnail'
-								key={img.img_id}
-							/>
-						</span>
-					);
-				} else {
-					return <span key={img.img_id}></span>;
-				}
-			})}
+			{newZealandPictures
+				.sort((a, b) => a.description.localeCompare(b.description))
+				.map((img) => {
+					if (img.description === 'Hamilton Gardens') {
+						return (
+							<span onClick={() => displayImage(newZealandPictures.indexOf(img))} key={img.img_id}>
+								<img
+									src={`${thumbnailLink}${img.img_id}`}
+									alt='Auckland Img'
+									className='m-3 rounded image-thumbnail'
+									key={img.img_id}
+								/>
+							</span>
+						);
+					} else {
+						return <span key={img.img_id}></span>;
+					}
+				})}
 
 			<h3 className='mt-2 ms-3'>Rotorua</h3>
-			{newZealandPictures.map((img) => {
-				if (img.description.startsWith('Rotorua')) {
-					return (
-						<span onClick={() => displayImage(newZealandPictures.indexOf(img))} key={img.img_id}>
-							<img
-								src={`${thumbnailLink}${img.img_id}`}
-								alt='Rotorua Img'
-								className='m-3 rounded image-thumbnail'
-								key={img.img_id}
-							/>
-						</span>
-					);
-				} else {
-					return <span key={img.img_id}></span>;
-				}
-			})}
+			{newZealandPictures
+				.sort((a, b) => a.description.localeCompare(b.description))
+				.map((img) => {
+					if (img.description.startsWith('Rotorua')) {
+						return (
+							<span onClick={() => displayImage(newZealandPictures.indexOf(img))} key={img.img_id}>
+								<img
+									src={`${thumbnailLink}${img.img_id}`}
+									alt='Rotorua Img'
+									className='m-3 rounded image-thumbnail'
+									key={img.img_id}
+								/>
+							</span>
+						);
+					} else {
+						return <span key={img.img_id}></span>;
+					}
+				})}
 			<br />
 
 			<iframe
@@ -126,22 +133,24 @@ export default function Page() {
 			/>
 
 			<h3 className='mt-2 ms-3'>Random</h3>
-			{newZealandPictures.map((img) => {
-				if (img.description.startsWith('Random')) {
-					return (
-						<span onClick={() => displayImage(newZealandPictures.indexOf(img))} key={img.img_id}>
-							<img
-								src={`${thumbnailLink}${img.img_id}`}
-								alt='Rotorua Img'
-								className='m-3 rounded image-thumbnail'
-								key={img.img_id}
-							/>
-						</span>
-					);
-				} else {
-					return <span key={img.img_id}></span>;
-				}
-			})}
+			{newZealandPictures
+				.sort((a, b) => a.description.localeCompare(b.description))
+				.map((img) => {
+					if (img.description.startsWith('Random')) {
+						return (
+							<span onClick={() => displayImage(newZealandPictures.indexOf(img))} key={img.img_id}>
+								<img
+									src={`${thumbnailLink}${img.img_id}`}
+									alt='Rotorua Img'
+									className='m-3 rounded image-thumbnail'
+									key={img.img_id}
+								/>
+							</span>
+						);
+					} else {
+						return <span key={img.img_id}></span>;
+					}
+				})}
 
 			<div className='print-only'>
 				<h1>Why you trying to print this you weirdo?</h1>
