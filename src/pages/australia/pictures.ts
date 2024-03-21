@@ -1,0 +1,30 @@
+import { ImageType } from "../../types/image-type"
+
+export const pictures: ImageType[] = [
+    { img_id: '17_Mk3KJxm30fknHiZWGJirPMi00VhRUo',
+    description: 'Sydney; Bird: Magpie' },
+  { img_id: '17ho_irQfwHjAWq_zQfwb3a8zJuJfOQuQ',
+    description: 'Sydney; Bird: Cockatoo' },
+  { img_id: '17U5vAbr2AplxJGDsk1787XnDhEfopUYQ',
+    description: 'Sydney; Bird: Silly guy with built-in hat' },
+  { img_id: '17XhWZ-YYLHQCEa6cmSGuDGJRiV784Qr8',
+    description: 'Sydney; Bird: Bin Chicken' },
+  { img_id: '16oQZGjAoVjNVOgm0OY2X_lq0WC_alGqB',
+    description: 'Sydney; Bird: Raven' },
+  { img_id: '16rqeLgGWkNJHClX5gOHZKyrjiZYc1Jfu',
+    description: 'Sydney; Cityscape' },
+  { img_id: '16okrBt9e5m6P8tp8RZPdQmIG8Q4Jea4u',
+    description: 'Sydney; Cityscape' },
+  { img_id: '171oO9MM4kXAFFYoloXARD62bF2JHpw54',
+    description: 'Sydney; China Town' },
+  { img_id: '1720oWdPX16oNNCpE9A4CoHrxWX6N4cN5',
+    description: 'Sydney; Cityscape' },
+  { img_id: '17ERgqeKHNW2bgoSa-mWGJMbFkRgbxQCA',
+    description: 'Sydney; Cityscape' },
+  { img_id: '17B5phEPVNq8YI5N3Mw9GFVKqhggrsawQ',
+    description: 'Sydney; Cityscape- Aussie Big Ben' },
+  { img_id: '17PzYU9DjyS_-xpOkOMbBsNucJxTGSrff',
+    description: 'Sydney; Cityscape at night' },
+  { img_id: '17KUId4dbGt9ruLd8QFJo3DoZLXSt9d-W',
+    description: 'Sydney; Cityscape' }
+]

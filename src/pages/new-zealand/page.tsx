@@ -25,7 +25,6 @@ export default function Page() {
 	const displayImage = useCallback((img: number) => {
 		setShowImageModal(true);
 		setSelectedImage(img);
-		//newZealandPictures.sort((a, b) => a.description.localeCompare(b.description));
 	}, []);
 
 	const close = useCallback(() => {
@@ -34,7 +33,7 @@ export default function Page() {
 	}, []);
 
 	useEffect(() => {
-		if (selectedImage && newZealandPictures[selectedImage].description.includes(';')) {
+		if (selectedImage !== null && newZealandPictures[selectedImage].description.includes(';')) {
 			setImageDescription(newZealandPictures[selectedImage].description.split(';')[1]);
 		} else {
 			setImageDescription('');

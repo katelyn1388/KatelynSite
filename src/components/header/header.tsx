@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import LogoPic from '../../assets/Merlinie Logo.jpg';
 import { useState } from 'react';
 import { UseMobileView } from '../../hooks/use-mobile-view';
+import { ThemePicker } from '../theme-picker/theme-picker';
 
 export function Header({ title }: { title: string }) {
 	const [hamburgerOpen, setHamburgerOpen] = useState(false);
@@ -56,6 +57,9 @@ export function Header({ title }: { title: string }) {
 				<div className='header text-center pt-2 d-print-none'>
 					<img src={LogoPic} height='80px' width='80px' className='rounded logo m-3 mt-2' alt='Merlinie Logo' />
 					<h2 className='page-title'>Katelyn Bowers the Cool Kid</h2>
+					{/* <div className='align-right'>
+						<ThemePicker />
+					</div> */}
 					<div className='nav-bar d-flex justify-content-evenly'>
 						<div>
 							<Link to='/' className={title === 'Home' ? 'active-page nav-link' : 'nav-link'}>
