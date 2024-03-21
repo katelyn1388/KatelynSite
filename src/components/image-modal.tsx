@@ -84,7 +84,6 @@ export default function ImageModal({
 	return (
 		<div>
 			<Modal show={show} onHide={close} centered size={modalSize}>
-				{/* <Modal show={show} onHide={close} centered size={mobileView ? 'sm' : 'xl'}> */}
 				<Modal.Header closeButton>{description}</Modal.Header>
 
 				<Modal.Body className='modal-body'>

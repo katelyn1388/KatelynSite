@@ -5,6 +5,12 @@
 @import 'images';
 @import 'modals';
 @import 'games';
+@import 'themes';
+
+:root {
+  --header-text: #2e1460;
+  --header-text-active: #6c29e8;
+}
 
 body {
   margin: 0;
