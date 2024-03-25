@@ -26,6 +26,22 @@ export default function ImageModal({
 	const [ratio, setRatio] = useState(0);
 	const [modalSize, setModalSize] = useState<ModalSize>(undefined);
 
+	useEffect(() => {
+		const handleKeyPress = (event: KeyboardEvent) => {
+			if (event.key === 'ArrowRight') {
+				changePhoto(true);
+			} else if (event.key === 'ArrowLeft') {
+				changePhoto(false);
+			}
+		};
+
+		document.addEventListener('keydown', handleKeyPress);
+
+		return () => {
+			document.removeEventListener('keydown', handleKeyPress);
+		};
+	});
+
 	const mobileView = UseMobileView();
 
 	useEffect(() => {
