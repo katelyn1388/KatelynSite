@@ -21,9 +21,8 @@ export const ThemeButton = memo(
 			className={`btn btn-light my-1 px-2 ${current === theme ? 'btn-dark' : 'btn-light'}`}
 			onClick={() => {
 				setTheme(theme);
-				onClick?.();
 			}}>
-			<FontAwesomeIcon icon={icon} size='lg' />
+			<FontAwesomeIcon icon={icon} />
 		</button>
 	)
 );

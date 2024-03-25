@@ -3,11 +3,9 @@ body,
 div#root,
 .page-root {
     height: 100%;
-    background-color: #d6ccf1;
-    // background-color: var(--bs-body-bg);
-    // color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
     min-width: fit-content;
-
 
     .main-content {
 
@@ -31,7 +29,6 @@ div#root,
     margin: 3rem;
     margin-left: .5rem;
     text-align: center;
-    //margin-left: 40%;
 }
 
 .widget-title {

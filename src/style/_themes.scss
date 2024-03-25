@@ -1,8 +1,35 @@
+:root {
+    background-color: var(--bs-body-bg);
+    --bs-btn-bg: var(--bs-primary);
+
+}
+
+
+.content {
+    background-color: var(--bs-body-bg);
+}
+
 .header {
-    //background-color: var(--bs-primary);
+    background-color: var(--bs-primary);
 }
 
 
 .light {
     --bs-primary: #a88bf0;
+    --bs-body-bg: #ece8f9;
+}
+
+.dark {
+    --bs-primary: #4a3383;
+    --bs-body-bg: #725da7;
+    --bs-body-color: white;
+    --nav-link: white;
+    --active-nav-link: #a88bf0;
+    --hover-link: #ccb9fc;
+
+    
+
+    .header {
+        color: white;
+    }
 }

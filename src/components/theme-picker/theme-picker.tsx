@@ -1,39 +1,64 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun, faCloudMoon, faPalette } from '@fortawesome/free-solid-svg-icons';
 import { ThemeButton } from './theme-button';
-import { CookiesProvider, useCookies } from 'react-cookie';
-import { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
+import { useCallback, useEffect, useState } from 'react';
 import { themeDefaults } from './theme-defaults';
 import { CustomTheme } from '../../types/custom-theme';
 import { updateBodyElements } from './update-body-elements';
+import { ColorPickerModal } from './color-picker-modal';
 
 export type ValidTheme = 'light' | 'dark' | 'choice';
 
 export function ThemePicker() {
-	const [themeCookies, setThemeCookie] = useCookies(['theme', 'light']);
+	const [themeCookies, setThemeCookie] = useCookies<string>(['theme']);
 	const [colorChoiceCookie, setColorChoiceCookie] = useCookies(['colorChoice']);
 	const [theme, setTheme] = useState(themeCookies.theme || 'light');
-	const [colorChoices, setColorChoices] = useState(colorChoiceCookie || themeDefaults);
+	const [colorChoices, setColorChoices] = useState<CustomTheme>(colorChoiceCookie.colorChoice || themeDefaults);
 	const [showColorPicker, setShowColorPicker] = useState(false);
 
-	// useEffect(() => {
-	// 	document.body.className = theme;
-	// 	if (theme === 'choice') {
-	// 		updateBodyElements({
-	// 			primary: colorChoices.primary,
-	// 			background: colorChoices.background,
-	// 			text: colorChoices.text,
-	// 		});
-	// 	}
-	// }, []);
+	useEffect(() => {
+		document.body.className = theme;
+		if (theme === 'choice') {
+			updateBodyElements({
+				primary: colorChoices.primary,
+				background: colorChoices.background,
+				text: colorChoices.text,
+			});
+		} else {
+			updateBodyElements({ primary: '', background: '', text: '' });
+		}
+	}, [colorChoices.background, colorChoices.primary, colorChoices.text, theme]);
+
+	useEffect(() => {
+		setThemeCookie('theme', theme);
+	}, [theme]);
+
+	useEffect(() => {
+		setColorChoiceCookie('colorChoice', colorChoices);
+	}, [colorChoices]);
+
+	const close = useCallback(() => {
+		setShowColorPicker(false);
+	}, []);
+
+	useEffect(() => {
+		console.log(showColorPicker);
+	}, [showColorPicker]);
 
 	return (
-		<div>
-			<div className='btn-group' role='group'>
-				<ThemeButton current={theme} icon={faSun} setTheme={setTheme} theme='light' />
-				<ThemeButton current={theme} icon={faPalette} setTheme={setTheme} theme='choice' onClick={() => setShowColorPicker(true)} />
-				<ThemeButton current={theme} icon={faCloudMoon} setTheme={setTheme} theme='dark' />
-			</div>
-		</div>
+		<span className='btn-group' role='group'>
+			<ThemeButton current={theme} icon={faSun} setTheme={() => setTheme('light')} theme='light' />
+			<span onClick={() => setShowColorPicker(true)}>
+				<ThemeButton
+					current={theme}
+					icon={faPalette}
+					setTheme={() => setTheme('choice')}
+					theme='choice'
+					onClick={() => setShowColorPicker(true)}
+				/>
+			</span>
+			<ThemeButton current={theme} icon={faCloudMoon} setTheme={() => setTheme('dark')} theme='dark' />
+			<ColorPickerModal close={close} colorChoice={colorChoices} setColorChoice={setColorChoices} showColorPicker={showColorPicker} />
+		</span>
 	);
 }

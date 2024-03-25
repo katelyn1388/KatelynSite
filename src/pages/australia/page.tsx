@@ -13,11 +13,23 @@ export default function Page() {
 	const isMobile = UseMobileView();
 	const videoWidth = useMemo(() => (isMobile ? 300 : 500), [isMobile]);
 	const videoHeight = useMemo(() => (isMobile ? 175 : 250), [isMobile]);
+	const [photoLinks, setPhotoLinks] = useState<string[]>([]);
 	const date = useMemo(() => new Date(), []);
 	const sydneyDate = useMemo(
 		() => date.toLocaleString(undefined, { timeZone: 'Australia/Sydney', timeStyle: 'short', dateStyle: 'short' }),
 		[date]
 	);
+
+	const modalLinkFirst = useMemo(() => 'https://lh3.googleusercontent.com/d/', []);
+	const modalLinkSecond = useMemo(() => '=s4000?authuser=0', []);
+
+	useEffect(() => {
+		setPhotoLinks(
+			pictures.map((image) => {
+				return modalLinkFirst + image.img_id + modalLinkSecond;
+			})
+		);
+	}, [modalLinkFirst, modalLinkSecond]);
 
 	const thumbnailLink = useMemo(() => 'https://drive.google.com/thumbnail?id=', []);
 

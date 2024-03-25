@@ -18,8 +18,13 @@ export function Header({ title }: { title: string }) {
 			{mobileView ? (
 				<div className='header text-center pt-2 d-print-none row'>
 					<div className='col navigation'>
-						<div className='col' onClick={toggleHamburger}>
-							<Hamburger isOpen={hamburgerOpen} />
+						<div className='d-flex justify-content-start'>
+							<div className='col' onClick={toggleHamburger}>
+								<Hamburger isOpen={hamburgerOpen} />
+							</div>
+							<span className='d-inline'>
+								<ThemePicker />
+							</span>
 						</div>
 						<ul style={{ display: hamburgerOpen ? 'block' : 'none' }} className='mobile-nav'>
 							<li>
@@ -56,10 +61,13 @@ export function Header({ title }: { title: string }) {
 			) : (
 				<div className='header text-center pt-2 d-print-none'>
 					<img src={LogoPic} height='80px' width='80px' className='rounded logo m-3 mt-2' alt='Merlinie Logo' />
-					<h2 className='page-title'>Katelyn Bowers the Cool Kid</h2>
-					{/* <div className='align-right'>
-						<ThemePicker />
-					</div> */}
+					<div className='d-flex justify-content-between'>
+						<div></div>
+						<h2 className='page-title ms-5'>Katelyn Bowers the Cool Kid</h2>
+						<span className='align-right me-3'>
+							<ThemePicker />
+						</span>
+					</div>
 					<div className='nav-bar d-flex justify-content-evenly'>
 						<div>
 							<Link to='/' className={title === 'Home' ? 'active-page nav-link' : 'nav-link'}>
