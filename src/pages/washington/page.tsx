@@ -8,12 +8,11 @@ export default function Page() {
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
 	const [showImageModal, setShowImageModal] = useState(false);
 	const date = useMemo(() => new Date(), []);
+	const thumbnailLink = useMemo(() => 'https://drive.google.com/thumbnail?id=', []);
 	const seattleDate = useMemo(
 		() => date.toLocaleString(undefined, { timeZone: 'America/Los_Angeles', timeStyle: 'short', dateStyle: 'short' }),
 		[date]
 	);
-
-	const thumbnailLink = useMemo(() => 'https://drive.google.com/thumbnail?id=', []);
 
 	const displayImage = useCallback((img: number) => {
 		setShowImageModal(true);

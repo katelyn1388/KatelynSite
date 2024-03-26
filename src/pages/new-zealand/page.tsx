@@ -9,18 +9,15 @@ import { UseMobileView } from '../../hooks/use-mobile-view';
 export default function Page() {
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
 	const [showImageModal, setShowImageModal] = useState(false);
-	const [imageDescription, setImageDescription] = useState('');
 	const isMobile = UseMobileView();
 	const videoWidth = useMemo(() => (isMobile ? 300 : 500), [isMobile]);
 	const videoHeight = useMemo(() => (isMobile ? 175 : 250), [isMobile]);
-
+	const thumbnailLink = useMemo(() => 'https://drive.google.com/thumbnail?id=', []);
 	const date = useMemo(() => new Date(), []);
 	const newZealandDate = useMemo(
 		() => date.toLocaleString(undefined, { timeZone: 'Pacific/Auckland', timeStyle: 'short', dateStyle: 'short' }),
 		[date]
 	);
-
-	const thumbnailLink = useMemo(() => 'https://drive.google.com/thumbnail?id=', []);
 
 	const displayImage = useCallback((img: number) => {
 		setShowImageModal(true);
@@ -31,14 +28,6 @@ export default function Page() {
 		setShowImageModal(false);
 		setSelectedImage(null);
 	}, []);
-
-	useEffect(() => {
-		if (selectedImage !== null && newZealandPictures[selectedImage].description.includes(';')) {
-			setImageDescription(newZealandPictures[selectedImage].description.split(';')[1]);
-		} else {
-			setImageDescription('');
-		}
-	}, [selectedImage]);
 
 	return (
 		<AppLayout title='New Zealand'>
@@ -140,7 +129,7 @@ export default function Page() {
 							<span onClick={() => displayImage(newZealandPictures.indexOf(img))} key={img.img_id}>
 								<img
 									src={`${thumbnailLink}${img.img_id}`}
-									alt='Rotorua Img'
+									alt='Random Img'
 									className='m-3 rounded image-thumbnail'
 									key={img.img_id}
 								/>
@@ -154,13 +143,7 @@ export default function Page() {
 			<div className='print-only'>
 				<h1>Why you trying to print this you weirdo?</h1>
 			</div>
-			<ImageModal
-				close={close}
-				show={showImageModal}
-				imgIndex={selectedImage}
-				imageArray={newZealandPictures}
-				description={imageDescription}
-			/>
+			<ImageModal close={close} show={showImageModal} imgIndex={selectedImage} imageArray={newZealandPictures} />
 		</AppLayout>
 	);
 }

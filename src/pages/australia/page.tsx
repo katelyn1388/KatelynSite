@@ -2,36 +2,45 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AppLayout } from '../layout';
 import { Weather } from '../../components/weather';
 import CountryBigFacts from '../../components/country-big-facts';
-import { UseMobileView } from '../../hooks/use-mobile-view';
+// import { UseMobileView } from '../../hooks/use-mobile-view';
 import { pictures } from './pictures';
 import ImageModal from '../../components/image-modal';
 
 export default function Page() {
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
 	const [showImageModal, setShowImageModal] = useState(false);
-	const [imageDescription, setImageDescription] = useState('');
-	const isMobile = UseMobileView();
-	const videoWidth = useMemo(() => (isMobile ? 300 : 500), [isMobile]);
-	const videoHeight = useMemo(() => (isMobile ? 175 : 250), [isMobile]);
-	const [photoLinks, setPhotoLinks] = useState<string[]>([]);
+	// const isMobile = UseMobileView();
+	// const videoWidth = useMemo(() => (isMobile ? 300 : 500), [isMobile]);
+	// const videoHeight = useMemo(() => (isMobile ? 175 : 250), [isMobile]);
 	const date = useMemo(() => new Date(), []);
 	const sydneyDate = useMemo(
 		() => date.toLocaleString(undefined, { timeZone: 'Australia/Sydney', timeStyle: 'short', dateStyle: 'short' }),
 		[date]
 	);
-
-	const modalLinkFirst = useMemo(() => 'https://lh3.googleusercontent.com/d/', []);
-	const modalLinkSecond = useMemo(() => '=s4000?authuser=0', []);
+	const thumbnailLink = useMemo(() => 'https://drive.google.com/thumbnail?id=', []);
 
 	useEffect(() => {
-		setPhotoLinks(
-			pictures.map((image) => {
-				return modalLinkFirst + image.img_id + modalLinkSecond;
-			})
-		);
-	}, [modalLinkFirst, modalLinkSecond]);
+		const modalLinkFirst = 'https://lh3.googleusercontent.com/d/';
+		const modalLinkSecond = '=s4000?authuser=0';
+		const tempArray: HTMLLinkElement[] = [];
+		const prefetchImages = () => {
+			pictures.forEach((image) => {
+				const linkTag = document.createElement('link');
+				linkTag.rel = 'prefetch';
+				linkTag.href = modalLinkFirst + image.img_id + modalLinkSecond;
 
-	const thumbnailLink = useMemo(() => 'https://drive.google.com/thumbnail?id=', []);
+				document.head.appendChild(linkTag);
+				tempArray.push(linkTag);
+			});
+		};
+
+		prefetchImages();
+		return () => {
+			tempArray.forEach((link) => {
+				document.head.removeChild(link);
+			});
+		};
+	}, []);
 
 	const displayImage = useCallback((img: number) => {
 		setShowImageModal(true);
@@ -42,14 +51,6 @@ export default function Page() {
 		setShowImageModal(false);
 		setSelectedImage(null);
 	}, []);
-
-	useEffect(() => {
-		if (selectedImage !== null && pictures[selectedImage].description.includes(';')) {
-			setImageDescription(pictures[selectedImage].description.split(';')[1]);
-		} else {
-			setImageDescription('');
-		}
-	}, [selectedImage]);
 
 	return (
 		<AppLayout title='Australia'>
@@ -78,7 +79,7 @@ export default function Page() {
 					}
 				})}
 
-			<ImageModal close={close} show={showImageModal} imgIndex={selectedImage} imageArray={pictures} description={imageDescription} />
+			<ImageModal close={close} show={showImageModal} imgIndex={selectedImage} imageArray={pictures} />
 		</AppLayout>
 	);
 }

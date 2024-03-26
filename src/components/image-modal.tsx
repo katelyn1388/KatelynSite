@@ -10,13 +10,11 @@ export default function ImageModal({
 	show,
 	close,
 	imageArray,
-	description,
 }: {
 	imgIndex: number | null;
 	show: boolean;
 	close: () => void;
 	imageArray: ImageType[];
-	description?: string;
 }) {
 	const modalLinkFirst = useMemo(() => 'https://lh3.googleusercontent.com/d/', []);
 	const modalLinkSecond = useMemo(() => '=s4000?authuser=0', []);
@@ -41,6 +39,36 @@ export default function ImageModal({
 			document.removeEventListener('keydown', handleKeyPress);
 		};
 	});
+
+	useEffect(() => {
+		const modalLinkFirst = 'https://lh3.googleusercontent.com/d/';
+		const modalLinkSecond = '=s4000?authuser=0';
+		let previousLinkTag: HTMLLinkElement;
+		let nextLinkTag: HTMLLinkElement;
+		const prefetchImages = () => {
+			if (index !== null && index !== 0 && index !== imageArray.length - 1) {
+				previousLinkTag = document.createElement('link');
+				previousLinkTag.rel = 'prefetch';
+				previousLinkTag.href = modalLinkFirst + imageArray[index - 1].img_id + modalLinkSecond;
+
+				document.head.appendChild(previousLinkTag);
+
+				nextLinkTag = document.createElement('link');
+				nextLinkTag.rel = 'prefetch';
+				nextLinkTag.href = modalLinkFirst + imageArray[index + 1].img_id + modalLinkSecond;
+
+				document.head.appendChild(nextLinkTag);
+			}
+		};
+
+		prefetchImages();
+		return () => {
+			if (index !== null && index !== 0 && index !== imageArray.length - 1) {
+				document.head.removeChild(previousLinkTag);
+				document.head.removeChild(nextLinkTag);
+			}
+		};
+	}, [imageArray, index]);
 
 	const mobileView = UseMobileView();
 
@@ -100,7 +128,7 @@ export default function ImageModal({
 	return (
 		<div>
 			<Modal show={show} onHide={close} centered size={modalSize}>
-				<Modal.Header closeButton>{description}</Modal.Header>
+				<Modal.Header closeButton>{index !== null && imageArray[index].description.split(';')[1]}</Modal.Header>
 
 				<Modal.Body className='modal-body'>
 					{index !== null && index !== undefined && (

@@ -49,13 +49,7 @@ export function ThemePicker() {
 		<span className='btn-group' role='group'>
 			<ThemeButton current={theme} icon={faSun} setTheme={() => setTheme('light')} theme='light' />
 			<span onClick={() => setShowColorPicker(true)}>
-				<ThemeButton
-					current={theme}
-					icon={faPalette}
-					setTheme={() => setTheme('choice')}
-					theme='choice'
-					onClick={() => setShowColorPicker(true)}
-				/>
+				<ThemeButton current={theme} icon={faPalette} setTheme={() => setTheme('choice')} theme='choice' />
 			</span>
 			<ThemeButton current={theme} icon={faCloudMoon} setTheme={() => setTheme('dark')} theme='dark' />
 			<ColorPickerModal close={close} colorChoice={colorChoices} setColorChoice={setColorChoices} showColorPicker={showColorPicker} />

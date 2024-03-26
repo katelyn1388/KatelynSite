@@ -5,7 +5,6 @@ import { ValidTheme } from './theme-picker';
 
 export const ThemeButton = memo(
 	({
-		onClick,
 		setTheme,
 		theme,
 		current,
@@ -14,7 +13,6 @@ export const ThemeButton = memo(
 		current: ValidTheme;
 		theme: ValidTheme;
 		setTheme: (theme: ValidTheme) => void;
-		onClick?: () => void;
 		icon: IconProp;
 	}) => (
 		<button
