@@ -8,6 +8,8 @@ export default function Page() {
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
 	const [showImageModal, setShowImageModal] = useState(false);
 	const thumbnailLink = useMemo(() => 'https://drive.google.com/thumbnail?id=', []);
+	const modalLinkFirst = useMemo(() => 'https://lh3.googleusercontent.com/d/', []);
+	const modalLinkSecond = useMemo(() => '=s4000?authuser=0', []);
 	const [loading, setLoading] = useState(false);
 
 	const displayImage = useCallback((img: number) => {
@@ -26,8 +28,8 @@ export default function Page() {
 	// 			const img = new Image();
 
 	// 			img.src = thumbnailLink + src.img_id;
-	// 			img.onload = resolve();
-	// 			img.onerror = reject();
+	// 			// img.onload = resolve();
+	// 			// img.onerror = reject();
 	// 		});
 	// 	});
 
@@ -35,8 +37,24 @@ export default function Page() {
 	// 	setLoading(false);
 	// };
 
+	// const cacheImageModals = async (imagesArray: ImageType[]) => {
+	// 	const promises = await imagesArray.map((src) => {
+	// 		return new Promise(function (resolve, reject) {
+	// 			const img = new Image();
+
+	// 			img.src = modalLinkFirst + src.img_id + modalLinkSecond;
+	// 			// img.onload = resolve();
+	// 			// img.onerror = reject();
+	// 		});
+	// 	});
+
+	// 	await Promise.all(promises);
+	// 	console.log('Finished caching images!');
+	// };
+
 	// useEffect(() => {
 	// 	cacheImageThumbnails(pictures);
+	// 	cacheImageModals(pictures);
 	// }, []);
 
 	return (
@@ -52,14 +70,9 @@ export default function Page() {
 			{pictures.map((img) => {
 				if (img.description.startsWith('Dogs')) {
 					return (
-						<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id}>
-							<img
-								src={`${thumbnailLink}${img.img_id}`}
-								alt='puppy Img'
-								className='m-3 rounded image-thumbnail'
-								key={img.img_id}
-							/>
-						</span>
+						<div onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
+							<img src={`${thumbnailLink}${img.img_id}`} alt='puppy Img' className='image-thumbnail' key={img.img_id} />
+						</div>
 					);
 				} else {
 					return <span key={img.img_id}></span>;
@@ -73,13 +86,8 @@ export default function Page() {
 			{pictures.map((img) => {
 				if (img.description.startsWith('Merlinie')) {
 					return (
-						<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id}>
-							<img
-								src={`${thumbnailLink}${img.img_id}`}
-								alt='Merlinie Img'
-								className='m-3 rounded image-thumbnail'
-								key={img.img_id}
-							/>
+						<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
+							<img src={`${thumbnailLink}${img.img_id}`} alt='Merlinie Img' className='image-thumbnail' key={img.img_id} />
 						</span>
 					);
 				} else {
@@ -93,13 +101,8 @@ export default function Page() {
 			{pictures.map((img) => {
 				if (img.description.startsWith('Cujo')) {
 					return (
-						<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id}>
-							<img
-								src={`${thumbnailLink}${img.img_id}`}
-								alt='Cujo Img'
-								className='m-3 rounded image-thumbnail'
-								key={img.img_id}
-							/>
+						<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
+							<img src={`${thumbnailLink}${img.img_id}`} alt='Cujo Img' className='image-thumbnail' key={img.img_id} />
 						</span>
 					);
 				} else {
@@ -113,13 +116,8 @@ export default function Page() {
 			{pictures.map((img) => {
 				if (img.description.startsWith('Mattie')) {
 					return (
-						<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id}>
-							<img
-								src={`${thumbnailLink}${img.img_id}`}
-								alt='Mattie Img'
-								className='m-3 rounded image-thumbnail'
-								key={img.img_id}
-							/>
+						<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
+							<img src={`${thumbnailLink}${img.img_id}`} alt='Mattie Img' className='image-thumbnail' key={img.img_id} />
 						</span>
 					);
 				} else {

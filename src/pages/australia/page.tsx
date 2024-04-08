@@ -5,6 +5,7 @@ import CountryBigFacts from '../../components/country-big-facts';
 // import { UseMobileView } from '../../hooks/use-mobile-view';
 import { pictures } from './pictures';
 import ImageModal from '../../components/image-modal';
+import { ImageType } from '../../types/image-type';
 
 export default function Page() {
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
@@ -18,29 +19,32 @@ export default function Page() {
 		[date]
 	);
 	const thumbnailLink = useMemo(() => 'https://drive.google.com/thumbnail?id=', []);
+	const modalLinkFirst = useMemo(() => 'https://lh3.googleusercontent.com/d/', []);
+	const modalLinkSecond = useMemo(() => '=s4000?authuser=0', []);
+	const [loading, setLoading] = useState(false);
 
-	useEffect(() => {
-		const modalLinkFirst = 'https://lh3.googleusercontent.com/d/';
-		const modalLinkSecond = '=s4000?authuser=0';
-		const tempArray: HTMLLinkElement[] = [];
-		const prefetchImages = () => {
-			pictures.forEach((image) => {
-				const linkTag = document.createElement('link');
-				linkTag.rel = 'prefetch';
-				linkTag.href = modalLinkFirst + image.img_id + modalLinkSecond;
+	// useEffect(() => {
+	// 	const modalLinkFirst = 'https://lh3.googleusercontent.com/d/';
+	// 	const modalLinkSecond = '=s4000?authuser=0';
+	// 	const tempArray: HTMLLinkElement[] = [];
+	// 	const prefetchImages = () => {
+	// 		pictures.forEach((image) => {
+	// 			const linkTag = document.createElement('link');
+	// 			linkTag.rel = 'prefetch';
+	// 			linkTag.href = modalLinkFirst + image.img_id + modalLinkSecond;
 
-				document.head.appendChild(linkTag);
-				tempArray.push(linkTag);
-			});
-		};
+	// 			document.head.appendChild(linkTag);
+	// 			tempArray.push(linkTag);
+	// 		});
+	// 	};
 
-		prefetchImages();
-		return () => {
-			tempArray.forEach((link) => {
-				document.head.removeChild(link);
-			});
-		};
-	}, []);
+	// 	prefetchImages();
+	// 	return () => {
+	// 		tempArray.forEach((link) => {
+	// 			document.head.removeChild(link);
+	// 		});
+	// 	};
+	// }, []);
 
 	const displayImage = useCallback((img: number) => {
 		setShowImageModal(true);
@@ -50,6 +54,42 @@ export default function Page() {
 	const close = useCallback(() => {
 		setShowImageModal(false);
 		setSelectedImage(null);
+	}, []);
+
+	const cacheImageThumbnails = async (imagesArray: ImageType[]) => {
+		setLoading(true);
+		const promises = await imagesArray.map((src) => {
+			return new Promise(function (resolve, reject) {
+				const img = new Image();
+
+				img.src = thumbnailLink + src.img_id;
+				// img.onload = resolve();
+				// img.onerror = reject();
+			});
+		});
+
+		await Promise.all(promises);
+		setLoading(false);
+	};
+
+	const cacheImageModals = async (imagesArray: ImageType[]) => {
+		const promises = await imagesArray.map((src) => {
+			return new Promise(function (resolve, reject) {
+				const img = new Image();
+
+				img.src = modalLinkFirst + src.img_id + modalLinkSecond;
+				// img.onload = resolve();
+				// img.onerror = reject();
+			});
+		});
+
+		await Promise.all(promises);
+		console.log('Finished caching images!');
+	};
+
+	useEffect(() => {
+		cacheImageThumbnails(pictures);
+		cacheImageModals(pictures);
 	}, []);
 
 	return (
@@ -65,13 +105,8 @@ export default function Page() {
 				.map((img) => {
 					if (img.description.startsWith('Sydney')) {
 						return (
-							<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id}>
-								<img
-									src={`${thumbnailLink}${img.img_id}`}
-									alt='Sydney Img'
-									className='m-3 rounded image-thumbnail'
-									key={img.img_id}
-								/>
+							<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
+								<img src={`${thumbnailLink}${img.img_id}`} alt='Sydney Img' className='image-thumbnail' key={img.img_id} />
 							</span>
 						);
 					} else {

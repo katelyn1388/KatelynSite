@@ -5,6 +5,7 @@ import CountryBigFacts from '../../components/country-big-facts';
 import { newZealandPictures } from './pictures';
 import ImageModal from '../../components/image-modal';
 import { UseMobileView } from '../../hooks/use-mobile-view';
+import { ImageType } from '../../types/image-type';
 
 export default function Page() {
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
@@ -13,6 +14,8 @@ export default function Page() {
 	const videoWidth = useMemo(() => (isMobile ? 300 : 500), [isMobile]);
 	const videoHeight = useMemo(() => (isMobile ? 175 : 250), [isMobile]);
 	const thumbnailLink = useMemo(() => 'https://drive.google.com/thumbnail?id=', []);
+	const modalLinkFirst = useMemo(() => 'https://lh3.googleusercontent.com/d/', []);
+	const modalLinkSecond = useMemo(() => '=s4000?authuser=0', []);
 	const date = useMemo(() => new Date(), []);
 	const newZealandDate = useMemo(
 		() => date.toLocaleString(undefined, { timeZone: 'Pacific/Auckland', timeStyle: 'short', dateStyle: 'short' }),
@@ -29,6 +32,40 @@ export default function Page() {
 		setSelectedImage(null);
 	}, []);
 
+	// const cacheImageThumbnails = async (imagesArray: ImageType[]) => {
+	// 	const promises = await imagesArray.map((src) => {
+	// 		return new Promise(function (resolve, reject) {
+	// 			const img = new Image();
+
+	// 			img.src = thumbnailLink + src.img_id;
+	// 			// img.onload = resolve();
+	// 			// img.onerror = reject();
+	// 		});
+	// 	});
+
+	// 	await Promise.all(promises);
+	// };
+
+	// const cacheImageModals = async (imagesArray: ImageType[]) => {
+	// 	const promises = await imagesArray.map((src) => {
+	// 		return new Promise(function (resolve, reject) {
+	// 			const img = new Image();
+
+	// 			img.src = modalLinkFirst + src.img_id + modalLinkSecond;
+	// 			// img.onload = resolve();
+	// 			// img.onerror = reject();
+	// 		});
+	// 	});
+
+	// 	await Promise.all(promises);
+	// 	console.log('Finished caching images!');
+	// };
+
+	// useEffect(() => {
+	// 	cacheImageThumbnails(newZealandPictures);
+	// 	cacheImageModals(newZealandPictures);
+	// }, []);
+
 	return (
 		<AppLayout title='New Zealand'>
 			<div className='country-header'>
@@ -42,11 +79,14 @@ export default function Page() {
 				.map((img) => {
 					if (img.description.startsWith('Auckland')) {
 						return (
-							<span onClick={() => displayImage(newZealandPictures.indexOf(img))} key={img.img_id}>
+							<span
+								onClick={() => displayImage(newZealandPictures.indexOf(img))}
+								key={img.img_id}
+								className='image-container'>
 								<img
 									src={`${thumbnailLink}${img.img_id}`}
 									alt='Auckland Img'
-									className='m-3 rounded image-thumbnail'
+									className='image-thumbnail'
 									key={img.img_id}
 								/>
 							</span>
@@ -70,11 +110,14 @@ export default function Page() {
 				.map((img) => {
 					if (img.description === 'Hamilton Gardens') {
 						return (
-							<span onClick={() => displayImage(newZealandPictures.indexOf(img))} key={img.img_id}>
+							<span
+								onClick={() => displayImage(newZealandPictures.indexOf(img))}
+								key={img.img_id}
+								className='image-container'>
 								<img
 									src={`${thumbnailLink}${img.img_id}`}
 									alt='Auckland Img'
-									className='m-3 rounded image-thumbnail'
+									className='image-thumbnail'
 									key={img.img_id}
 								/>
 							</span>
@@ -90,13 +133,11 @@ export default function Page() {
 				.map((img) => {
 					if (img.description.startsWith('Rotorua')) {
 						return (
-							<span onClick={() => displayImage(newZealandPictures.indexOf(img))} key={img.img_id}>
-								<img
-									src={`${thumbnailLink}${img.img_id}`}
-									alt='Rotorua Img'
-									className='m-3 rounded image-thumbnail'
-									key={img.img_id}
-								/>
+							<span
+								onClick={() => displayImage(newZealandPictures.indexOf(img))}
+								key={img.img_id}
+								className='image-container'>
+								<img src={`${thumbnailLink}${img.img_id}`} alt='Rotorua Img' className='image-thumbnail' key={img.img_id} />
 							</span>
 						);
 					} else {
@@ -126,13 +167,11 @@ export default function Page() {
 				.map((img) => {
 					if (img.description.startsWith('Random')) {
 						return (
-							<span onClick={() => displayImage(newZealandPictures.indexOf(img))} key={img.img_id}>
-								<img
-									src={`${thumbnailLink}${img.img_id}`}
-									alt='Random Img'
-									className='m-3 rounded image-thumbnail'
-									key={img.img_id}
-								/>
+							<span
+								onClick={() => displayImage(newZealandPictures.indexOf(img))}
+								key={img.img_id}
+								className='image-container'>
+								<img src={`${thumbnailLink}${img.img_id}`} alt='Random Img' className='image-thumbnail' key={img.img_id} />
 							</span>
 						);
 					} else {
