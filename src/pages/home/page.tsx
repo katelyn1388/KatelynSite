@@ -1,12 +1,14 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AppLayout } from '../layout';
 import { pictures } from './pictures';
 import ImageModal from '../../components/image-modal';
+import { ImageType } from '../../types/image-type';
 
 export default function Page() {
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
 	const [showImageModal, setShowImageModal] = useState(false);
 	const thumbnailLink = useMemo(() => 'https://drive.google.com/thumbnail?id=', []);
+	const [loading, setLoading] = useState(false);
 
 	const displayImage = useCallback((img: number) => {
 		setShowImageModal(true);
@@ -17,6 +19,25 @@ export default function Page() {
 		setShowImageModal(false);
 		setSelectedImage(null);
 	}, []);
+
+	// const cacheImageThumbnails = async (imagesArray: ImageType[]) => {
+	// 	const promises = await imagesArray.map((src) => {
+	// 		return new Promise(function (resolve, reject) {
+	// 			const img = new Image();
+
+	// 			img.src = thumbnailLink + src.img_id;
+	// 			img.onload = resolve();
+	// 			img.onerror = reject();
+	// 		});
+	// 	});
+
+	// 	await Promise.all(promises);
+	// 	setLoading(false);
+	// };
+
+	// useEffect(() => {
+	// 	cacheImageThumbnails(pictures);
+	// }, []);
 
 	return (
 		<AppLayout title='Home'>
