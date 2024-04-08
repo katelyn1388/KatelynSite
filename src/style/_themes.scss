@@ -13,6 +13,20 @@
     background-color: var(--bs-primary);
 }
 
+.search-bar {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.search-bar-btn {
+    margin-left: 0;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 4px;
+    color: var(--bs-body-color);
+    background-color: var(--bs-primary);
+    border: 1px white;
+}
+
 
 .light {
     --bs-primary: #a88bf0;
