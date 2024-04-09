@@ -37,25 +37,24 @@ export default function Page() {
 	// 	setLoading(false);
 	// };
 
-	// const cacheImageModals = async (imagesArray: ImageType[]) => {
-	// 	const promises = await imagesArray.map((src) => {
-	// 		return new Promise(function (resolve, reject) {
-	// 			const img = new Image();
+	const cacheImageModals = async (imagesArray: ImageType[]) => {
+		const promises = await imagesArray.map((src) => {
+			return new Promise(function (resolve, reject) {
+				const img = new Image();
 
-	// 			img.src = modalLinkFirst + src.img_id + modalLinkSecond;
-	// 			// img.onload = resolve();
-	// 			// img.onerror = reject();
-	// 		});
-	// 	});
+				img.src = modalLinkFirst + src.img_id + modalLinkSecond;
+				// img.onload = resolve();
+				// img.onerror = reject();
+			});
+		});
 
-	// 	await Promise.all(promises);
-	// 	console.log('Finished caching images!');
-	// };
+		await Promise.all(promises);
+	};
 
-	// useEffect(() => {
-	// 	cacheImageThumbnails(pictures);
-	// 	cacheImageModals(pictures);
-	// }, []);
+	useEffect(() => {
+		//cacheImageThumbnails(pictures);
+		cacheImageModals(pictures);
+	}, []);
 
 	return (
 		<AppLayout title='Home'>

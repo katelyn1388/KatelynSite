@@ -59,21 +59,21 @@ export default function Page() {
 		setSelectedImage(null);
 	}, []);
 
-	const cacheImageThumbnails = async (imagesArray: ImageType[]) => {
-		setLoading(true);
-		const promises = await imagesArray.map((src) => {
-			return new Promise(function (resolve, reject) {
-				const img = new Image();
+	// const cacheImageThumbnails = async (imagesArray: ImageType[]) => {
+	// 	setLoading(true);
+	// 	const promises = await imagesArray.map((src) => {
+	// 		return new Promise(function (resolve, reject) {
+	// 			const img = new Image();
 
-				img.src = thumbnailLink + src.img_id;
-				// img.onload = resolve();
-				// img.onerror = reject();
-			});
-		});
+	// 			img.src = thumbnailLink + src.img_id;
+	// 			// img.onload = resolve();
+	// 			// img.onerror = reject();
+	// 		});
+	// 	});
 
-		await Promise.all(promises);
-		setLoading(false);
-	};
+	// 	await Promise.all(promises);
+	// 	setLoading(false);
+	// };
 
 	const cacheImageModals = async (imagesArray: ImageType[]) => {
 		const promises = await imagesArray.map((src) => {
@@ -87,11 +87,10 @@ export default function Page() {
 		});
 
 		await Promise.all(promises);
-		console.log('Finished caching images!');
 	};
 
 	useEffect(() => {
-		cacheImageThumbnails(pictures);
+		//cacheImageThumbnails(pictures);
 		cacheImageModals(pictures);
 	}, []);
 

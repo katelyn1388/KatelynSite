@@ -32,19 +32,19 @@ export default function Page() {
 		setSelectedImage(null);
 	}, []);
 
-	const cacheImageThumbnails = async (imagesArray: ImageType[]) => {
-		const promises = await imagesArray.map((src) => {
-			return new Promise(function (resolve, reject) {
-				const img = new Image();
+	// const cacheImageThumbnails = async (imagesArray: ImageType[]) => {
+	// 	const promises = await imagesArray.map((src) => {
+	// 		return new Promise(function (resolve, reject) {
+	// 			const img = new Image();
 
-				img.src = thumbnailLink + src.img_id;
-				// img.onload = resolve();
-				// img.onerror = reject();
-			});
-		});
+	// 			img.src = thumbnailLink + src.img_id;
+	// 			// img.onload = resolve();
+	// 			// img.onerror = reject();
+	// 		});
+	// 	});
 
-		await Promise.all(promises);
-	};
+	// 	await Promise.all(promises);
+	// };
 
 	const cacheImageModals = async (imagesArray: ImageType[]) => {
 		const promises = await imagesArray.map((src) => {
@@ -58,11 +58,10 @@ export default function Page() {
 		});
 
 		await Promise.all(promises);
-		console.log('Finished caching images!');
 	};
 
 	useEffect(() => {
-		cacheImageThumbnails(washingtonImages);
+		//cacheImageThumbnails(washingtonImages);
 		cacheImageModals(washingtonImages);
 	}, []);
 
