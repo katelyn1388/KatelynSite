@@ -17,6 +17,8 @@ export default function Page() {
 	const videoHeight = useMemo(() => (isMobile ? 175 : 250), [isMobile]);
 	const thumbnailLink = useMemo(() => 'https://drive.google.com/thumbnail?id=', []);
 	const modalLinkFirst = useMemo(() => 'https://lh3.googleusercontent.com/d/', []);
+	const thumbnail2 = useMemo(() => '=s500', []);
+	// const thumbnail2 = useMemo(() => '=s500?authuser=0', []);
 	const modalLinkSecond = useMemo(() => '=s4000?authuser=0', []);
 	const date = useMemo(() => new Date(), []);
 	const newZealandDate = useMemo(
@@ -35,19 +37,17 @@ export default function Page() {
 		setSelectedImage(null);
 	}, []);
 
-	// const cacheImageThumbnails = async (imagesArray: ImageType[]) => {
-	// 	const promises = await imagesArray.map((src) => {
-	// 		return new Promise(function (resolve, reject) {
-	// 			const img = new Image();
+	const cacheImageThumbnails = async (imagesArray: ImageType[]) => {
+		const promises = await imagesArray.map((src) => {
+			return new Promise(function (resolve, reject) {
+				const img = new Image();
 
-	// 			img.src = thumbnailLink + src.img_id;
-	// 			// img.onload = resolve();
-	// 			// img.onerror = reject();
-	// 		});
-	// 	});
+				img.src = modalLinkFirst + src.img_id + thumbnail2;
+			});
+		});
 
-	// 	await Promise.all(promises);
-	// };
+		await Promise.all(promises);
+	};
 
 	const cacheImageModals = async (imagesArray: ImageType[]) => {
 		const promises = await imagesArray.map((src) => {
@@ -55,8 +55,6 @@ export default function Page() {
 				const img = new Image();
 
 				img.src = modalLinkFirst + src.img_id + modalLinkSecond;
-				// img.onload = resolve();
-				// img.onerror = reject();
 			});
 		});
 
@@ -64,7 +62,7 @@ export default function Page() {
 	};
 
 	useEffect(() => {
-		//sscacheImageThumbnails(newZealandPictures);
+		cacheImageThumbnails(newZealandPictures);
 		cacheImageModals(newZealandPictures);
 	}, []);
 
@@ -100,7 +98,6 @@ export default function Page() {
 					)}
 				</div>
 			</div>
-
 			<h3 className='mt-3 ms-3'>Auckland</h3>
 			{newZealandPictures
 				.sort((a, b) => a.description.localeCompare(b.description))
@@ -115,7 +112,7 @@ export default function Page() {
 								key={img.img_id}
 								className='image-container'>
 								<img
-									src={`${thumbnailLink}${img.img_id}`}
+									src={`${modalLinkFirst}${img.img_id}${thumbnail2}`}
 									alt='Auckland Img'
 									className='image-thumbnail'
 									key={img.img_id}
@@ -127,6 +124,7 @@ export default function Page() {
 					}
 				})}
 			<br />
+
 			{searchString.length === 0 || 'skyline auckland video skyjump'.includes(searchString.toLowerCase()) ? (
 				<iframe
 					src='https://www.youtube.com/embed/8Ymew8YpAGM'
@@ -153,8 +151,8 @@ export default function Page() {
 								key={img.img_id}
 								className='image-container'>
 								<img
-									src={`${thumbnailLink}${img.img_id}`}
-									alt='Auckland Img'
+									src={`${modalLinkFirst}${img.img_id}${thumbnail2}`}
+									alt='Hamilton Img'
 									className='image-thumbnail'
 									key={img.img_id}
 								/>
@@ -178,7 +176,12 @@ export default function Page() {
 								onClick={() => displayImage(newZealandPictures.indexOf(img))}
 								key={img.img_id}
 								className='image-container'>
-								<img src={`${thumbnailLink}${img.img_id}`} alt='Rotorua Img' className='image-thumbnail' key={img.img_id} />
+								<img
+									src={`${modalLinkFirst}${img.img_id}${thumbnail2}`}
+									alt='Rotorua Img'
+									className='image-thumbnail'
+									key={img.img_id}
+								/>
 							</span>
 						);
 					} else {
@@ -223,7 +226,12 @@ export default function Page() {
 								onClick={() => displayImage(newZealandPictures.indexOf(img))}
 								key={img.img_id}
 								className='image-container'>
-								<img src={`${thumbnailLink}${img.img_id}`} alt='Random Img' className='image-thumbnail' key={img.img_id} />
+								<img
+									src={`${modalLinkFirst}${img.img_id}${thumbnail2}`}
+									alt='Random Img'
+									className='image-thumbnail'
+									key={img.img_id}
+								/>
 							</span>
 						);
 					} else {

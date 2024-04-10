@@ -13,9 +13,11 @@ export default function Page() {
 	const [showImageModal, setShowImageModal] = useState(false);
 	const date = useMemo(() => new Date(), []);
 	const isMobile = UseMobileView();
-	const thumbnailLink = useMemo(() => 'https://drive.google.com/thumbnail?id=', []);
+	// const thumbnailLink = useMemo(() => 'https://drive.google.com/thumbnail?id=', []);
 	const modalLinkFirst = useMemo(() => 'https://lh3.googleusercontent.com/d/', []);
 	const modalLinkSecond = useMemo(() => '=s4000?authuser=0', []);
+	const thumbnail2 = useMemo(() => '=s500', []);
+	// const thumbnail2 = useMemo(() => '=s500?authuser=0', []);
 	const seattleDate = useMemo(
 		() => date.toLocaleString(undefined, { timeZone: 'America/Los_Angeles', timeStyle: 'short', dateStyle: 'short' }),
 		[date]
@@ -32,19 +34,17 @@ export default function Page() {
 		setSelectedImage(null);
 	}, []);
 
-	// const cacheImageThumbnails = async (imagesArray: ImageType[]) => {
-	// 	const promises = await imagesArray.map((src) => {
-	// 		return new Promise(function (resolve, reject) {
-	// 			const img = new Image();
+	const cacheImageThumbnails = async (imagesArray: ImageType[]) => {
+		const promises = await imagesArray.map((src) => {
+			return new Promise(function (resolve, reject) {
+				const img = new Image();
 
-	// 			img.src = thumbnailLink + src.img_id;
-	// 			// img.onload = resolve();
-	// 			// img.onerror = reject();
-	// 		});
-	// 	});
+				img.src = modalLinkFirst + src.img_id + thumbnail2;
+			});
+		});
 
-	// 	await Promise.all(promises);
-	// };
+		await Promise.all(promises);
+	};
 
 	const cacheImageModals = async (imagesArray: ImageType[]) => {
 		const promises = await imagesArray.map((src) => {
@@ -52,8 +52,6 @@ export default function Page() {
 				const img = new Image();
 
 				img.src = modalLinkFirst + src.img_id + modalLinkSecond;
-				// img.onload = resolve();
-				//img.onerror = reject();
 			});
 		});
 
@@ -61,7 +59,7 @@ export default function Page() {
 	};
 
 	useEffect(() => {
-		//cacheImageThumbnails(washingtonImages);
+		cacheImageThumbnails(washingtonImages);
 		cacheImageModals(washingtonImages);
 	}, []);
 
@@ -111,7 +109,7 @@ export default function Page() {
 									key={img.img_id}
 									className='image-container'>
 									<img
-										src={`${thumbnailLink}${img.img_id}`}
+										src={`${modalLinkFirst}${img.img_id}${thumbnail2}`}
 										alt='Seattle Img'
 										className='image-thumbnail'
 										key={img.img_id}
@@ -138,7 +136,7 @@ export default function Page() {
 									key={img.img_id}
 									className='image-container'>
 									<img
-										src={`${thumbnailLink}${img.img_id}`}
+										src={`${modalLinkFirst}${img.img_id}${thumbnail2}`}
 										alt='Port Angeles Img'
 										className='image-thumbnail'
 										key={img.img_id}
@@ -165,7 +163,7 @@ export default function Page() {
 									key={img.img_id}
 									className='image-container'>
 									<img
-										src={`${thumbnailLink}${img.img_id}`}
+										src={`${modalLinkFirst}${img.img_id}${thumbnail2}`}
 										alt='Cape Flattery Img'
 										className='image-thumbnail'
 										key={img.img_id}
@@ -191,7 +189,7 @@ export default function Page() {
 									key={img.img_id}
 									className='image-container'>
 									<img
-										src={`${thumbnailLink}${img.img_id}`}
+										src={`${modalLinkFirst}${img.img_id}${thumbnail2}`}
 										alt='Random Img'
 										className='image-thumbnail'
 										key={img.img_id}

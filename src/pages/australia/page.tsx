@@ -13,41 +13,17 @@ export default function Page() {
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
 	const [showImageModal, setShowImageModal] = useState(false);
 	const isMobile = UseMobileView();
-	// const videoWidth = useMemo(() => (isMobile ? 300 : 500), [isMobile]);
-	// const videoHeight = useMemo(() => (isMobile ? 175 : 250), [isMobile]);
 	const date = useMemo(() => new Date(), []);
 	const sydneyDate = useMemo(
 		() => date.toLocaleString(undefined, { timeZone: 'Australia/Sydney', timeStyle: 'short', dateStyle: 'short' }),
 		[date]
 	);
-	const thumbnailLink = useMemo(() => 'https://drive.google.com/thumbnail?id=', []);
+	// const thumbnailLink = useMemo(() => 'https://drive.google.com/thumbnail?id=', []);
 	const modalLinkFirst = useMemo(() => 'https://lh3.googleusercontent.com/d/', []);
 	const modalLinkSecond = useMemo(() => '=s4000?authuser=0', []);
-	const [loading, setLoading] = useState(false);
+	const thumbnail2 = useMemo(() => '=s500', []);
+	// const thumbnail2 = useMemo(() => '=s500?authuser=0', []);
 	const [searchString, setSearchString] = useState<string>('');
-
-	// useEffect(() => {
-	// 	const modalLinkFirst = 'https://lh3.googleusercontent.com/d/';
-	// 	const modalLinkSecond = '=s4000?authuser=0';
-	// 	const tempArray: HTMLLinkElement[] = [];
-	// 	const prefetchImages = () => {
-	// 		pictures.forEach((image) => {
-	// 			const linkTag = document.createElement('link');
-	// 			linkTag.rel = 'prefetch';
-	// 			linkTag.href = modalLinkFirst + image.img_id + modalLinkSecond;
-
-	// 			document.head.appendChild(linkTag);
-	// 			tempArray.push(linkTag);
-	// 		});
-	// 	};
-
-	// 	prefetchImages();
-	// 	return () => {
-	// 		tempArray.forEach((link) => {
-	// 			document.head.removeChild(link);
-	// 		});
-	// 	};
-	// }, []);
 
 	const displayImage = useCallback((img: number) => {
 		setShowImageModal(true);
@@ -60,39 +36,33 @@ export default function Page() {
 	}, []);
 
 	// const cacheImageThumbnails = async (imagesArray: ImageType[]) => {
-	// 	setLoading(true);
 	// 	const promises = await imagesArray.map((src) => {
 	// 		return new Promise(function (resolve, reject) {
 	// 			const img = new Image();
 
-	// 			img.src = thumbnailLink + src.img_id;
-	// 			// img.onload = resolve();
-	// 			// img.onerror = reject();
+	// 			img.src = modalLinkFirst + src.img_id + thumbnail2;
 	// 		});
 	// 	});
 
 	// 	await Promise.all(promises);
-	// 	setLoading(false);
 	// };
 
-	const cacheImageModals = async (imagesArray: ImageType[]) => {
-		const promises = await imagesArray.map((src) => {
-			return new Promise(function (resolve, reject) {
-				const img = new Image();
+	// const cacheImageModals = async (imagesArray: ImageType[]) => {
+	// 	const promises = await imagesArray.map((src) => {
+	// 		return new Promise(function (resolve, reject) {
+	// 			const img = new Image();
 
-				img.src = modalLinkFirst + src.img_id + modalLinkSecond;
-				// img.onload = resolve();
-				// img.onerror = reject();
-			});
-		});
+	// 			img.src = modalLinkFirst + src.img_id + modalLinkSecond;
+	// 		});
+	// 	});
 
-		await Promise.all(promises);
-	};
+	// 	await Promise.all(promises);
+	// };
 
-	useEffect(() => {
-		//cacheImageThumbnails(pictures);
-		cacheImageModals(pictures);
-	}, []);
+	// useEffect(() => {
+	// 	cacheImageThumbnails(pictures);
+	// 	cacheImageModals(pictures);
+	// }, []);
 
 	const searchValueChange = useCallback(
 		(value: string) => {
@@ -138,7 +108,12 @@ export default function Page() {
 					) {
 						return (
 							<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
-								<img src={`${thumbnailLink}${img.img_id}`} alt='Sydney Img' className='image-thumbnail' key={img.img_id} />
+								<img
+									src={`${modalLinkFirst}${img.img_id}${thumbnail2}`}
+									alt='Sydney Img'
+									className='image-thumbnail'
+									key={img.img_id}
+								/>
 							</span>
 						);
 					} else {

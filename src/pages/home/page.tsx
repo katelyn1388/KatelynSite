@@ -7,10 +7,11 @@ import { ImageType } from '../../types/image-type';
 export default function Page() {
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
 	const [showImageModal, setShowImageModal] = useState(false);
-	const thumbnailLink = useMemo(() => 'https://drive.google.com/thumbnail?id=', []);
+	// const thumbnailLink = useMemo(() => 'https://drive.google.com/thumbnail?id=', []);
 	const modalLinkFirst = useMemo(() => 'https://lh3.googleusercontent.com/d/', []);
 	const modalLinkSecond = useMemo(() => '=s4000?authuser=0', []);
-	const [loading, setLoading] = useState(false);
+	const thumbnail2 = useMemo(() => '=s500?', []);
+	// const thumbnail2 = useMemo(() => '=s500?authuser=0', []);
 
 	const displayImage = useCallback((img: number) => {
 		setShowImageModal(true);
@@ -22,20 +23,17 @@ export default function Page() {
 		setSelectedImage(null);
 	}, []);
 
-	// const cacheImageThumbnails = async (imagesArray: ImageType[]) => {
-	// 	const promises = await imagesArray.map((src) => {
-	// 		return new Promise(function (resolve, reject) {
-	// 			const img = new Image();
+	const cacheImageThumbnails = async (imagesArray: ImageType[]) => {
+		const promises = await imagesArray.map((src) => {
+			return new Promise(function (resolve, reject) {
+				const img = new Image();
 
-	// 			img.src = thumbnailLink + src.img_id;
-	// 			// img.onload = resolve();
-	// 			// img.onerror = reject();
-	// 		});
-	// 	});
+				img.src = modalLinkFirst + src.img_id + thumbnail2;
+			});
+		});
 
-	// 	await Promise.all(promises);
-	// 	setLoading(false);
-	// };
+		await Promise.all(promises);
+	};
 
 	const cacheImageModals = async (imagesArray: ImageType[]) => {
 		const promises = await imagesArray.map((src) => {
@@ -43,8 +41,6 @@ export default function Page() {
 				const img = new Image();
 
 				img.src = modalLinkFirst + src.img_id + modalLinkSecond;
-				// img.onload = resolve();
-				// img.onerror = reject();
 			});
 		});
 
@@ -52,7 +48,7 @@ export default function Page() {
 	};
 
 	useEffect(() => {
-		//cacheImageThumbnails(pictures);
+		cacheImageThumbnails(pictures);
 		cacheImageModals(pictures);
 	}, []);
 
@@ -62,7 +58,7 @@ export default function Page() {
 			<p>
 				Pages for my travels in Washington, New Zealand, Australia, etc and Cool Stuff to show some animations I made and some games
 			</p>
-			<img src='https://drive.google.com/thumbnail?id=1S1ClaQgrYTBS7gbR8hRjJTCbW4Ov9ffr' alt='Test 2' className='m-3' />
+			<img src='https://lh3.googleusercontent.com/d/1S1ClaQgrYTBS7gbR8hRjJTCbW4Ov9ffr=s300?authuser=0' alt='Test 2' className='m-3' />
 
 			<p>Also, here's some cute puppies</p>
 
@@ -70,7 +66,12 @@ export default function Page() {
 				if (img.description.startsWith('Dogs')) {
 					return (
 						<div onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
-							<img src={`${thumbnailLink}${img.img_id}`} alt='puppy Img' className='image-thumbnail' key={img.img_id} />
+							<img
+								src={`${modalLinkFirst}${img.img_id}${thumbnail2}`}
+								alt='puppy Img'
+								className='image-thumbnail'
+								key={img.img_id}
+							/>
 						</div>
 					);
 				} else {
@@ -86,7 +87,12 @@ export default function Page() {
 				if (img.description.startsWith('Merlinie')) {
 					return (
 						<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
-							<img src={`${thumbnailLink}${img.img_id}`} alt='Merlinie Img' className='image-thumbnail' key={img.img_id} />
+							<img
+								src={`${modalLinkFirst}${img.img_id}${thumbnail2}`}
+								alt='Merlinie Img'
+								className='image-thumbnail'
+								key={img.img_id}
+							/>
 						</span>
 					);
 				} else {
@@ -101,7 +107,12 @@ export default function Page() {
 				if (img.description.startsWith('Cujo')) {
 					return (
 						<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
-							<img src={`${thumbnailLink}${img.img_id}`} alt='Cujo Img' className='image-thumbnail' key={img.img_id} />
+							<img
+								src={`${modalLinkFirst}${img.img_id}${thumbnail2}`}
+								alt='Cujo Img'
+								className='image-thumbnail'
+								key={img.img_id}
+							/>
 						</span>
 					);
 				} else {
@@ -116,7 +127,12 @@ export default function Page() {
 				if (img.description.startsWith('Mattie')) {
 					return (
 						<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
-							<img src={`${thumbnailLink}${img.img_id}`} alt='Mattie Img' className='image-thumbnail' key={img.img_id} />
+							<img
+								src={`${modalLinkFirst}${img.img_id}${thumbnail2}`}
+								alt='Mattie Img'
+								className='image-thumbnail'
+								key={img.img_id}
+							/>
 						</span>
 					);
 				} else {
