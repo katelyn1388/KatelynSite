@@ -13,11 +13,9 @@ export default function Page() {
 	const [showImageModal, setShowImageModal] = useState(false);
 	const date = useMemo(() => new Date(), []);
 	const isMobile = UseMobileView();
-	// const thumbnailLink = useMemo(() => 'https://drive.google.com/thumbnail?id=', []);
 	const modalLinkFirst = useMemo(() => 'https://lh3.googleusercontent.com/d/', []);
 	const modalLinkSecond = useMemo(() => '=s4000?authuser=0', []);
 	const thumbnail2 = useMemo(() => '=s500', []);
-	// const thumbnail2 = useMemo(() => '=s500?authuser=0', []);
 	const seattleDate = useMemo(
 		() => date.toLocaleString(undefined, { timeZone: 'America/Los_Angeles', timeStyle: 'short', dateStyle: 'short' }),
 		[date]

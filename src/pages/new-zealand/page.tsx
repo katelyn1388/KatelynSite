@@ -15,10 +15,8 @@ export default function Page() {
 	const isMobile = UseMobileView();
 	const videoWidth = useMemo(() => (isMobile ? 300 : 500), [isMobile]);
 	const videoHeight = useMemo(() => (isMobile ? 175 : 250), [isMobile]);
-	const thumbnailLink = useMemo(() => 'https://drive.google.com/thumbnail?id=', []);
 	const modalLinkFirst = useMemo(() => 'https://lh3.googleusercontent.com/d/', []);
 	const thumbnail2 = useMemo(() => '=s500', []);
-	// const thumbnail2 = useMemo(() => '=s500?authuser=0', []);
 	const modalLinkSecond = useMemo(() => '=s4000?authuser=0', []);
 	const date = useMemo(() => new Date(), []);
 	const newZealandDate = useMemo(

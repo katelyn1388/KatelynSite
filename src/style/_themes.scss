@@ -4,7 +4,6 @@
 
 }
 
-
 .content {
     background-color: var(--bs-body-bg);
 }
@@ -27,10 +26,11 @@
     border: 1px white;
 }
 
-
 .light {
     --bs-primary: #a88bf0;
     --bs-body-bg: #ece8f9;
+    --active-nav-link: #5a4395;
+    --hover-link: #4f3b81;
 }
 
 .dark {
@@ -41,9 +41,15 @@
     --active-nav-link: #a88bf0;
     --hover-link: #ccb9fc;
 
-    
-
     .header {
         color: white;
     }
+}
+
+
+.choice {
+    --active-nav-link: rgb(from var(--bs-body-color) r g b / .65);
+    // --active-nav-link: darken(red, 50%);
+    --hover-link: rgb(from var(--bs-body-color) r g b / .50);
+    // --hover-link: adjust-hue(var(--bs-body-color), 80deg)
 }

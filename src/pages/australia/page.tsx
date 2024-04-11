@@ -35,34 +35,34 @@ export default function Page() {
 		setSelectedImage(null);
 	}, []);
 
-	// const cacheImageThumbnails = async (imagesArray: ImageType[]) => {
-	// 	const promises = await imagesArray.map((src) => {
-	// 		return new Promise(function (resolve, reject) {
-	// 			const img = new Image();
+	const cacheImageThumbnails = async (imagesArray: ImageType[]) => {
+		const promises = await imagesArray.map((src) => {
+			return new Promise(function (resolve, reject) {
+				const img = new Image();
 
-	// 			img.src = modalLinkFirst + src.img_id + thumbnail2;
-	// 		});
-	// 	});
+				img.src = modalLinkFirst + src.img_id + thumbnail2;
+			});
+		});
 
-	// 	await Promise.all(promises);
-	// };
+		await Promise.all(promises);
+	};
 
-	// const cacheImageModals = async (imagesArray: ImageType[]) => {
-	// 	const promises = await imagesArray.map((src) => {
-	// 		return new Promise(function (resolve, reject) {
-	// 			const img = new Image();
+	const cacheImageModals = async (imagesArray: ImageType[]) => {
+		const promises = await imagesArray.map((src) => {
+			return new Promise(function (resolve, reject) {
+				const img = new Image();
 
-	// 			img.src = modalLinkFirst + src.img_id + modalLinkSecond;
-	// 		});
-	// 	});
+				img.src = modalLinkFirst + src.img_id + modalLinkSecond;
+			});
+		});
 
-	// 	await Promise.all(promises);
-	// };
+		await Promise.all(promises);
+	};
 
-	// useEffect(() => {
-	// 	cacheImageThumbnails(pictures);
-	// 	cacheImageModals(pictures);
-	// }, []);
+	useEffect(() => {
+		cacheImageThumbnails(pictures);
+		cacheImageModals(pictures);
+	}, []);
 
 	const searchValueChange = useCallback(
 		(value: string) => {

@@ -30,11 +30,17 @@ export function ThemePicker() {
 	}, [colorChoices.background, colorChoices.primary, colorChoices.text, theme]);
 
 	useEffect(() => {
-		setThemeCookie('theme', theme);
+		const current = new Date();
+		const nextYear = new Date();
+		nextYear.setFullYear(current.getFullYear() + 5);
+		setThemeCookie('theme', theme, { expires: nextYear });
 	}, [theme]);
 
 	useEffect(() => {
-		setColorChoiceCookie('colorChoice', colorChoices);
+		const current = new Date();
+		const nextYear = new Date();
+		nextYear.setFullYear(current.getFullYear() + 1);
+		setColorChoiceCookie('colorChoice', colorChoices, { expires: nextYear });
 	}, [colorChoices]);
 
 	const close = useCallback(() => {
