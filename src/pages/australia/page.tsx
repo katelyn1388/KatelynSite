@@ -8,8 +8,6 @@ import ImageModal from '../../components/image-modal';
 import { ImageType } from '../../types/image-type';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { Img } from 'react-image';
-import PolaroidLoading from '../../components/loaders/polaroid-animation';
 import { ImageComponent } from '../../components/image-component';
 
 export default function Page() {

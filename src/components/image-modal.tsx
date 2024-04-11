@@ -4,6 +4,7 @@ import { UseMobileView } from '../hooks/use-mobile-view';
 import { ImageType } from '../types/image-type';
 import { Img } from 'react-image';
 import PolaroidLoading from './loaders/polaroid-animation';
+import ImageUnloaded from './loaders/image-unloaded';
 
 type ModalSize = 'sm' | 'lg' | 'xl' | undefined;
 
@@ -133,37 +134,44 @@ export default function ImageModal({
 				<Modal.Header closeButton>{index !== null && imageArray[index].description.split(';')[1]}</Modal.Header>
 
 				<Modal.Body className='modal-body'>
-					{index !== null && index !== undefined && (
-						<Img
-							src={`${modalLinkFirst}${imageArray[index].img_id}${modalLinkSecond}`}
-							onLoad={(e) => {
-								const image = e.target as HTMLImageElement;
-								const aspectRatio = image.naturalWidth / image.naturalHeight;
-								setRatio(aspectRatio);
-								console.log(aspectRatio);
+					<div className='justify-content-center d-flex align-items-center'>
+						{index !== null && index !== undefined && (
+							<Img
+								src={`${modalLinkFirst}${imageArray[index].img_id}${modalLinkSecond}`}
+								onLoad={(e) => {
+									const image = e.target as HTMLImageElement;
+									const aspectRatio = image.naturalWidth / image.naturalHeight;
+									setRatio(aspectRatio);
+									console.log(aspectRatio);
 
-								if (aspectRatio > 1) {
-									setOrientation('landscape');
-								} else if (aspectRatio < 1) {
-									setOrientation('portrait');
-								} else {
-									setOrientation('square');
-								}
-							}}
-							loader={
-								<div className='d-flex justify-content-center'>
-									<div className='w-50'>
-										<PolaroidLoading />
-										<h3 className='text-center'>Image Loading...</h3>
+									if (aspectRatio > 1) {
+										setOrientation('landscape');
+									} else if (aspectRatio < 1) {
+										setOrientation('portrait');
+									} else {
+										setOrientation('square');
+									}
+								}}
+								loader={
+									<div className='d-flex justify-content-center'>
+										<div className='w-50'>
+											<PolaroidLoading />
+											<h3 className='text-center'>Image Loading...</h3>
+										</div>
 									</div>
-								</div>
-							}
-							alt={`Modal Pic: ${ratio}`}
-							width={imgWidth}
-							className='align-self-center'
-							unloader={<div>Error Alert!</div>}
-						/>
-					)}
+								}
+								alt={`Modal Pic: ${ratio}`}
+								width={imgWidth}
+								className='align-self-center'
+								unloader={
+									<div className='w-50 text-center'>
+										<ImageUnloaded />
+										<p>Image Failed</p>
+									</div>
+								}
+							/>
+						)}
+					</div>
 				</Modal.Body>
 				<Modal.Footer>
 					<div className='d-flex justify-content-between'>

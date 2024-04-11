@@ -1,14 +1,15 @@
 import { Img } from 'react-image';
-import { ImageLoader } from './loaders/image-loader';
+import ImageUnloaded from './loaders/image-unloaded';
+import DogLoadingAnimation from './loaders/dog-loader';
 
 export function ImageComponent({ imgId, linkEnd }: { imgId: string; linkEnd: string }) {
 	return (
 		<Img
 			src={`https://lh3.googleusercontent.com/d/${imgId}${linkEnd}`}
-			loader={<ImageLoader />}
-			alt='Sydney Img'
+			loader={<DogLoadingAnimation />}
+			alt='Sick Pic'
 			className='align-self-center image-thumbnail'
-			unloader={<div>Error Alert!</div>}
+			unloader={<ImageUnloaded />}
 			key={imgId}
 		/>
 	);

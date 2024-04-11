@@ -3,15 +3,14 @@ import { AppLayout } from '../layout';
 import { pictures } from './pictures';
 import ImageModal from '../../components/image-modal';
 import { ImageType } from '../../types/image-type';
+import { ImageComponent } from '../../components/image-component';
 
 export default function Page() {
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
 	const [showImageModal, setShowImageModal] = useState(false);
-	// const thumbnailLink = useMemo(() => 'https://drive.google.com/thumbnail?id=', []);
 	const modalLinkFirst = useMemo(() => 'https://lh3.googleusercontent.com/d/', []);
 	const modalLinkSecond = useMemo(() => '=s4000?authuser=0', []);
 	const thumbnail2 = useMemo(() => '=s500?', []);
-	// const thumbnail2 = useMemo(() => '=s500?authuser=0', []);
 
 	const displayImage = useCallback((img: number) => {
 		setShowImageModal(true);
@@ -58,7 +57,7 @@ export default function Page() {
 			<p>
 				Pages for my travels in Washington, New Zealand, Australia, etc and Cool Stuff to show some animations I made and some games
 			</p>
-			<img src='https://lh3.googleusercontent.com/d/1S1ClaQgrYTBS7gbR8hRjJTCbW4Ov9ffr=s300?authuser=0' alt='Test 2' className='m-3' />
+			<img src='https://lh3.googleusercontent.com/d/1S1ClaQgrYTBS7gbR8hRjJTCbW4Ov9ffr=s400' alt='Sick Pic' />
 
 			<p>Also, here's some cute puppies</p>
 
@@ -66,12 +65,7 @@ export default function Page() {
 				if (img.description.startsWith('Dogs')) {
 					return (
 						<div onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
-							<img
-								src={`${modalLinkFirst}${img.img_id}${thumbnail2}`}
-								alt='puppy Img'
-								className='image-thumbnail'
-								key={img.img_id}
-							/>
+							<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
 						</div>
 					);
 				} else {
@@ -87,12 +81,7 @@ export default function Page() {
 				if (img.description.startsWith('Merlinie')) {
 					return (
 						<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
-							<img
-								src={`${modalLinkFirst}${img.img_id}${thumbnail2}`}
-								alt='Merlinie Img'
-								className='image-thumbnail'
-								key={img.img_id}
-							/>
+							<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
 						</span>
 					);
 				} else {
@@ -107,12 +96,7 @@ export default function Page() {
 				if (img.description.startsWith('Cujo')) {
 					return (
 						<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
-							<img
-								src={`${modalLinkFirst}${img.img_id}${thumbnail2}`}
-								alt='Cujo Img'
-								className='image-thumbnail'
-								key={img.img_id}
-							/>
+							<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
 						</span>
 					);
 				} else {
@@ -127,12 +111,7 @@ export default function Page() {
 				if (img.description.startsWith('Mattie')) {
 					return (
 						<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
-							<img
-								src={`${modalLinkFirst}${img.img_id}${thumbnail2}`}
-								alt='Mattie Img'
-								className='image-thumbnail'
-								key={img.img_id}
-							/>
+							<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
 						</span>
 					);
 				} else {
