@@ -8,6 +8,7 @@ import { UseMobileView } from '../../hooks/use-mobile-view';
 import { ImageType } from '../../types/image-type';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { ImageComponent } from '../../components/image-component';
 
 export default function Page() {
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
@@ -109,12 +110,7 @@ export default function Page() {
 								onClick={() => displayImage(newZealandPictures.indexOf(img))}
 								key={img.img_id}
 								className='image-container'>
-								<img
-									src={`${modalLinkFirst}${img.img_id}${thumbnail2}`}
-									alt='Auckland Img'
-									className='image-thumbnail'
-									key={img.img_id}
-								/>
+								<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
 							</span>
 						);
 					} else {
@@ -148,12 +144,7 @@ export default function Page() {
 								onClick={() => displayImage(newZealandPictures.indexOf(img))}
 								key={img.img_id}
 								className='image-container'>
-								<img
-									src={`${modalLinkFirst}${img.img_id}${thumbnail2}`}
-									alt='Hamilton Img'
-									className='image-thumbnail'
-									key={img.img_id}
-								/>
+								<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
 							</span>
 						);
 					} else {
@@ -174,12 +165,7 @@ export default function Page() {
 								onClick={() => displayImage(newZealandPictures.indexOf(img))}
 								key={img.img_id}
 								className='image-container'>
-								<img
-									src={`${modalLinkFirst}${img.img_id}${thumbnail2}`}
-									alt='Rotorua Img'
-									className='image-thumbnail'
-									key={img.img_id}
-								/>
+								<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
 							</span>
 						);
 					} else {
@@ -224,12 +210,7 @@ export default function Page() {
 								onClick={() => displayImage(newZealandPictures.indexOf(img))}
 								key={img.img_id}
 								className='image-container'>
-								<img
-									src={`${modalLinkFirst}${img.img_id}${thumbnail2}`}
-									alt='Random Img'
-									className='image-thumbnail'
-									key={img.img_id}
-								/>
+								<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
 							</span>
 						);
 					} else {

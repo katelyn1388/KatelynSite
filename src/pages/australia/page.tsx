@@ -8,6 +8,9 @@ import ImageModal from '../../components/image-modal';
 import { ImageType } from '../../types/image-type';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { Img } from 'react-image';
+import PolaroidLoading from '../../components/loaders/polaroid-animation';
+import { ImageComponent } from '../../components/image-component';
 
 export default function Page() {
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
@@ -18,11 +21,9 @@ export default function Page() {
 		() => date.toLocaleString(undefined, { timeZone: 'Australia/Sydney', timeStyle: 'short', dateStyle: 'short' }),
 		[date]
 	);
-	// const thumbnailLink = useMemo(() => 'https://drive.google.com/thumbnail?id=', []);
 	const modalLinkFirst = useMemo(() => 'https://lh3.googleusercontent.com/d/', []);
 	const modalLinkSecond = useMemo(() => '=s4000?authuser=0', []);
 	const thumbnail2 = useMemo(() => '=s500', []);
-	// const thumbnail2 = useMemo(() => '=s500?authuser=0', []);
 	const [searchString, setSearchString] = useState<string>('');
 
 	const displayImage = useCallback((img: number) => {
@@ -108,12 +109,7 @@ export default function Page() {
 					) {
 						return (
 							<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
-								<img
-									src={`${modalLinkFirst}${img.img_id}${thumbnail2}`}
-									alt='Sydney Img'
-									className='image-thumbnail'
-									key={img.img_id}
-								/>
+								<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
 							</span>
 						);
 					} else {

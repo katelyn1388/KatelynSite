@@ -1,5 +1,4 @@
 import { AppLayout } from '../layout';
-import MultipleUsersAndGroupsAnimation from './animations/multiple-users-and-groups-animation';
 import BusAnimation from './animations/busAnimation';
 import BookAnimation from './animations/book-loading-animation';
 import AlienAnimation from './animations/alien-loading-animation';
@@ -14,7 +13,6 @@ export default function Page() {
 		<AppLayout title='Cool Stuff'>
 			<div>
 				<h3 className='mt-2 ms-3'>Animations</h3>
-				{/* <MultipleUsersAndGroupsAnimation /> */}
 				<div className='w-75'>
 					<BusAnimation />
 				</div>

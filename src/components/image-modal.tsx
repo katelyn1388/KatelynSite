@@ -2,6 +2,8 @@ import Modal from 'react-bootstrap/Modal';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { UseMobileView } from '../hooks/use-mobile-view';
 import { ImageType } from '../types/image-type';
+import { Img } from 'react-image';
+import PolaroidLoading from './loaders/polaroid-animation';
 
 type ModalSize = 'sm' | 'lg' | 'xl' | undefined;
 
@@ -132,7 +134,8 @@ export default function ImageModal({
 
 				<Modal.Body className='modal-body'>
 					{index !== null && index !== undefined && (
-						<img
+						<Img
+							src={`${modalLinkFirst}${imageArray[index].img_id}${modalLinkSecond}`}
 							onLoad={(e) => {
 								const image = e.target as HTMLImageElement;
 								const aspectRatio = image.naturalWidth / image.naturalHeight;
@@ -147,10 +150,18 @@ export default function ImageModal({
 									setOrientation('square');
 								}
 							}}
-							src={`${modalLinkFirst}${imageArray[index].img_id}${modalLinkSecond}`}
+							loader={
+								<div className='d-flex justify-content-center'>
+									<div className='w-50'>
+										<PolaroidLoading />
+										<h3 className='text-center'>Image Loading...</h3>
+									</div>
+								</div>
+							}
 							alt={`Modal Pic: ${ratio}`}
 							width={imgWidth}
 							className='align-self-center'
+							unloader={<div>Error Alert!</div>}
 						/>
 					)}
 				</Modal.Body>
