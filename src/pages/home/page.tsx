@@ -5,6 +5,7 @@ import ImageModal from '../../components/image-modal';
 import { ImageType } from '../../types/image-type';
 import { ImageComponent } from '../../components/image-component';
 import { Weather } from '../../components/weather';
+import { UseMobileView } from '../../hooks/use-mobile-view';
 
 export default function Page() {
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
@@ -15,6 +16,7 @@ export default function Page() {
 	const [longitude, setLongitude] = useState<number | null>(null);
 	const date = useMemo(() => new Date(), []);
 	const [currentDate, setCurrentDate] = useState<string | null>(null);
+	const isMobile = UseMobileView();
 
 	const success = useCallback((position: GeolocationPosition) => {
 		setLatitude(position.coords.latitude);
@@ -36,11 +38,7 @@ export default function Page() {
 
 	const getLocation = useCallback(() => {
 		if (navigator.geolocation) {
-			navigator.permissions.query({ name: 'geolocation' }).then((result) => {
-				if (result.state === 'denied') {
-					alert('Alright, fine. Rude');
-				}
-			});
+			navigator.permissions.query({ name: 'geolocation' }).then((result) => {});
 			navigator.geolocation.getCurrentPosition(success);
 		}
 	}, [success]);
@@ -74,82 +72,112 @@ export default function Page() {
 
 	return (
 		<AppLayout title='Home'>
-			<h3>Kbow Travels</h3>
-			<p>
-				Pages for my travels in Washington, New Zealand, Australia, etc and Cool Stuff to show some animations I made and some games
-			</p>
-
-			{latitude && longitude && currentDate ? (
-				<div className='d-flex justify-content-around'>
-					<img src='https://lh3.googleusercontent.com/d/1S1ClaQgrYTBS7gbR8hRjJTCbW4Ov9ffr=s400' alt='Sick Pic' />
-
-					<div>
-						<Weather lat={latitude} long={longitude} date={currentDate} />
-					</div>
+			<div className='d-print-none'>
+				<div className='ms-4'>
+					<h3>Kbow Travels</h3>
+					<p>
+						Pages for my travels in Washington, New Zealand, Australia, etc and Cool Stuff to show some animations I made and
+						some games
+					</p>
 				</div>
-			) : (
-				<img src='https://lh3.googleusercontent.com/d/1S1ClaQgrYTBS7gbR8hRjJTCbW4Ov9ffr=s400' alt='Sick Pic' />
-			)}
 
-			<p>Also, here's some cute puppies</p>
+				{latitude && longitude && currentDate ? (
+					<div>
+						{isMobile ? (
+							<div className='d-flex flex-column justify-content-center align-items-center'>
+								<img src='https://lh3.googleusercontent.com/d/1S1ClaQgrYTBS7gbR8hRjJTCbW4Ov9ffr=s400' alt='Sick Pic' />
 
-			{pictures.map((img) => {
-				if (img.description.startsWith('Dogs')) {
-					return (
-						<div onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
-							<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
-						</div>
-					);
-				} else {
-					return <span key={img.img_id}></span>;
-				}
-			})}
+								<div>
+									<Weather lat={latitude} long={longitude} date={currentDate} />
+								</div>
+							</div>
+						) : (
+							<div className='d-flex justify-content-around'>
+								<img src='https://lh3.googleusercontent.com/d/1S1ClaQgrYTBS7gbR8hRjJTCbW4Ov9ffr=s400' alt='Sick Pic' />
 
-			<br />
-			<br />
+								<div>
+									<Weather lat={latitude} long={longitude} date={currentDate} />
+								</div>
+							</div>
+						)}
+					</div>
+				) : (
+					<img src='https://lh3.googleusercontent.com/d/1S1ClaQgrYTBS7gbR8hRjJTCbW4Ov9ffr=s400' alt='Sick Pic' />
+				)}
 
-			<h3 className='mt-2 ms-3'>Merlinie</h3>
-			{pictures.map((img) => {
-				if (img.description.startsWith('Merlinie')) {
-					return (
-						<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
-							<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
-						</span>
-					);
-				} else {
-					return <span key={img.img_id}></span>;
-				}
-			})}
+				<p className='ms-4 mt-5'>Also, here's some cute puppies</p>
+			</div>
 
-			<br />
-			<br />
-			<h3 className='mt-2 ms-3'>Cujo</h3>
-			{pictures.map((img) => {
-				if (img.description.startsWith('Cujo')) {
-					return (
-						<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
-							<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
-						</span>
-					);
-				} else {
-					return <span key={img.img_id}></span>;
-				}
-			})}
+			<div className='print-only'>
+				<h1>Why you trying to print this you weirdo?</h1>
+				<h2>I know they're cute though so I'll allow it</h2>
+			</div>
+
+			<div className='ps-4 pe-4'>
+				{pictures.map((img) => {
+					if (img.description.startsWith('Dogs')) {
+						return (
+							<div onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
+								<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
+							</div>
+						);
+					} else {
+						return <span key={img.img_id}></span>;
+					}
+				})}
+			</div>
 
 			<br />
 			<br />
-			<h3 className='mt-2 ms-3'>Mattie</h3>
-			{pictures.map((img) => {
-				if (img.description.startsWith('Mattie')) {
-					return (
-						<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
-							<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
-						</span>
-					);
-				} else {
-					return <span key={img.img_id}></span>;
-				}
-			})}
+
+			<h3 className='mt-2 ms-4'>Merlinie</h3>
+			<div className='ps-4 pe-4'>
+				{pictures.map((img) => {
+					if (img.description.startsWith('Merlinie')) {
+						return (
+							<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
+								<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
+							</span>
+						);
+					} else {
+						return <span key={img.img_id}></span>;
+					}
+				})}
+			</div>
+
+			<br />
+			<br />
+			<h3 className='mt-2 ms-4'>Cujo</h3>
+			<div className='ps-4 pe-4'>
+				{pictures.map((img) => {
+					if (img.description.startsWith('Cujo')) {
+						return (
+							<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
+								<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
+							</span>
+						);
+					} else {
+						return <span key={img.img_id}></span>;
+					}
+				})}
+			</div>
+
+			<br />
+			<br />
+			<h3 className='mt-2 ms-4'>Mattie</h3>
+			<div className='ps-4 pe-4'>
+				{pictures.map((img) => {
+					if (img.description.startsWith('Mattie')) {
+						return (
+							<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
+								<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
+							</span>
+						);
+					} else {
+						return <span key={img.img_id}></span>;
+					}
+				})}
+			</div>
 
 			<ImageModal close={close} show={showImageModal} imgIndex={selectedImage} imageArray={pictures} />
 		</AppLayout>

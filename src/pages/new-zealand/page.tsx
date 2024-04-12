@@ -60,149 +60,167 @@ export default function Page() {
 
 	return (
 		<AppLayout title='New Zealand'>
-			<div className='country-header'>
-				<CountryBigFacts country='New Zealand' />
-				<Weather lat={-36.850109} long={174.7677} date={newZealandDate} />
-			</div>
-			<div className='ms-2 mt-3'>
-				<label>Search by Description</label>
-				<div className='d-flex'>
-					<input
-						className={`${isMobile ? 'w-75' : 'w-25'} form-control search-bar`}
-						onChange={(e) => searchValueChange(e.target.value)}
-						value={searchString}
-					/>
-					{searchString.length > 0 ? (
-						<button onClick={() => setSearchString('')} className='search-bar-btn'>
-							<FontAwesomeIcon icon={faTimes} />
-						</button>
+			<div className='d-print-none'>
+				<div className={isMobile ? 'justify-content-center d-flex' : ''}>
+					<div className='country-header'>
+						<CountryBigFacts country='New Zealand' />
+						<Weather lat={-36.850109} long={174.7677} date={newZealandDate} />
+					</div>
+				</div>
+
+				<div className='ms-4 mt-3 mb-4'>
+					<label>Search by Description</label>
+					<div className='d-flex'>
+						<input
+							className={`${isMobile ? 'w-75' : 'w-25'} form-control search-bar`}
+							onChange={(e) => searchValueChange(e.target.value)}
+							value={searchString}
+						/>
+						{searchString.length > 0 ? (
+							<button onClick={() => setSearchString('')} className='search-bar-btn'>
+								<FontAwesomeIcon icon={faTimes} />
+							</button>
+						) : (
+							<button className='search-bar-btn'>
+								<FontAwesomeIcon icon={faSearch} />
+							</button>
+						)}
+					</div>
+				</div>
+				<h3 className='mt-3 ms-4'>Auckland</h3>
+				<div className='ps-4 pe-4'>
+					{newZealandPictures
+						.sort((a, b) => a.description.localeCompare(b.description))
+						.map((img) => {
+							if (
+								img.description.startsWith('Auckland') &&
+								(searchString.length > 0 ? img.description.toLowerCase().includes(searchString.toLowerCase()) : true)
+							) {
+								return (
+									<span
+										onClick={() => displayImage(newZealandPictures.indexOf(img))}
+										key={img.img_id}
+										className='image-container'>
+										<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
+									</span>
+								);
+							} else {
+								return <span key={img.img_id}></span>;
+							}
+						})}
+				</div>
+				<br />
+
+				<div className='ms-4'>
+					{searchString.length === 0 || 'skyline auckland video skyjump'.includes(searchString.toLowerCase()) ? (
+						<iframe
+							src='https://www.youtube.com/embed/8Ymew8YpAGM'
+							title='Skyjump Auckland'
+							allowFullScreen
+							width={videoWidth}
+							height={videoHeight}
+						/>
 					) : (
-						<button className='search-bar-btn'>
-							<FontAwesomeIcon icon={faSearch} />
-						</button>
+						<span></span>
 					)}
 				</div>
+
+				<h3 className='mt-3 ms-4'>Hamilton Gardens</h3>
+				<div className='ps-4 pe-4'>
+					{newZealandPictures
+						.sort((a, b) => a.description.localeCompare(b.description))
+						.map((img) => {
+							if (
+								img.description === 'Hamilton Gardens' &&
+								(searchString.length > 0 ? img.description.toLowerCase().includes(searchString.toLowerCase()) : true)
+							) {
+								return (
+									<span
+										onClick={() => displayImage(newZealandPictures.indexOf(img))}
+										key={img.img_id}
+										className='image-container'>
+										<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
+									</span>
+								);
+							} else {
+								return <span key={img.img_id}></span>;
+							}
+						})}
+				</div>
+
+				<h3 className='mt-3 ms-4'>Rotorua</h3>
+				<div className='ps-4 pe-4'>
+					{newZealandPictures
+						.sort((a, b) => a.description.localeCompare(b.description))
+						.map((img) => {
+							if (
+								img.description.startsWith('Rotorua') &&
+								(searchString.length > 0 ? img.description.toLowerCase().includes(searchString.toLowerCase()) : true)
+							) {
+								return (
+									<span
+										onClick={() => displayImage(newZealandPictures.indexOf(img))}
+										key={img.img_id}
+										className='image-container'>
+										<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
+									</span>
+								);
+							} else {
+								return <span key={img.img_id}></span>;
+							}
+						})}
+				</div>
+				<br />
+				<div className='ms-4'>
+					{searchString.length === 0 || 'Skyline Rotorua video sky swing luge zipline'.includes(searchString) ? (
+						<iframe
+							src='https://www.youtube.com/embed/2pHpjD82wUo'
+							title='Skyline Rotorua'
+							allowFullScreen
+							width={videoWidth}
+							height={videoHeight}
+						/>
+					) : (
+						<span></span>
+					)}
+
+					{searchString.length === 0 || 'Skyline Rotorua video luge ride '.includes(searchString) ? (
+						<iframe
+							src='https://www.youtube.com/embed/M51vGr-fg80'
+							title='Luge Ride'
+							allowFullScreen
+							width={videoWidth}
+							height={videoHeight}
+						/>
+					) : (
+						<span></span>
+					)}
+				</div>
+
+				<h3 className='mt-3 ms-4'>Random</h3>
+				<div className='ms-4'>
+					{newZealandPictures
+						.sort((a, b) => a.description.localeCompare(b.description))
+						.map((img) => {
+							if (
+								img.description.startsWith('Random') &&
+								(searchString.length > 0 ? img.description.toLowerCase().includes(searchString.toLowerCase()) : true)
+							) {
+								return (
+									<span
+										onClick={() => displayImage(newZealandPictures.indexOf(img))}
+										key={img.img_id}
+										className='image-container'>
+										<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
+									</span>
+								);
+							} else {
+								return <span key={img.img_id}></span>;
+							}
+						})}
+				</div>
 			</div>
-			<h3 className='mt-3 ms-3'>Auckland</h3>
-			{newZealandPictures
-				.sort((a, b) => a.description.localeCompare(b.description))
-				.map((img) => {
-					if (
-						img.description.startsWith('Auckland') &&
-						(searchString.length > 0 ? img.description.toLowerCase().includes(searchString.toLowerCase()) : true)
-					) {
-						return (
-							<span
-								onClick={() => displayImage(newZealandPictures.indexOf(img))}
-								key={img.img_id}
-								className='image-container'>
-								<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
-							</span>
-						);
-					} else {
-						return <span key={img.img_id}></span>;
-					}
-				})}
-			<br />
 
-			{searchString.length === 0 || 'skyline auckland video skyjump'.includes(searchString.toLowerCase()) ? (
-				<iframe
-					src='https://www.youtube.com/embed/8Ymew8YpAGM'
-					title='Skyjump Auckland'
-					allowFullScreen
-					width={videoWidth}
-					height={videoHeight}
-				/>
-			) : (
-				<span></span>
-			)}
-
-			<h3 className='mt-3 ms-3'>Hamilton Gardens</h3>
-			{newZealandPictures
-				.sort((a, b) => a.description.localeCompare(b.description))
-				.map((img) => {
-					if (
-						img.description === 'Hamilton Gardens' &&
-						(searchString.length > 0 ? img.description.toLowerCase().includes(searchString.toLowerCase()) : true)
-					) {
-						return (
-							<span
-								onClick={() => displayImage(newZealandPictures.indexOf(img))}
-								key={img.img_id}
-								className='image-container'>
-								<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
-							</span>
-						);
-					} else {
-						return <span key={img.img_id}></span>;
-					}
-				})}
-
-			<h3 className='mt-3 ms-3'>Rotorua</h3>
-			{newZealandPictures
-				.sort((a, b) => a.description.localeCompare(b.description))
-				.map((img) => {
-					if (
-						img.description.startsWith('Rotorua') &&
-						(searchString.length > 0 ? img.description.toLowerCase().includes(searchString.toLowerCase()) : true)
-					) {
-						return (
-							<span
-								onClick={() => displayImage(newZealandPictures.indexOf(img))}
-								key={img.img_id}
-								className='image-container'>
-								<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
-							</span>
-						);
-					} else {
-						return <span key={img.img_id}></span>;
-					}
-				})}
-			<br />
-			{searchString.length === 0 || 'Skyline Rotorua video sky swing luge zipline'.includes(searchString) ? (
-				<iframe
-					src='https://www.youtube.com/embed/2pHpjD82wUo'
-					title='Skyline Rotorua'
-					allowFullScreen
-					width={videoWidth}
-					height={videoHeight}
-				/>
-			) : (
-				<span></span>
-			)}
-
-			{searchString.length === 0 || 'Skyline Rotorua video luge ride '.includes(searchString) ? (
-				<iframe
-					src='https://www.youtube.com/embed/M51vGr-fg80'
-					title='Luge Ride'
-					allowFullScreen
-					width={videoWidth}
-					height={videoHeight}
-				/>
-			) : (
-				<span></span>
-			)}
-
-			<h3 className='mt-3 ms-3'>Random</h3>
-			{newZealandPictures
-				.sort((a, b) => a.description.localeCompare(b.description))
-				.map((img) => {
-					if (
-						img.description.startsWith('Random') &&
-						(searchString.length > 0 ? img.description.toLowerCase().includes(searchString.toLowerCase()) : true)
-					) {
-						return (
-							<span
-								onClick={() => displayImage(newZealandPictures.indexOf(img))}
-								key={img.img_id}
-								className='image-container'>
-								<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
-							</span>
-						);
-					} else {
-						return <span key={img.img_id}></span>;
-					}
-				})}
 			<div className='print-only'>
 				<h1>Why you trying to print this you weirdo?</h1>
 			</div>

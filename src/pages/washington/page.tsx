@@ -15,7 +15,6 @@ export default function Page() {
 	const date = useMemo(() => new Date(), []);
 	const isMobile = UseMobileView();
 	const modalLinkFirst = useMemo(() => 'https://lh3.googleusercontent.com/d/', []);
-	const modalLinkSecond = useMemo(() => '=s4000?authuser=0', []);
 	const thumbnail2 = useMemo(() => '=s500', []);
 	const seattleDate = useMemo(
 		() => date.toLocaleString(undefined, { timeZone: 'America/Los_Angeles', timeStyle: 'short', dateStyle: 'short' }),
@@ -59,9 +58,11 @@ export default function Page() {
 	return (
 		<AppLayout title='Washington'>
 			<div className='d-print-none'>
-				<Weather lat={47.6061} long={-122.3328} date={seattleDate} />
+				<div className='d-flex justify-content-center align-items-center'>
+					<Weather lat={47.6061} long={-122.3328} date={seattleDate} />
+				</div>
 
-				<div className='ms-2 mt-3'>
+				<div className='ms-4 mt-3 mb-4'>
 					<label>Search by Description</label>
 					<div className='d-flex'>
 						<input
@@ -81,92 +82,102 @@ export default function Page() {
 					</div>
 				</div>
 
-				<h3 className='mt-2 ms-3'>Seattle</h3>
-				{washingtonImages
-					.sort((a, b) => a.description.localeCompare(b.description))
-					.map((img) => {
-						if (
-							img.description.startsWith('Seattle') &&
-							(searchString.length > 0 ? img.description.toLowerCase().includes(searchString.toLowerCase()) : true)
-						) {
-							return (
-								<span
-									onClick={() => displayImage(washingtonImages.indexOf(img))}
-									key={img.img_id}
-									className='image-container'>
-									<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
-								</span>
-							);
-						} else {
-							return <span key={img.img_id}></span>;
-						}
-					})}
+				<h3 className='mt-2 ms-4'>Seattle</h3>
+				<div className='ps-4 pe-4'>
+					{washingtonImages
+						.sort((a, b) => a.description.localeCompare(b.description))
+						.map((img) => {
+							if (
+								img.description.startsWith('Seattle') &&
+								(searchString.length > 0 ? img.description.toLowerCase().includes(searchString.toLowerCase()) : true)
+							) {
+								return (
+									<span
+										onClick={() => displayImage(washingtonImages.indexOf(img))}
+										key={img.img_id}
+										className='image-container'>
+										<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
+									</span>
+								);
+							} else {
+								return <span key={img.img_id}></span>;
+							}
+						})}
+				</div>
 				<br />
 
-				<h3 className='mt-2 ms-3'>Port Angeles</h3>
-				{washingtonImages
-					.sort((a, b) => a.description.localeCompare(b.description))
-					.map((img) => {
-						if (
-							img.description.startsWith('Port Angeles') &&
-							(searchString.length > 0 ? img.description.toLowerCase().includes(searchString.toLowerCase()) : true)
-						) {
-							return (
-								<span
-									onClick={() => displayImage(washingtonImages.indexOf(img))}
-									key={img.img_id}
-									className='image-container'>
-									<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
-								</span>
-							);
-						} else {
-							return <span key={img.img_id}></span>;
-						}
-					})}
+				<h3 className='mt-2 ms-4'>Port Angeles</h3>
+				<div className='ps-4 pe-4'>
+					{washingtonImages
+						.sort((a, b) => a.description.localeCompare(b.description))
+						.map((img) => {
+							if (
+								img.description.startsWith('Port Angeles') &&
+								(searchString.length > 0 ? img.description.toLowerCase().includes(searchString.toLowerCase()) : true)
+							) {
+								return (
+									<span
+										onClick={() => displayImage(washingtonImages.indexOf(img))}
+										key={img.img_id}
+										className='image-container'>
+										<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
+									</span>
+								);
+							} else {
+								return <span key={img.img_id}></span>;
+							}
+						})}
+				</div>
 				<br />
 
-				<h3 className='mt-2 ms-3'>Cape Flattery</h3>
-				{washingtonImages
-					.sort((a, b) => a.description.localeCompare(b.description))
-					.map((img) => {
-						if (
-							img.description.startsWith('Cape Flattery') &&
-							(searchString.length > 0 ? img.description.toLowerCase().includes(searchString.toLowerCase()) : true)
-						) {
-							return (
-								<span
-									onClick={() => displayImage(washingtonImages.indexOf(img))}
-									key={img.img_id}
-									className='image-container'>
-									<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
-								</span>
-							);
-						} else {
-							return <span key={img.img_id}></span>;
-						}
-					})}
+				<h3 className='mt-2 ms-4'>Cape Flattery</h3>
+				<div className='ps-4 pe-4'>
+					{washingtonImages
+						.sort((a, b) => a.description.localeCompare(b.description))
+						.map((img) => {
+							if (
+								img.description.startsWith('Cape Flattery') &&
+								(searchString.length > 0 ? img.description.toLowerCase().includes(searchString.toLowerCase()) : true)
+							) {
+								return (
+									<span
+										onClick={() => displayImage(washingtonImages.indexOf(img))}
+										key={img.img_id}
+										className='image-container'>
+										<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
+									</span>
+								);
+							} else {
+								return <span key={img.img_id}></span>;
+							}
+						})}
+				</div>
+
 				<br />
-				<h3 className='mt-2 ms-3'>Random</h3>
-				{washingtonImages
-					.sort((a, b) => a.description.localeCompare(b.description))
-					.map((img) => {
-						if (
-							img.description.startsWith('Random') &&
-							(searchString.length > 0 ? img.description.toLowerCase().includes(searchString.toLowerCase()) : true)
-						) {
-							return (
-								<span
-									onClick={() => displayImage(washingtonImages.indexOf(img))}
-									key={img.img_id}
-									className='image-container'>
-									<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
-								</span>
-							);
-						} else {
-							return <span key={img.img_id}></span>;
-						}
-					})}
+				<h3 className='mt-2 ms-4'>Random</h3>
+				<div className='ps-4 pe-4'>
+					{washingtonImages
+						.sort((a, b) => a.description.localeCompare(b.description))
+						.map((img) => {
+							if (
+								img.description.startsWith('Random') &&
+								(searchString.length > 0 ? img.description.toLowerCase().includes(searchString.toLowerCase()) : true)
+							) {
+								return (
+									<span
+										onClick={() => displayImage(washingtonImages.indexOf(img))}
+										key={img.img_id}
+										className='image-container'>
+										<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
+									</span>
+								);
+							} else {
+								return <span key={img.img_id}></span>;
+							}
+						})}
+				</div>
 			</div>
+
 			<div className='print-only'>
 				<h1>Why you trying to print this you weirdo?</h1>
 			</div>
