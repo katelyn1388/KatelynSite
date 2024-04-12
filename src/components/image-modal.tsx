@@ -79,6 +79,17 @@ export default function ImageModal({
 		setIndex(imgIndex);
 	}, [imgIndex]);
 
+	const cacheImage = useCallback(async () => {
+		if (index) {
+			const img = new Image();
+			img.src = `${modalLinkFirst}${imageArray[index].img_id}${modalLinkSecond}`;
+		}
+	}, [imageArray, index, modalLinkFirst, modalLinkSecond]);
+
+	useEffect(() => {
+		cacheImage();
+	}, []);
+
 	useEffect(() => {
 		if (mobileView) {
 			if (orientation === 'portrait') {

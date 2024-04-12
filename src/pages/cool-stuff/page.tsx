@@ -5,6 +5,8 @@ import AlienAnimation from './animations/alien-loading-animation';
 import Board from './games/tic-tac-toe-game';
 import { UseMobileView } from '../../hooks/use-mobile-view';
 import { AgeGuesser } from './games/age-guessing';
+import DogLoadingAnimation from '../../components/loaders/dog-loader';
+import PolaroidLoading from '../../components/loaders/polaroid-animation';
 
 export default function Page() {
 	const mobileView = UseMobileView();
@@ -29,6 +31,25 @@ export default function Page() {
 					<div className='d-flex justify-content-between'>
 						<BookAnimation />
 						<AlienAnimation />
+					</div>
+				)}
+				{mobileView ? (
+					<div>
+						<div className='w-50'>
+							<PolaroidLoading />
+						</div>
+						<div className='w-50'>
+							<DogLoadingAnimation />
+						</div>
+					</div>
+				) : (
+					<div className='d-flex justify-content-around'>
+						<div style={{ width: '35%' }}>
+							<PolaroidLoading />
+						</div>
+						<div style={{ width: '35%' }}>
+							<DogLoadingAnimation />
+						</div>
 					</div>
 				)}
 			</div>
