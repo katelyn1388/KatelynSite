@@ -62,7 +62,7 @@ export default function Page() {
 					<Weather lat={47.6061} long={-122.3328} date={seattleDate} />
 				</div>
 
-				<div className='ms-4 mt-3 mb-4'>
+				<div className={isMobile ? 'ms-2 mt-3 mb-4' : 'ms-5 mt-3 mb-4'}>
 					<label>Search by Description</label>
 					<div className='d-flex'>
 						<input
@@ -82,8 +82,8 @@ export default function Page() {
 					</div>
 				</div>
 
-				<h3 className='mt-2 ms-4'>Seattle</h3>
-				<div className='ps-4 pe-4'>
+				<h3 className={isMobile ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Seattle</h3>
+				<div className={isMobile ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 					{washingtonImages
 						.sort((a, b) => a.description.localeCompare(b.description))
 						.map((img) => {
@@ -106,8 +106,8 @@ export default function Page() {
 				</div>
 				<br />
 
-				<h3 className='mt-2 ms-4'>Port Angeles</h3>
-				<div className='ps-4 pe-4'>
+				<h3 className={isMobile ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Port Angeles</h3>
+				<div className={isMobile ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 					{washingtonImages
 						.sort((a, b) => a.description.localeCompare(b.description))
 						.map((img) => {
@@ -130,8 +130,8 @@ export default function Page() {
 				</div>
 				<br />
 
-				<h3 className='mt-2 ms-4'>Cape Flattery</h3>
-				<div className='ps-4 pe-4'>
+				<h3 className={isMobile ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Cape Flattery</h3>
+				<div className={isMobile ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 					{washingtonImages
 						.sort((a, b) => a.description.localeCompare(b.description))
 						.map((img) => {
@@ -154,8 +154,8 @@ export default function Page() {
 				</div>
 
 				<br />
-				<h3 className='mt-2 ms-4'>Random</h3>
-				<div className='ps-4 pe-4'>
+				<h3 className={isMobile ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Random</h3>
+				<div className={isMobile ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 					{washingtonImages
 						.sort((a, b) => a.description.localeCompare(b.description))
 						.map((img) => {

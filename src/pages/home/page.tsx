@@ -113,7 +113,7 @@ export default function Page() {
 				<h2>I know they're cute though so I'll allow it</h2>
 			</div>
 
-			<div className='ps-4 pe-4'>
+			<div className={isMobile ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 				{pictures.map((img) => {
 					if (img.description.startsWith('Dogs')) {
 						return (
@@ -130,8 +130,8 @@ export default function Page() {
 			<br />
 			<br />
 
-			<h3 className='mt-2 ms-4'>Merlinie</h3>
-			<div className='ps-4 pe-4'>
+			<h3 className={isMobile ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Merlinie</h3>
+			<div className={isMobile ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 				{pictures.map((img) => {
 					if (img.description.startsWith('Merlinie')) {
 						return (
@@ -147,8 +147,8 @@ export default function Page() {
 
 			<br />
 			<br />
-			<h3 className='mt-2 ms-4'>Cujo</h3>
-			<div className='ps-4 pe-4'>
+			<h3 className={isMobile ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Cujo</h3>
+			<div className={isMobile ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 				{pictures.map((img) => {
 					if (img.description.startsWith('Cujo')) {
 						return (
@@ -164,8 +164,8 @@ export default function Page() {
 
 			<br />
 			<br />
-			<h3 className='mt-2 ms-4'>Mattie</h3>
-			<div className='ps-4 pe-4'>
+			<h3 className={isMobile ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Mattie</h3>
+			<div className={isMobile ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 				{pictures.map((img) => {
 					if (img.description.startsWith('Mattie')) {
 						return (

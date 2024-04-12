@@ -18,7 +18,7 @@ export function Header({ title }: { title: string }) {
 			{mobileView ? (
 				<div className='header text-center pt-2 d-print-none row'>
 					<div className='col navigation'>
-						<div className='d-flex justify-content-start'>
+						<div className='d-flex justify-content-start mt-2'>
 							<div className='col' onClick={toggleHamburger}>
 								<Hamburger isOpen={hamburgerOpen} />
 							</div>
@@ -26,7 +26,7 @@ export function Header({ title }: { title: string }) {
 								<ThemePicker />
 							</span>
 						</div>
-						<ul style={{ display: hamburgerOpen ? 'block' : 'none' }} className='dropdown-menu'>
+						<ul style={{ display: hamburgerOpen ? 'block' : 'none', minHeight: '8rem' }} className='dropdown-menu'>
 							<li>
 								<Link to='/' className={title === 'Home' ? 'active-page nav-link' : 'nav-link'}>
 									Home
