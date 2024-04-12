@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.772fd6ec.css",
-    "main.js": "/static/js/main.ed803047.js",
+    "main.css": "/static/css/main.14a8b949.css",
+    "main.js": "/static/js/main.0fca9c97.js",
     "static/media/Merlinie Logo.jpg": "/static/media/Merlinie Logo.edfe8b1a96728c171263.jpg",
     "static/media/bus.svg": "/static/media/bus.1c6ad3c8aa58a0e61c0e70162e4d1839.svg",
     "static/media/book-loading-animation.svg": "/static/media/book-loading-animation.37e199bef1cb210000a24c0f0c0c2db4.svg",
@@ -10,11 +10,11 @@
     "static/media/PolaroidLoading.svg": "/static/media/PolaroidLoading.b65a2be8b2e5868e5ba841bf2a5399e8.svg",
     "static/media/ImageUnloaded.svg": "/static/media/ImageUnloaded.b2fca699a4292d81b385e4862a3543df.svg",
     "index.html": "/index.html",
-    "main.772fd6ec.css.map": "/static/css/main.772fd6ec.css.map",
-    "main.ed803047.js.map": "/static/js/main.ed803047.js.map"
+    "main.14a8b949.css.map": "/static/css/main.14a8b949.css.map",
+    "main.0fca9c97.js.map": "/static/js/main.0fca9c97.js.map"
   },
   "entrypoints": [
-    "static/css/main.772fd6ec.css",
-    "static/js/main.ed803047.js"
+    "static/css/main.14a8b949.css",
+    "static/js/main.0fca9c97.js"
   ]
 }
