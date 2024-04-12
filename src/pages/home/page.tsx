@@ -4,6 +4,7 @@ import { pictures } from './pictures';
 import ImageModal from '../../components/image-modal';
 import { ImageType } from '../../types/image-type';
 import { ImageComponent } from '../../components/image-component';
+import { Weather } from '../../components/weather';
 
 export default function Page() {
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
@@ -11,6 +12,36 @@ export default function Page() {
 	const modalLinkFirst = useMemo(() => 'https://lh3.googleusercontent.com/d/', []);
 	const modalLinkSecond = useMemo(() => '=s4000?authuser=0', []);
 	const thumbnail2 = useMemo(() => '=s500?', []);
+	const [latitude, setLatitude] = useState<number | null>(null);
+	const [longitude, setLongitude] = useState<number | null>(null);
+	const date = useMemo(() => new Date(), []);
+	const [currentDate, setCurrentDate] = useState<string | null>(null);
+	const googleApiKey = useMemo(() => process.env.GOOGLE_MAPS_API, []);
+
+	const success = useCallback((position: GeolocationPosition) => {
+		setLatitude(position.coords.latitude);
+		setLongitude(position.coords.longitude);
+	}, []);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			await fetch(`https://api.wheretheiss.at/v1/coordinates/${latitude},${longitude}`)
+				.then((res) => res.json())
+				.then((result) => {
+					console.log('Timezone: ', result);
+					setCurrentDate(
+						date.toLocaleString(undefined, { timeZone: result.timezone_id, timeStyle: 'short', dateStyle: 'short' })
+					);
+				});
+		};
+		fetchData();
+	}, [latitude, longitude, googleApiKey, date]);
+
+	const getLocation = useCallback(() => {
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(success);
+		}
+	}, [success]);
 
 	const displayImage = useCallback((img: number) => {
 		setShowImageModal(true);
@@ -47,6 +78,7 @@ export default function Page() {
 	};
 
 	useEffect(() => {
+		getLocation();
 		cacheImageThumbnails(pictures);
 		cacheImageModals(pictures);
 	}, []);
@@ -57,7 +89,18 @@ export default function Page() {
 			<p>
 				Pages for my travels in Washington, New Zealand, Australia, etc and Cool Stuff to show some animations I made and some games
 			</p>
-			<img src='https://lh3.googleusercontent.com/d/1S1ClaQgrYTBS7gbR8hRjJTCbW4Ov9ffr=s400' alt='Sick Pic' />
+
+			{latitude && longitude && currentDate ? (
+				<div className='d-flex justify-content-around'>
+					<img src='https://lh3.googleusercontent.com/d/1S1ClaQgrYTBS7gbR8hRjJTCbW4Ov9ffr=s400' alt='Sick Pic' />
+
+					<div>
+						<Weather lat={latitude} long={longitude} date={currentDate} />
+					</div>
+				</div>
+			) : (
+				<img src='https://lh3.googleusercontent.com/d/1S1ClaQgrYTBS7gbR8hRjJTCbW4Ov9ffr=s400' alt='Sick Pic' />
+			)}
 
 			<p>Also, here's some cute puppies</p>
 

@@ -12,7 +12,6 @@ export function Weather({ lat, long, date }: { lat: number; long: number; date: 
 				.then((res) => res.json())
 				.then((result) => {
 					setWeather(result);
-					console.log(result);
 				});
 		};
 		fetchData();
