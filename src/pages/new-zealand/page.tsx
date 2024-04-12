@@ -18,7 +18,6 @@ export default function Page() {
 	const videoHeight = useMemo(() => (isMobile ? 175 : 250), [isMobile]);
 	const modalLinkFirst = useMemo(() => 'https://lh3.googleusercontent.com/d/', []);
 	const thumbnail2 = useMemo(() => '=s500', []);
-	const modalLinkSecond = useMemo(() => '=s4000?authuser=0', []);
 	const date = useMemo(() => new Date(), []);
 	const newZealandDate = useMemo(
 		() => date.toLocaleString(undefined, { timeZone: 'Pacific/Auckland', timeStyle: 'short', dateStyle: 'short' }),
@@ -48,21 +47,8 @@ export default function Page() {
 		await Promise.all(promises);
 	};
 
-	const cacheImageModals = async (imagesArray: ImageType[]) => {
-		const promises = await imagesArray.map((src) => {
-			return new Promise(function (resolve, reject) {
-				const img = new Image();
-
-				img.src = modalLinkFirst + src.img_id + modalLinkSecond;
-			});
-		});
-
-		await Promise.all(promises);
-	};
-
 	useEffect(() => {
 		cacheImageThumbnails(newZealandPictures);
-		cacheImageModals(newZealandPictures);
 	}, []);
 
 	const searchValueChange = useCallback(

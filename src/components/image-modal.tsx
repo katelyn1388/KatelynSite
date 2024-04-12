@@ -79,17 +79,6 @@ export default function ImageModal({
 		setIndex(imgIndex);
 	}, [imgIndex]);
 
-	const cacheImage = useCallback(async () => {
-		if (index) {
-			const img = new Image();
-			img.src = `${modalLinkFirst}${imageArray[index].img_id}${modalLinkSecond}`;
-		}
-	}, [imageArray, index, modalLinkFirst, modalLinkSecond]);
-
-	useEffect(() => {
-		cacheImage();
-	}, []);
-
 	useEffect(() => {
 		if (mobileView) {
 			if (orientation === 'portrait') {
@@ -109,10 +98,6 @@ export default function ImageModal({
 			}
 		}
 	}, [orientation, mobileView, ratio]);
-
-	useEffect(() => {
-		console.log(orientation);
-	}, [orientation]);
 
 	useEffect(() => {
 		if (mobileView) {
@@ -153,7 +138,6 @@ export default function ImageModal({
 									const image = e.target as HTMLImageElement;
 									const aspectRatio = image.naturalWidth / image.naturalHeight;
 									setRatio(aspectRatio);
-									console.log(aspectRatio);
 
 									if (aspectRatio > 1) {
 										setOrientation('landscape');

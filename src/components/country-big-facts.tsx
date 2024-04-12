@@ -9,7 +9,6 @@ export default function CountryBigFacts({ country }: { country: string }) {
 			await fetch(`https://restcountries.com/v3.1/name/${country}`)
 				.then((res) => res.json())
 				.then((result) => {
-					console.log(result);
 					setCountryFacts(result);
 				});
 		};

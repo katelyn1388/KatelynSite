@@ -10,13 +10,11 @@ export default function Page() {
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
 	const [showImageModal, setShowImageModal] = useState(false);
 	const modalLinkFirst = useMemo(() => 'https://lh3.googleusercontent.com/d/', []);
-	const modalLinkSecond = useMemo(() => '=s4000?authuser=0', []);
 	const thumbnail2 = useMemo(() => '=s500?', []);
 	const [latitude, setLatitude] = useState<number | null>(null);
 	const [longitude, setLongitude] = useState<number | null>(null);
 	const date = useMemo(() => new Date(), []);
 	const [currentDate, setCurrentDate] = useState<string | null>(null);
-	const googleApiKey = useMemo(() => process.env.GOOGLE_MAPS_API, []);
 
 	const success = useCallback((position: GeolocationPosition) => {
 		setLatitude(position.coords.latitude);
@@ -28,17 +26,21 @@ export default function Page() {
 			await fetch(`https://api.wheretheiss.at/v1/coordinates/${latitude},${longitude}`)
 				.then((res) => res.json())
 				.then((result) => {
-					console.log('Timezone: ', result);
 					setCurrentDate(
 						date.toLocaleString(undefined, { timeZone: result.timezone_id, timeStyle: 'short', dateStyle: 'short' })
 					);
 				});
 		};
 		fetchData();
-	}, [latitude, longitude, googleApiKey, date]);
+	}, [latitude, longitude, date]);
 
 	const getLocation = useCallback(() => {
 		if (navigator.geolocation) {
+			navigator.permissions.query({ name: 'geolocation' }).then((result) => {
+				if (result.state === 'denied') {
+					alert('Alright, fine. Rude');
+				}
+			});
 			navigator.geolocation.getCurrentPosition(success);
 		}
 	}, [success]);
@@ -65,22 +67,9 @@ export default function Page() {
 		await Promise.all(promises);
 	};
 
-	const cacheImageModals = async (imagesArray: ImageType[]) => {
-		const promises = await imagesArray.map((src) => {
-			return new Promise(function (resolve, reject) {
-				const img = new Image();
-
-				img.src = modalLinkFirst + src.img_id + modalLinkSecond;
-			});
-		});
-
-		await Promise.all(promises);
-	};
-
 	useEffect(() => {
 		getLocation();
 		cacheImageThumbnails(pictures);
-		cacheImageModals(pictures);
 	}, []);
 
 	return (

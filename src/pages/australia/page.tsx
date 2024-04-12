@@ -21,7 +21,6 @@ export default function Page() {
 		[date]
 	);
 	const modalLinkFirst = useMemo(() => 'https://lh3.googleusercontent.com/d/', []);
-	const modalLinkSecond = useMemo(() => '=s4000?authuser=0', []);
 	const thumbnail2 = useMemo(() => '=s500', []);
 	const [searchString, setSearchString] = useState<string>('');
 
@@ -47,21 +46,8 @@ export default function Page() {
 		await Promise.all(promises);
 	};
 
-	const cacheImageModals = async (imagesArray: ImageType[]) => {
-		const promises = await imagesArray.map((src) => {
-			return new Promise(function (resolve, reject) {
-				const img = new Image();
-
-				img.src = modalLinkFirst + src.img_id + modalLinkSecond;
-			});
-		});
-
-		await Promise.all(promises);
-	};
-
 	useEffect(() => {
 		cacheImageThumbnails(pictures);
-		cacheImageModals(pictures);
 	}, []);
 
 	const searchValueChange = useCallback(

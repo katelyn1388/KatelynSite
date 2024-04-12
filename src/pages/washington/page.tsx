@@ -45,21 +45,8 @@ export default function Page() {
 		await Promise.all(promises);
 	};
 
-	const cacheImageModals = async (imagesArray: ImageType[]) => {
-		const promises = await imagesArray.map((src) => {
-			return new Promise(function (resolve, reject) {
-				const img = new Image();
-
-				img.src = modalLinkFirst + src.img_id + modalLinkSecond;
-			});
-		});
-
-		await Promise.all(promises);
-	};
-
 	useEffect(() => {
 		cacheImageThumbnails(washingtonImages);
-		cacheImageModals(washingtonImages);
 	}, []);
 
 	const searchValueChange = useCallback(

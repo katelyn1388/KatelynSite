@@ -47,10 +47,6 @@ export function ThemePicker() {
 		setShowColorPicker(false);
 	}, []);
 
-	useEffect(() => {
-		console.log(showColorPicker);
-	}, [showColorPicker]);
-
 	return (
 		<span className='btn-group' role='group'>
 			<ThemeButton current={theme} icon={faSun} setTheme={() => setTheme('light')} theme='light' />

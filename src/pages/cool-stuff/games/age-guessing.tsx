@@ -30,7 +30,6 @@ export function AgeGuesser() {
 					await fetch(`https://api.agify.io?name=${name}&country_id=US`)
 						.then((res) => res.json())
 						.then((result) => {
-							console.log(result);
 							setInitialGuess(result);
 							setCurrentGuess(result.age);
 							setGuessesCount(1);
