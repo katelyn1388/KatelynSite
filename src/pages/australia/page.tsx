@@ -107,6 +107,26 @@ export default function Page() {
 						})}
 				</div>
 
+				<h3 className={isMobile ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Taronga Sydney Zoo</h3>
+				<div className={isMobile ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
+					{pictures
+						.sort((a, b) => a.description.localeCompare(b.description))
+						.map((img) => {
+							if (
+								img.description.startsWith('Taronga Zoo') &&
+								(searchString.length > 0 ? img.description.toLowerCase().includes(searchString.toLowerCase()) : true)
+							) {
+								return (
+									<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
+										<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
+									</span>
+								);
+							} else {
+								return <span key={img.img_id}></span>;
+							}
+						})}
+				</div>
+
 				{searchString.length === 0 && (
 					<div className='ms-4'>
 						<h3 className='mt-5'>Sydney Food Recommendations</h3>
