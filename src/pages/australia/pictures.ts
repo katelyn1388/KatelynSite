@@ -222,7 +222,7 @@ export const pictures: ImageType[] = [
 { img_id: '10m5VUF4AoekiNCfOk0EaquCiys8xPfFi',
   description: 'Sydney; University of Sydney' }, 
   { img_id: '1gewlT3_4YkfiaHPOxaE_-YOeRxVnvNsD',
-    description: 'Taronga Zoo' },
+    description: 'Taronga Zoo; Entrance' },
   { img_id: '199gnwYPpcDS2Fp0HfzHDCWkpZztB7u9U',
     description: 'Taronga Zoo; Kangaroos' },
   { img_id: '1OjysPDcEkXxnGY3bsaPIEbOtllysKHfk',

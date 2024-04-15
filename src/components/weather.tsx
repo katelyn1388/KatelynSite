@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { WeatherType } from '../types/weather-type';
 
-export function Weather({ lat, long, date }: { lat: number; long: number; date: string }) {
+export function Weather({ lat, long, date, name }: { lat: number; long: number; date: string; name?: string }) {
 	const [weather, setWeather] = useState<WeatherType>();
 
 	useEffect(() => {
@@ -20,7 +20,7 @@ export function Weather({ lat, long, date }: { lat: number; long: number; date: 
 	return (
 		<div className='weather-widget'>
 			<div className='widget-title'>
-				<h5>{weather?.name}</h5>
+				<h5>{name || weather?.name}</h5>
 			</div>
 			<div className='date-time'>
 				<h6>Time</h6> {date}

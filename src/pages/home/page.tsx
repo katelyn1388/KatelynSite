@@ -88,7 +88,7 @@ export default function Page() {
 								<img src='https://lh3.googleusercontent.com/d/1S1ClaQgrYTBS7gbR8hRjJTCbW4Ov9ffr=s400' alt='Sick Pic' />
 
 								<div>
-									<Weather lat={latitude} long={longitude} date={currentDate} />
+									<Weather lat={latitude} long={longitude} date={currentDate} name='Local' />
 								</div>
 							</div>
 						) : (
@@ -96,7 +96,7 @@ export default function Page() {
 								<img src='https://lh3.googleusercontent.com/d/1S1ClaQgrYTBS7gbR8hRjJTCbW4Ov9ffr=s400' alt='Sick Pic' />
 
 								<div>
-									<Weather lat={latitude} long={longitude} date={currentDate} />
+									<Weather lat={latitude} long={longitude} date={currentDate} name='Local' />
 								</div>
 							</div>
 						)}

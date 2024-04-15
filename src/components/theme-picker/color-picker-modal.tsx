@@ -3,6 +3,8 @@ import { CustomTheme } from '../../types/custom-theme';
 import { ThemeElement } from './theme-element';
 import { useCallback, useState } from 'react';
 import { themeDefaults } from './theme-defaults';
+import { ThemePreview } from './theme-preview';
+import { UseMobileView } from '../../hooks/use-mobile-view';
 
 export function ColorPickerModal({
 	showColorPicker,
@@ -18,6 +20,7 @@ export function ColorPickerModal({
 	const [primary, setPrimary] = useState(colorChoice.primary);
 	const [background, setBackground] = useState(colorChoice.background);
 	const [text, setText] = useState(colorChoice.text);
+	const isMobile = UseMobileView();
 
 	const discardChanges = useCallback(() => {
 		setPrimary(colorChoice.primary);
@@ -35,15 +38,22 @@ export function ColorPickerModal({
 		<Modal show={showColorPicker} onHide={close} centered size='lg'>
 			<Modal.Header closeButton>Choose Your Theme</Modal.Header>
 			<Modal.Body className='modal-body'>
-				<div className='d-flex justify-content-around'>
-					<ThemeElement value={primary} setValue={setPrimary} elementName='Primary' defaultValue={themeDefaults.primary} />
-					<ThemeElement
-						value={background}
-						setValue={setBackground}
-						elementName='Background'
-						defaultValue={themeDefaults.background}
-					/>
-					<ThemeElement value={text} setValue={setText} elementName='Text' defaultValue={themeDefaults.text} />
+				<div className='d-flex flex-column'>
+					<div className='d-flex justify-content-around'>
+						<ThemeElement value={primary} setValue={setPrimary} elementName='Primary' defaultValue={themeDefaults.primary} />
+						<ThemeElement
+							value={background}
+							setValue={setBackground}
+							elementName='Background'
+							defaultValue={themeDefaults.background}
+						/>
+						<ThemeElement value={text} setValue={setText} elementName='Text' defaultValue={themeDefaults.text} />
+					</div>
+					{!isMobile && (
+						<div className='d-flex justify-content-center mt-3'>
+							<ThemePreview primary={primary} background={background} text={text} />
+						</div>
+					)}
 				</div>
 			</Modal.Body>
 			<Modal.Footer>
