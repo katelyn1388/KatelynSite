@@ -73,7 +73,8 @@ export default function ImageModal({
 		};
 	}, [imageArray, index]);
 
-	const mobileView = UseMobileView();
+	const { mobileView } = UseMobileView();
+	const { tabletView } = UseMobileView();
 
 	useEffect(() => {
 		setIndex(imgIndex);
@@ -102,12 +103,20 @@ export default function ImageModal({
 	useEffect(() => {
 		if (mobileView) {
 			setModalSize('sm');
+		} else if (tabletView) {
+			if (orientation === 'portrait') {
+				setModalSize('sm');
+			} else {
+				setModalSize(undefined);
+			}
 		} else if (orientation === 'portrait') {
 			setModalSize(undefined);
 		} else {
 			setModalSize('xl');
 		}
-	}, [orientation, mobileView]);
+		console.log('Mobile view: ', mobileView);
+		console.log('Tablet view: ', tabletView);
+	}, [orientation, mobileView, tabletView]);
 
 	const changePhoto = useCallback(
 		(next: boolean) => {
