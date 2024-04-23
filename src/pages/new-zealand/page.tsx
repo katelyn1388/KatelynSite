@@ -13,9 +13,9 @@ import { ImageComponent } from '../../components/image-component';
 export default function Page() {
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
 	const [showImageModal, setShowImageModal] = useState(false);
-	const isMobile = UseMobileView();
-	const videoWidth = useMemo(() => (isMobile ? 300 : 500), [isMobile]);
-	const videoHeight = useMemo(() => (isMobile ? 175 : 250), [isMobile]);
+	const { mobileView } = UseMobileView();
+	const videoWidth = useMemo(() => (mobileView ? 300 : 500), [mobileView]);
+	const videoHeight = useMemo(() => (mobileView ? 175 : 250), [mobileView]);
 	const modalLinkFirst = useMemo(() => 'https://lh3.googleusercontent.com/d/', []);
 	const thumbnail2 = useMemo(() => '=s500', []);
 	const date = useMemo(() => new Date(), []);
@@ -61,18 +61,18 @@ export default function Page() {
 	return (
 		<AppLayout title='New Zealand'>
 			<div className='d-print-none'>
-				<div className={isMobile ? 'justify-content-center d-flex' : ''}>
+				<div className={mobileView ? 'justify-content-center d-flex' : ''}>
 					<div className='country-header'>
 						<CountryBigFacts country='New Zealand' />
 						<Weather lat={-36.850109} long={174.7677} date={newZealandDate} />
 					</div>
 				</div>
 
-				<div className={isMobile ? 'ms-2 mt-3 mb-4' : 'ms-5 mt-3 mb-4'}>
+				<div className={mobileView ? 'ms-2 mt-3 mb-4' : 'ms-5 mt-3 mb-4'}>
 					<label>Search by Description</label>
 					<div className='d-flex'>
 						<input
-							className={`${isMobile ? 'w-75' : 'w-25'} form-control search-bar`}
+							className={`${mobileView ? 'w-75' : 'w-25'} form-control search-bar`}
 							onChange={(e) => searchValueChange(e.target.value)}
 							value={searchString}
 						/>
@@ -87,8 +87,8 @@ export default function Page() {
 						)}
 					</div>
 				</div>
-				<h3 className={isMobile ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Auckland</h3>
-				<div className={isMobile ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
+				<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Auckland</h3>
+				<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 					{newZealandPictures
 						.sort((a, b) => a.description.localeCompare(b.description))
 						.map((img) => {
@@ -126,8 +126,8 @@ export default function Page() {
 					)}
 				</div>
 
-				<h3 className={isMobile ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Hamilton Gardens</h3>
-				<div className={isMobile ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
+				<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Hamilton Gardens</h3>
+				<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 					{newZealandPictures
 						.sort((a, b) => a.description.localeCompare(b.description))
 						.map((img) => {
@@ -149,8 +149,8 @@ export default function Page() {
 						})}
 				</div>
 
-				<h3 className={isMobile ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Rotorua</h3>
-				<div className={isMobile ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
+				<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Rotorua</h3>
+				<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 					{newZealandPictures
 						.sort((a, b) => a.description.localeCompare(b.description))
 						.map((img) => {
@@ -198,8 +198,8 @@ export default function Page() {
 					)}
 				</div>
 
-				<h3 className={isMobile ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Random</h3>
-				<div className={isMobile ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
+				<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Random</h3>
+				<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 					{newZealandPictures
 						.sort((a, b) => a.description.localeCompare(b.description))
 						.map((img) => {

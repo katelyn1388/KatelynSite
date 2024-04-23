@@ -14,7 +14,7 @@ import React from 'react';
 export default function Page() {
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
 	const [showImageModal, setShowImageModal] = useState(false);
-	const isMobile = UseMobileView();
+	const { mobileView } = UseMobileView();
 	const date = useMemo(() => new Date(), []);
 	const sydneyDate = useMemo(
 		() => date.toLocaleString(undefined, { timeZone: 'Australia/Sydney', timeStyle: 'short', dateStyle: 'short' }),
@@ -60,18 +60,18 @@ export default function Page() {
 	return (
 		<AppLayout title='Australia'>
 			<div className='d-print-none'>
-				<div className={isMobile ? 'justify-content-center d-flex' : ''}>
+				<div className={mobileView ? 'justify-content-center d-flex' : ''}>
 					<div className='country-header'>
 						<CountryBigFacts country='Australia' />
 						<Weather lat={-33.865143} long={151.2099} date={sydneyDate} />
 					</div>
 				</div>
 
-				<div className={isMobile ? 'ms-2 mt-3 mb-4' : 'ms-5 mt-3 mb-4'}>
+				<div className={mobileView ? 'ms-2 mt-3 mb-4' : 'ms-5 mt-3 mb-4'}>
 					<label>Search by Description</label>
 					<div className='d-flex'>
 						<input
-							className={`${isMobile ? 'w-75' : 'w-25'} form-control search-bar`}
+							className={`${mobileView ? 'w-75' : 'w-25'} form-control search-bar`}
 							onChange={(e) => searchValueChange(e.target.value)}
 							value={searchString}
 						/>
@@ -87,8 +87,8 @@ export default function Page() {
 					</div>
 				</div>
 
-				<h3 className={isMobile ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Sydney</h3>
-				<div className={isMobile ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
+				<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Sydney</h3>
+				<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 					{pictures
 						.sort((a, b) => a.description.localeCompare(b.description))
 						.map((img) => {
@@ -107,8 +107,8 @@ export default function Page() {
 						})}
 				</div>
 
-				<h3 className={isMobile ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Taronga Sydney Zoo</h3>
-				<div className={isMobile ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
+				<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Taronga Sydney Zoo</h3>
+				<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 					{pictures
 						.sort((a, b) => a.description.localeCompare(b.description))
 						.map((img) => {

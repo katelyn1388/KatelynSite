@@ -16,7 +16,7 @@ export default function Page() {
 	const [longitude, setLongitude] = useState<number | null>(null);
 	const date = useMemo(() => new Date(), []);
 	const [currentDate, setCurrentDate] = useState<string | null>(null);
-	const isMobile = UseMobileView();
+	const { mobileView } = UseMobileView();
 
 	const success = useCallback((position: GeolocationPosition) => {
 		setLatitude(position.coords.latitude);
@@ -83,7 +83,7 @@ export default function Page() {
 
 				{latitude && longitude && currentDate ? (
 					<div>
-						{isMobile ? (
+						{mobileView ? (
 							<div className='d-flex flex-column justify-content-center align-items-center'>
 								<img src='https://lh3.googleusercontent.com/d/1S1ClaQgrYTBS7gbR8hRjJTCbW4Ov9ffr=s400' alt='Sick Pic' />
 
@@ -113,7 +113,7 @@ export default function Page() {
 				<h2>I know they're cute though so I'll allow it</h2>
 			</div>
 
-			<div className={isMobile ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
+			<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 				{pictures.map((img) => {
 					if (img.description.startsWith('Dogs')) {
 						return (
@@ -130,8 +130,8 @@ export default function Page() {
 			<br />
 			<br />
 
-			<h3 className={isMobile ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Merlinie</h3>
-			<div className={isMobile ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
+			<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Merlinie</h3>
+			<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 				{pictures.map((img) => {
 					if (img.description.startsWith('Merlinie')) {
 						return (
@@ -147,8 +147,8 @@ export default function Page() {
 
 			<br />
 			<br />
-			<h3 className={isMobile ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Cujo</h3>
-			<div className={isMobile ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
+			<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Cujo</h3>
+			<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 				{pictures.map((img) => {
 					if (img.description.startsWith('Cujo')) {
 						return (
@@ -164,8 +164,8 @@ export default function Page() {
 
 			<br />
 			<br />
-			<h3 className={isMobile ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Mattie</h3>
-			<div className={isMobile ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
+			<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Mattie</h3>
+			<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 				{pictures.map((img) => {
 					if (img.description.startsWith('Mattie')) {
 						return (

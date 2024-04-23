@@ -5,7 +5,7 @@ export default function Board() {
 	const [squares, setSquares] = useState(Array(9).fill(null));
 	const [xNext, setXNext] = useState(true);
 
-	const mobileView = UseMobileView();
+	const { mobileView } = UseMobileView();
 
 	function handleClick(square: number) {
 		if (squares[square] || winner) return;

@@ -9,7 +9,7 @@ import DogLoadingAnimation from '../../components/loaders/dog-loader';
 import PolaroidLoading from '../../components/loaders/polaroid-animation';
 
 export default function Page() {
-	const mobileView = UseMobileView();
+	const { mobileView } = UseMobileView();
 
 	return (
 		<AppLayout title='Cool Stuff'>

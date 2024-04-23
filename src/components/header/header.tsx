@@ -11,7 +11,7 @@ export function Header({ title }: { title: string }) {
 		setHamburgerOpen(!hamburgerOpen);
 	};
 
-	const mobileView = UseMobileView();
+	const { mobileView } = UseMobileView();
 
 	return (
 		<div>

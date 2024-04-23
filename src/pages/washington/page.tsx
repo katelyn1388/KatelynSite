@@ -13,7 +13,7 @@ export default function Page() {
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
 	const [showImageModal, setShowImageModal] = useState(false);
 	const date = useMemo(() => new Date(), []);
-	const isMobile = UseMobileView();
+	const { mobileView } = UseMobileView();
 	const modalLinkFirst = useMemo(() => 'https://lh3.googleusercontent.com/d/', []);
 	const thumbnail2 = useMemo(() => '=s500', []);
 	const seattleDate = useMemo(
@@ -62,11 +62,11 @@ export default function Page() {
 					<Weather lat={47.6061} long={-122.3328} date={seattleDate} />
 				</div>
 
-				<div className={isMobile ? 'ms-2 mt-3 mb-4' : 'ms-5 mt-3 mb-4'}>
+				<div className={mobileView ? 'ms-2 mt-3 mb-4' : 'ms-5 mt-3 mb-4'}>
 					<label>Search by Description</label>
 					<div className='d-flex'>
 						<input
-							className={`${isMobile ? 'w-75' : 'w-25'} form-control search-bar`}
+							className={`${mobileView ? 'w-75' : 'w-25'} form-control search-bar`}
 							onChange={(e) => searchValueChange(e.target.value)}
 							value={searchString}
 						/>
@@ -82,8 +82,8 @@ export default function Page() {
 					</div>
 				</div>
 
-				<h3 className={isMobile ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Seattle</h3>
-				<div className={isMobile ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
+				<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Seattle</h3>
+				<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 					{washingtonImages
 						.sort((a, b) => a.description.localeCompare(b.description))
 						.map((img) => {
@@ -106,8 +106,8 @@ export default function Page() {
 				</div>
 				<br />
 
-				<h3 className={isMobile ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Port Angeles</h3>
-				<div className={isMobile ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
+				<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Port Angeles</h3>
+				<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 					{washingtonImages
 						.sort((a, b) => a.description.localeCompare(b.description))
 						.map((img) => {
@@ -130,8 +130,8 @@ export default function Page() {
 				</div>
 				<br />
 
-				<h3 className={isMobile ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Cape Flattery</h3>
-				<div className={isMobile ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
+				<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Cape Flattery</h3>
+				<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 					{washingtonImages
 						.sort((a, b) => a.description.localeCompare(b.description))
 						.map((img) => {
@@ -154,8 +154,8 @@ export default function Page() {
 				</div>
 
 				<br />
-				<h3 className={isMobile ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Random</h3>
-				<div className={isMobile ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
+				<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Random</h3>
+				<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 					{washingtonImages
 						.sort((a, b) => a.description.localeCompare(b.description))
 						.map((img) => {

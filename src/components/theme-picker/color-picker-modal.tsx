@@ -20,7 +20,7 @@ export function ColorPickerModal({
 	const [primary, setPrimary] = useState(colorChoice.primary);
 	const [background, setBackground] = useState(colorChoice.background);
 	const [text, setText] = useState(colorChoice.text);
-	const isMobile = UseMobileView();
+	const { mobileView } = UseMobileView();
 
 	const discardChanges = useCallback(() => {
 		setPrimary(colorChoice.primary);
@@ -49,7 +49,7 @@ export function ColorPickerModal({
 						/>
 						<ThemeElement value={text} setValue={setText} elementName='Text' defaultValue={themeDefaults.text} />
 					</div>
-					{!isMobile && (
+					{!mobileView && (
 						<div className='d-flex justify-content-center mt-3'>
 							<ThemePreview primary={primary} background={background} text={text} />
 						</div>
