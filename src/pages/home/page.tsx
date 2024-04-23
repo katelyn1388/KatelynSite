@@ -17,6 +17,8 @@ export default function Page() {
 	const date = useMemo(() => new Date(), []);
 	const [currentDate, setCurrentDate] = useState<string | null>(null);
 	const { mobileView } = UseMobileView();
+	const [notCachedCount, setNotCachedCount] = useState(0);
+	const [cachedCount, setCachedCount] = useState(0);
 
 	const success = useCallback((position: GeolocationPosition) => {
 		setLatitude(position.coords.latitude);
@@ -53,21 +55,47 @@ export default function Page() {
 		setSelectedImage(null);
 	}, []);
 
-	const cacheImageThumbnails = async (imagesArray: ImageType[]) => {
-		const promises = await imagesArray.map((src) => {
+	const cacheImageThumbnails = async () => {
+		const promises = await pictures.map((src) => {
 			return new Promise(function (resolve, reject) {
 				const img = new Image();
 
 				img.src = modalLinkFirst + src.img_id + thumbnail2;
+
+				if (img.complete) {
+					src.cached = true;
+				} else {
+					src.cached = false;
+				}
 			});
 		});
 
 		await Promise.all(promises);
 	};
 
+	const storeImageThumbnails = useCallback(async () => {
+		const storedImageIds: string = localStorage.getItem('imageIds') || '';
+		let addIds: string = '';
+
+		pictures.map((img) => {
+			if (storedImageIds?.includes(img.img_id)) {
+				img.cached = true;
+				setCachedCount((prev) => prev + 1);
+				console.log('Image already cached: ', img.img_id);
+			} else {
+				img.cached = false;
+				addIds = addIds + `, ${img.img_id}`;
+				setNotCachedCount((prev) => prev + 1);
+			}
+		});
+
+		localStorage.setItem('imageIds', storedImageIds.concat(addIds));
+	}, []);
+
 	useEffect(() => {
 		getLocation();
-		cacheImageThumbnails(pictures);
+		storeImageThumbnails();
+		cacheImageThumbnails();
 	}, []);
 
 	return (
@@ -113,11 +141,25 @@ export default function Page() {
 				<h2>I know they're cute though so I'll allow it</h2>
 			</div>
 
+			{/* <p>Not cached count: {notCachedCount}</p>
+			<p>Cached count: {cachedCount}</p> */}
+
 			<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 				{pictures.map((img) => {
 					if (img.description.startsWith('Dogs')) {
 						return (
-							<div onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
+							<div
+								onClick={() => displayImage(pictures.indexOf(img))}
+								key={img.img_id}
+								className='image-container'
+								style={
+									img.cached && notCachedCount < 50 && notCachedCount !== 0
+										? { opacity: '50%' }
+										: !img.cached && notCachedCount < 50 && notCachedCount !== 0
+											? { border: '2px ridge var(--bs-primary)' }
+											: {}
+								}>
+								{/* // style={!img.cached ? { border: '5px ridge var(--bs-primary)' } : {}}> */}
 								<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
 							</div>
 						);
