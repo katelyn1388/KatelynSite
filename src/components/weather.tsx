@@ -25,7 +25,7 @@ export function Weather({ lat, long, date, name }: { lat: number; long: number; 
 			<div className='date-time'>
 				<h6>Time</h6> {date}
 			</div>
-			<div className='container mt-2'>
+			<div className='container mt-4 mb-4'>
 				<div className='row'>
 					<div className='col'>
 						<h6>Temperature</h6>

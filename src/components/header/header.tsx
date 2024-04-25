@@ -47,6 +47,11 @@ export function Header({ title }: { title: string }) {
 									New Zealand
 								</Link>
 							</li>
+							{/* <li>
+								<Link to='/japan' className={title === 'Japan' ? 'active-page nav-link' : 'nav-link'}>
+									Japan
+								</Link>
+							</li> */}
 							<li>
 								<Link to='/coolstuff' className={title === 'Cool Stuff' ? 'active-page nav-link' : 'nav-link'}>
 									Cool Stuff
@@ -89,6 +94,11 @@ export function Header({ title }: { title: string }) {
 								New Zealand
 							</Link>
 						</div>
+						{/* <div>
+							<Link to='/japan' className={title === 'Japan' ? 'active-page nav-link' : 'nav-link'}>
+								Japan
+							</Link>
+						</div> */}
 						<div>
 							<Link to='/coolstuff' className={title === 'Cool Stuff' ? 'active-page nav-link' : 'nav-link'}>
 								Cool Stuff

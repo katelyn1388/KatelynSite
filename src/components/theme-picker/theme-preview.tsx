@@ -11,6 +11,7 @@ export function ThemePreview({ primary, background, text }: CustomTheme) {
 					<h6>Washington</h6>
 					<h6>Australia</h6>
 					<h6>New Zealand</h6>
+					<h6>Japan</h6>
 					<h6>Cool Stuff</h6>
 				</div>
 			</div>
