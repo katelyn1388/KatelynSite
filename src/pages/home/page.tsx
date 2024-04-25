@@ -2,7 +2,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AppLayout } from '../layout';
 import { pictures } from './pictures';
 import ImageModal from '../../components/image-modal';
-import { ImageType } from '../../types/image-type';
 import { ImageComponent } from '../../components/image-component';
 import { Weather } from '../../components/weather';
 import { UseMobileView } from '../../hooks/use-mobile-view';
@@ -17,8 +16,7 @@ export default function Page() {
 	const date = useMemo(() => new Date(), []);
 	const [currentDate, setCurrentDate] = useState<string | null>(null);
 	const { mobileView } = UseMobileView();
-	const [notCachedCount, setNotCachedCount] = useState(0);
-	const [cachedCount, setCachedCount] = useState(0);
+	const [newImages, setNewImages] = useState(false);
 
 	const success = useCallback((position: GeolocationPosition) => {
 		setLatitude(position.coords.latitude);
@@ -74,22 +72,27 @@ export default function Page() {
 	};
 
 	const storeImageThumbnails = useCallback(async () => {
-		const storedImageIds: string = localStorage.getItem('imageIds') || '';
+		const storedImageIds: string = localStorage.getItem('dogImgs') || '';
+		const emptyCache = storedImageIds.length <= 0 ? true : false;
+		let notCachedCount = 0;
 		let addIds: string = '';
 
 		pictures.map((img) => {
 			if (storedImageIds?.includes(img.img_id)) {
 				img.cached = true;
-				setCachedCount((prev) => prev + 1);
-				console.log('Image already cached: ', img.img_id);
 			} else {
 				img.cached = false;
 				addIds = addIds + `, ${img.img_id}`;
-				setNotCachedCount((prev) => prev + 1);
+				notCachedCount += 1;
 			}
 		});
 
-		localStorage.setItem('imageIds', storedImageIds.concat(addIds));
+		localStorage.setItem('dogsImgs', storedImageIds.concat(addIds));
+		if (emptyCache || notCachedCount === 0) {
+			setNewImages(false);
+		} else {
+			setNewImages(true);
+		}
 	}, []);
 
 	useEffect(() => {
@@ -136,13 +139,12 @@ export default function Page() {
 				<p className='ms-4 mt-5'>Also, here's some cute puppies</p>
 			</div>
 
+			{newImages && <h4 className={mobileView ? 'ms-2 mt-3 mb-4' : 'ms-5 mt-3 mb-4'}>New Images!</h4>}
+
 			<div className='print-only'>
 				<h1>Why you trying to print this you weirdo?</h1>
 				<h2>I know they're cute though so I'll allow it</h2>
 			</div>
-
-			{/* <p>Not cached count: {notCachedCount}</p>
-			<p>Cached count: {cachedCount}</p> */}
 
 			<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 				{pictures.map((img) => {
@@ -151,15 +153,7 @@ export default function Page() {
 							<div
 								onClick={() => displayImage(pictures.indexOf(img))}
 								key={img.img_id}
-								className='image-container'
-								style={
-									img.cached && notCachedCount < 50 && notCachedCount !== 0
-										? { opacity: '50%' }
-										: !img.cached && notCachedCount < 50 && notCachedCount !== 0
-											? { border: '2px ridge var(--bs-primary)' }
-											: {}
-								}>
-								{/* // style={!img.cached ? { border: '5px ridge var(--bs-primary)' } : {}}> */}
+								className={`image-container ${img.cached && newImages ? 'old-img' : !img.cached && newImages ? 'new-img' : ''}`}>
 								<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
 							</div>
 						);
@@ -177,7 +171,10 @@ export default function Page() {
 				{pictures.map((img) => {
 					if (img.description.startsWith('Merlinie')) {
 						return (
-							<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
+							<span
+								onClick={() => displayImage(pictures.indexOf(img))}
+								key={img.img_id}
+								className={`image-container ${img.cached && newImages ? 'old-img' : !img.cached && newImages ? 'new-img' : ''}`}>
 								<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
 							</span>
 						);
@@ -194,7 +191,10 @@ export default function Page() {
 				{pictures.map((img) => {
 					if (img.description.startsWith('Cujo')) {
 						return (
-							<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
+							<span
+								onClick={() => displayImage(pictures.indexOf(img))}
+								key={img.img_id}
+								className={`image-container ${img.cached && newImages ? 'old-img' : !img.cached && newImages ? 'new-img' : ''}`}>
 								<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
 							</span>
 						);
@@ -211,7 +211,10 @@ export default function Page() {
 				{pictures.map((img) => {
 					if (img.description.startsWith('Mattie')) {
 						return (
-							<span onClick={() => displayImage(pictures.indexOf(img))} key={img.img_id} className='image-container'>
+							<span
+								onClick={() => displayImage(pictures.indexOf(img))}
+								key={img.img_id}
+								className={`image-container ${img.cached && newImages ? 'old-img' : !img.cached && newImages ? 'new-img' : ''}`}>
 								<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
 							</span>
 						);

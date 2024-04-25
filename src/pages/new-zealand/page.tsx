@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { AppLayout } from '../layout';
 import { Weather } from '../../components/weather';
 import CountryBigFacts from '../../components/country-big-facts';
-import { newZealandPictures } from './pictures';
+import { pictures } from './pictures';
 import ImageModal from '../../components/image-modal';
 import { UseMobileView } from '../../hooks/use-mobile-view';
 import { ImageType } from '../../types/image-type';
@@ -24,6 +24,7 @@ export default function Page() {
 		[date]
 	);
 	const [searchString, setSearchString] = useState<string>('');
+	const [newImages, setNewImages] = useState(false);
 
 	const displayImage = useCallback((img: number) => {
 		setShowImageModal(true);
@@ -35,20 +36,51 @@ export default function Page() {
 		setSelectedImage(null);
 	}, []);
 
-	const cacheImageThumbnails = async (imagesArray: ImageType[]) => {
-		const promises = await imagesArray.map((src) => {
+	const cacheImageThumbnails = async () => {
+		const promises = await pictures.map((src) => {
 			return new Promise(function (resolve, reject) {
 				const img = new Image();
 
 				img.src = modalLinkFirst + src.img_id + thumbnail2;
+
+				if (img.complete) {
+					src.cached = true;
+				} else {
+					src.cached = false;
+				}
 			});
 		});
 
 		await Promise.all(promises);
 	};
 
+	const storeImageThumbnails = useCallback(async () => {
+		const storedImageIds: string = localStorage.getItem('newZealandImgs') || '';
+		const emptyCache = storedImageIds.length <= 0 ? true : false;
+		let notCachedCount = 0;
+		let addIds: string = '';
+
+		pictures.map((img) => {
+			if (storedImageIds?.includes(img.img_id)) {
+				img.cached = true;
+			} else {
+				img.cached = false;
+				addIds = addIds + `, ${img.img_id}`;
+				notCachedCount += 1;
+			}
+		});
+
+		localStorage.setItem('newZealandImgs', storedImageIds.concat(addIds));
+		if (emptyCache || notCachedCount === 0) {
+			setNewImages(false);
+		} else {
+			setNewImages(true);
+		}
+	}, []);
+
 	useEffect(() => {
-		cacheImageThumbnails(newZealandPictures);
+		storeImageThumbnails();
+		cacheImageThumbnails();
 	}, []);
 
 	const searchValueChange = useCallback(
@@ -87,9 +119,12 @@ export default function Page() {
 						)}
 					</div>
 				</div>
+
+				{newImages && <h4 className={mobileView ? 'ms-2 mt-3 mb-4' : 'ms-5 mt-3 mb-4'}>New Images!</h4>}
+
 				<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Auckland</h3>
 				<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
-					{newZealandPictures
+					{pictures
 						.sort((a, b) => a.description.localeCompare(b.description))
 						.map((img) => {
 							if (
@@ -98,9 +133,9 @@ export default function Page() {
 							) {
 								return (
 									<span
-										onClick={() => displayImage(newZealandPictures.indexOf(img))}
+										onClick={() => displayImage(pictures.indexOf(img))}
 										key={img.img_id}
-										className='image-container'>
+										className={`image-container ${img.cached && newImages ? 'old-img' : !img.cached && newImages ? 'new-img' : ''}`}>
 										<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
 									</span>
 								);
@@ -112,7 +147,6 @@ export default function Page() {
 				<br />
 
 				<div className='d-flex justify-content-center'>
-					s
 					{searchString.length === 0 || 'skyline auckland video skyjump'.includes(searchString.toLowerCase()) ? (
 						<iframe
 							src='https://www.youtube.com/embed/8Ymew8YpAGM'
@@ -128,7 +162,7 @@ export default function Page() {
 
 				<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Hamilton Gardens</h3>
 				<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
-					{newZealandPictures
+					{pictures
 						.sort((a, b) => a.description.localeCompare(b.description))
 						.map((img) => {
 							if (
@@ -137,9 +171,9 @@ export default function Page() {
 							) {
 								return (
 									<span
-										onClick={() => displayImage(newZealandPictures.indexOf(img))}
+										onClick={() => displayImage(pictures.indexOf(img))}
 										key={img.img_id}
-										className='image-container'>
+										className={`image-container ${img.cached && newImages ? 'old-img' : !img.cached && newImages ? 'new-img' : ''}`}>
 										<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
 									</span>
 								);
@@ -151,7 +185,7 @@ export default function Page() {
 
 				<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Rotorua</h3>
 				<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
-					{newZealandPictures
+					{pictures
 						.sort((a, b) => a.description.localeCompare(b.description))
 						.map((img) => {
 							if (
@@ -160,9 +194,9 @@ export default function Page() {
 							) {
 								return (
 									<span
-										onClick={() => displayImage(newZealandPictures.indexOf(img))}
+										onClick={() => displayImage(pictures.indexOf(img))}
 										key={img.img_id}
-										className='image-container'>
+										className={`image-container ${img.cached && newImages ? 'old-img' : !img.cached && newImages ? 'new-img' : ''}`}>
 										<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
 									</span>
 								);
@@ -200,7 +234,7 @@ export default function Page() {
 
 				<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Random</h3>
 				<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
-					{newZealandPictures
+					{pictures
 						.sort((a, b) => a.description.localeCompare(b.description))
 						.map((img) => {
 							if (
@@ -209,9 +243,9 @@ export default function Page() {
 							) {
 								return (
 									<span
-										onClick={() => displayImage(newZealandPictures.indexOf(img))}
+										onClick={() => displayImage(pictures.indexOf(img))}
 										key={img.img_id}
-										className='image-container'>
+										className={`image-container ${img.cached && newImages ? 'old-img' : !img.cached && newImages ? 'new-img' : ''}`}>
 										<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
 									</span>
 								);
@@ -225,7 +259,7 @@ export default function Page() {
 			<div className='print-only'>
 				<h1>Why you trying to print this you weirdo?</h1>
 			</div>
-			<ImageModal close={close} show={showImageModal} imgIndex={selectedImage} imageArray={newZealandPictures} />
+			<ImageModal close={close} show={showImageModal} imgIndex={selectedImage} imageArray={pictures} />
 		</AppLayout>
 	);
 }

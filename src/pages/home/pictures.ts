@@ -452,5 +452,5 @@ export const pictures: ImageType[] = [
     { img_id: '1W4HcWzFFbhjS45pb7SHccb4qvxI_lEp9',
       description: 'Dogs' },
     { img_id: '1WeP7AVZl-jksVv33fAGgK1EcSo-pKl0R',
-      description: 'Dogs' }
+      description: 'Dogs' },
 ]

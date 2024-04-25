@@ -1,6 +1,6 @@
 import { ImageType } from "../../types/image-type"
 
-export const newZealandPictures: ImageType[] = [ 
+export const pictures: ImageType[] = [ 
     { img_id: '1-RwsswawzgILYrhwUHuzljAmZDR6DFUD',
     description: 'Random; Waitamo Black Water Rafting' },
   { img_id: '1-IMBiDAU3GVAGOxcTOk24itn0vA5FH0q',

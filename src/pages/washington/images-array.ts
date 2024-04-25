@@ -1,6 +1,6 @@
 import { ImageType } from "../../types/image-type";
 
-export const washingtonImages: ImageType[] = [ 
+export const pictures: ImageType[] = [ 
   { img_id: '1TSdrxHxfle5oczZNf2-QBfBo8RwdR6_-',
   description: 'Seattle; Public Markey Center' },
 { img_id: '1TULZ2FhYMS-o4THEnxgfrX2epm7IZYBG',

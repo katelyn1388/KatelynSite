@@ -98,3 +98,11 @@ div#root,
 .custom-link {
     color: var(--bs-body-color);
 }
+
+.old-img {
+    opacity: 50%;
+} 
+
+.new-img {
+    border: 2px ridge var(--bs-primary);
+}
