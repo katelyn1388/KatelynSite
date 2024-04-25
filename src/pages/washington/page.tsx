@@ -95,7 +95,7 @@ export default function Page() {
 				</div>
 
 				<div className={mobileView ? 'ms-2 mt-3 mb-4' : 'ms-5 mt-3 mb-4'}>
-					<label>Search by Description</label>
+					<label>Search Images</label>
 					<div className='d-flex'>
 						<input
 							className={`${mobileView ? 'w-75' : 'w-25'} form-control search-bar`}

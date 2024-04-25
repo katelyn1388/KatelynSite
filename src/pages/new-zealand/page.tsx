@@ -5,7 +5,6 @@ import CountryBigFacts from '../../components/country-big-facts';
 import { pictures } from './pictures';
 import ImageModal from '../../components/image-modal';
 import { UseMobileView } from '../../hooks/use-mobile-view';
-import { ImageType } from '../../types/image-type';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ImageComponent } from '../../components/image-component';
@@ -101,7 +100,7 @@ export default function Page() {
 				</div>
 
 				<div className={mobileView ? 'ms-2 mt-3 mb-4' : 'ms-5 mt-3 mb-4'}>
-					<label>Search by Description</label>
+					<label>Search Images</label>
 					<div className='d-flex'>
 						<input
 							className={`${mobileView ? 'w-75' : 'w-25'} form-control search-bar`}
@@ -166,7 +165,7 @@ export default function Page() {
 						.sort((a, b) => a.description.localeCompare(b.description))
 						.map((img) => {
 							if (
-								img.description === 'Hamilton Gardens' &&
+								img.description.startsWith('Hamilton Gardens') &&
 								(searchString.length > 0 ? img.description.toLowerCase().includes(searchString.toLowerCase()) : true)
 							) {
 								return (
