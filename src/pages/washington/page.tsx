@@ -3,7 +3,6 @@ import { AppLayout } from '../layout';
 import ImageModal from '../../components/image-modal';
 import { pictures } from './images-array';
 import { Weather } from '../../components/weather';
-import { ImageType } from '../../types/image-type';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { UseMobileView } from '../../hooks/use-mobile-view';

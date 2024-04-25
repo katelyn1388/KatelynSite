@@ -22,16 +22,25 @@ export default function Page() {
 	const thumbnail2 = useMemo(() => '=s500', []);
 	const [searchString, setSearchString] = useState<string>('');
 	const [newImages, setNewImages] = useState(false);
+	const [notCachedCount, setNotCachedCount] = useState(0);
 
 	const displayImage = useCallback((img: number) => {
 		setShowImageModal(true);
 		setSelectedImage(img);
+		pictures[img].cached = true;
+		setNotCachedCount((prev) => prev - 1);
 	}, []);
 
 	const close = useCallback(() => {
 		setShowImageModal(false);
 		setSelectedImage(null);
 	}, []);
+
+	useEffect(() => {
+		if (notCachedCount === 0) {
+			setNewImages(false);
+		}
+	}, [notCachedCount]);
 
 	const cacheImageThumbnails = async () => {
 		const promises = await pictures.map((src) => {
@@ -54,7 +63,7 @@ export default function Page() {
 	const storeImageThumbnails = useCallback(async () => {
 		const storedImageIds: string = localStorage.getItem('australiaImgs') || '';
 		const emptyCache = storedImageIds.length <= 0 ? true : false;
-		let notCachedCount = 0;
+		let tempNotCachedCount = 0;
 		let addIds: string = '';
 
 		pictures.map((img) => {
@@ -63,15 +72,16 @@ export default function Page() {
 			} else {
 				img.cached = false;
 				addIds = addIds + `, ${img.img_id}`;
-				notCachedCount += 1;
+				tempNotCachedCount += 1;
 			}
 		});
 
 		localStorage.setItem('australiaImgs', storedImageIds.concat(addIds));
-		if (emptyCache || notCachedCount === 0) {
+		if (emptyCache || tempNotCachedCount === 0) {
 			setNewImages(false);
 		} else {
 			setNewImages(true);
+			setNotCachedCount(tempNotCachedCount);
 		}
 	}, []);
 
