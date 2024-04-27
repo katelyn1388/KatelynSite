@@ -123,9 +123,34 @@ export default function Page() {
 					<h1>Why you trying to print this you weirdo?</h1>
 				</div>
 
+				<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Tokyo</h3>
 				<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 					{pictures.map((img) => {
-						if (img.description.startsWith('Tokyo')) {
+						if (
+							img.description.startsWith('Tokyo') &&
+							(searchString.length > 0 ? img.description.toLowerCase().includes(searchString.toLowerCase()) : true)
+						) {
+							return (
+								<div
+									onClick={() => displayImage(pictures.indexOf(img))}
+									key={img.img_id}
+									className={`image-container ${img.cached && newImages ? 'old-img' : !img.cached && newImages ? 'new-img' : ''}`}>
+									<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
+								</div>
+							);
+						} else {
+							return <span key={img.img_id}></span>;
+						}
+					})}
+				</div>
+
+				<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Random</h3>
+				<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
+					{pictures.map((img) => {
+						if (
+							img.description.startsWith('Random') &&
+							(searchString.length > 0 ? img.description.toLowerCase().includes(searchString.toLowerCase()) : true)
+						) {
 							return (
 								<div
 									onClick={() => displayImage(pictures.indexOf(img))}

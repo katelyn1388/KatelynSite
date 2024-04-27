@@ -5,6 +5,7 @@ import ImageModal from '../../components/image-modal';
 import { ImageComponent } from '../../components/image-component';
 import { Weather } from '../../components/weather';
 import { UseMobileView } from '../../hooks/use-mobile-view';
+import NewsModal from './news-modal';
 
 export default function Page() {
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
@@ -17,11 +18,19 @@ export default function Page() {
 	const [currentDate, setCurrentDate] = useState<string | null>(null);
 	const { mobileView } = UseMobileView();
 	const [newImages, setNewImages] = useState(false);
+	const storedImageIds: string = useMemo(() => localStorage.getItem('japanImgs') || '', []);
+	const [showNewsModal, setShowNewsModal] = useState(false);
 
 	const success = useCallback((position: GeolocationPosition) => {
 		setLatitude(position.coords.latitude);
 		setLongitude(position.coords.longitude);
 	}, []);
+
+	useEffect(() => {
+		if (storedImageIds.length === 0) {
+			setShowNewsModal(true);
+		}
+	}, [storedImageIds]);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -225,6 +234,7 @@ export default function Page() {
 			</div>
 
 			<ImageModal close={close} show={showImageModal} imgIndex={selectedImage} imageArray={pictures} />
+			<NewsModal close={close} show={showNewsModal} newsString="We are in Japan and there's pictures to prove it!" />
 		</AppLayout>
 	);
 }
