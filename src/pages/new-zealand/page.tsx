@@ -145,7 +145,7 @@ export default function Page() {
 				</div>
 				<br />
 
-				<div className='d-flex justify-content-center'>
+				{/* <div className='d-flex justify-content-center'>
 					{searchString.length === 0 || 'skyline auckland video skyjump'.includes(searchString.toLowerCase()) ? (
 						<iframe
 							src='https://www.youtube.com/embed/8Ymew8YpAGM'
@@ -157,7 +157,7 @@ export default function Page() {
 					) : (
 						<span></span>
 					)}
-				</div>
+				</div> */}
 
 				<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Hamilton Gardens</h3>
 				<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
@@ -205,7 +205,7 @@ export default function Page() {
 						})}
 				</div>
 				<br />
-				<div className='d-flex justify-content-center'>
+				{/* <div className='d-flex justify-content-center'>
 					{searchString.length === 0 || 'Skyline Rotorua video sky swing luge zipline'.includes(searchString) ? (
 						<iframe
 							src='https://www.youtube.com/embed/2pHpjD82wUo'
@@ -229,7 +229,7 @@ export default function Page() {
 					) : (
 						<span></span>
 					)}
-				</div>
+				</div> */}
 
 				<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Random</h3>
 				<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
