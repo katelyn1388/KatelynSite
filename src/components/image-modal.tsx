@@ -114,8 +114,6 @@ export default function ImageModal({
 		} else {
 			setModalSize('xl');
 		}
-		console.log('Mobile view: ', mobileView);
-		console.log('Tablet view: ', tabletView);
 	}, [orientation, mobileView, tabletView]);
 
 	const changePhoto = useCallback(

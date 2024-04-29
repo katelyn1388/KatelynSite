@@ -22,6 +22,8 @@ export default function Page() {
 	);
 	const [searchString, setSearchString] = useState<string>('');
 	const [newImages, setNewImages] = useState(false);
+	const [notCachedCount, setNotCachedCount] = useState(0);
+	const [emptyCache, setEmptyCache] = useState(false);
 
 	const displayImage = useCallback((img: number) => {
 		setShowImageModal(true);
@@ -51,32 +53,43 @@ export default function Page() {
 		await Promise.all(promises);
 	};
 
-	const storeImageThumbnails = useCallback(async () => {
+	useEffect(() => {
 		const storedImageIds: string = localStorage.getItem('japanImgs') || '';
-		const emptyCache = storedImageIds.length <= 0 ? true : false;
-		let notCachedCount = 0;
+		const tempEmptyCache = storedImageIds.length <= 0 ? true : false;
+		let tempNotCachedCount = 0;
 		let addIds: string = '';
 
-		pictures.map((img) => {
+		pictures.forEach((img) => {
 			if (storedImageIds?.includes(img.img_id)) {
 				img.cached = true;
 			} else {
 				img.cached = false;
 				addIds = addIds + `, ${img.img_id}`;
-				notCachedCount += 1;
+				tempNotCachedCount += 1;
 			}
 		});
 
 		localStorage.setItem('japanImgs', storedImageIds.concat(addIds));
-		if (emptyCache || notCachedCount === 0) {
+		setEmptyCache(tempEmptyCache);
+		setNotCachedCount(tempNotCachedCount);
+		console.log('Temp not cached count: ', tempNotCachedCount);
+	}, []);
+
+	useEffect(() => {
+		if (emptyCache === true || notCachedCount === 0) {
 			setNewImages(false);
 		} else {
 			setNewImages(true);
 		}
-	}, []);
+	}, [notCachedCount, emptyCache]);
 
 	useEffect(() => {
-		storeImageThumbnails();
+		console.log('EmptyCache: ', emptyCache);
+		console.log('not cached count: ', notCachedCount);
+		console.log('new images: ', newImages);
+	}, [emptyCache, newImages, notCachedCount]);
+
+	useEffect(() => {
 		cacheImageThumbnails();
 	}, []);
 
