@@ -172,6 +172,29 @@ export default function Page() {
 						})}
 				</div>
 
+				<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Izu</h3>
+				<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
+					{pictures
+						.sort((a, b) => a.description.localeCompare(b.description))
+						.map((img) => {
+							if (
+								img.description.startsWith('Izu') &&
+								(searchString.length > 0 ? img.description.toLowerCase().includes(searchString.toLowerCase()) : true)
+							) {
+								return (
+									<div
+										onClick={() => displayImage(pictures.indexOf(img))}
+										key={img.img_id}
+										className={`image-container ${img.cached && newImages ? 'old-img' : !img.cached && newImages ? 'new-img' : ''}`}>
+										<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
+									</div>
+								);
+							} else {
+								return <span key={img.img_id}></span>;
+							}
+						})}
+				</div>
+
 				<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Random</h3>
 				<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 					{pictures
