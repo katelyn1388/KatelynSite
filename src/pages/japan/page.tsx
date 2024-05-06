@@ -22,6 +22,7 @@ export default function Page() {
 	);
 	const [searchString, setSearchString] = useState<string>('');
 	const [newImages, setNewImages] = useState(false);
+	const [cachedIds, setCachedIds] = useState('');
 
 	const displayImage = useCallback((img: number) => {
 		setShowImageModal(true);
@@ -53,29 +54,24 @@ export default function Page() {
 
 	useEffect(() => {
 		const storedImageIds: string = localStorage.getItem('japanImgs') || '';
+		setCachedIds(storedImageIds);
 		const tempEmptyCache = storedImageIds.length <= 0 ? true : false;
 		let tempNotCachedCount = 0;
 		let addIds: string = '';
 
 		pictures.forEach((img) => {
 			if (storedImageIds?.includes(img.img_id)) {
-				img.cached = true;
 			} else {
-				img.cached = false;
 				addIds = addIds + `, ${img.img_id}`;
 				tempNotCachedCount += 1;
 			}
 		});
 
 		localStorage.setItem('japanImgs', storedImageIds.concat(addIds));
-		console.log('Temp not cached count: ', tempNotCachedCount);
 		if (tempEmptyCache === true || tempNotCachedCount === 0) {
 			setNewImages(false);
-			console.log('Setting to false, temp empty cache: ', tempEmptyCache);
-			console.log('temp not cached: ', tempNotCachedCount);
 		} else {
 			setNewImages(true);
-			console.log('Setting to true');
 		}
 	}, []);
 
@@ -139,7 +135,7 @@ export default function Page() {
 									<div
 										onClick={() => displayImage(pictures.indexOf(img))}
 										key={img.img_id}
-										className={`image-container ${img.cached && newImages ? 'old-img' : !img.cached && newImages ? 'new-img' : ''}`}>
+										className={`image-container ${newImages ? (cachedIds.includes(img.img_id) ? 'old-img' : 'new-img') : ''}`}>
 										<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
 									</div>
 								);
@@ -162,7 +158,7 @@ export default function Page() {
 									<div
 										onClick={() => displayImage(pictures.indexOf(img))}
 										key={img.img_id}
-										className={`image-container ${img.cached && newImages ? 'old-img' : !img.cached && newImages ? 'new-img' : ''}`}>
+										className={`image-container ${newImages ? (cachedIds.includes(img.img_id) ? 'old-img' : 'new-img') : ''}`}>
 										<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
 									</div>
 								);
@@ -185,7 +181,7 @@ export default function Page() {
 									<div
 										onClick={() => displayImage(pictures.indexOf(img))}
 										key={img.img_id}
-										className={`image-container ${img.cached && newImages ? 'old-img' : !img.cached && newImages ? 'new-img' : ''}`}>
+										className={`image-container ${newImages ? (cachedIds.includes(img.img_id) ? 'old-img' : 'new-img') : ''}`}>
 										<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
 									</div>
 								);
@@ -208,7 +204,7 @@ export default function Page() {
 									<div
 										onClick={() => displayImage(pictures.indexOf(img))}
 										key={img.img_id}
-										className={`image-container ${img.cached && newImages ? 'old-img' : !img.cached && newImages ? 'new-img' : ''}`}>
+										className={`image-container ${newImages ? (cachedIds.includes(img.img_id) ? 'old-img' : 'new-img') : ''}`}>
 										<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
 									</div>
 								);

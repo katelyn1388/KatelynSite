@@ -8,6 +8,7 @@ import ImageModal from '../../components/image-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ImageComponent } from '../../components/image-component';
+import NewImagesModal from '../../components/new-images-modal';
 
 export default function Page() {
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
@@ -22,25 +23,19 @@ export default function Page() {
 	const thumbnail2 = useMemo(() => '=s500', []);
 	const [searchString, setSearchString] = useState<string>('');
 	const [newImages, setNewImages] = useState(false);
-	const [notCachedCount, setNotCachedCount] = useState(0);
+	const [cachedIds, setCachedIds] = useState('');
+	const [showNewImageModal, setShowNewImageModal] = useState(false);
 
 	const displayImage = useCallback((img: number) => {
 		setShowImageModal(true);
 		setSelectedImage(img);
-		pictures[img].cached = true;
-		setNotCachedCount((prev) => prev - 1);
 	}, []);
 
 	const close = useCallback(() => {
 		setShowImageModal(false);
+		setShowNewImageModal(false);
 		setSelectedImage(null);
 	}, []);
-
-	useEffect(() => {
-		if (notCachedCount === 0) {
-			setNewImages(false);
-		}
-	}, [notCachedCount]);
 
 	const cacheImageThumbnails = async () => {
 		const promises = await pictures.map((src) => {
@@ -60,33 +55,31 @@ export default function Page() {
 		await Promise.all(promises);
 	};
 
-	const storeImageThumbnails = useCallback(async () => {
+	useEffect(() => {
 		const storedImageIds: string = localStorage.getItem('australiaImgs') || '';
-		const emptyCache = storedImageIds.length <= 0 ? true : false;
+		setCachedIds(storedImageIds);
+		const tempEmptyCache = storedImageIds.length <= 0 ? true : false;
 		let tempNotCachedCount = 0;
 		let addIds: string = '';
 
-		pictures.map((img) => {
+		pictures.forEach((img) => {
 			if (storedImageIds?.includes(img.img_id)) {
-				img.cached = true;
 			} else {
-				img.cached = false;
 				addIds = addIds + `, ${img.img_id}`;
 				tempNotCachedCount += 1;
 			}
 		});
 
 		localStorage.setItem('australiaImgs', storedImageIds.concat(addIds));
-		if (emptyCache || tempNotCachedCount === 0) {
+		if (tempEmptyCache === true || tempNotCachedCount === 0) {
 			setNewImages(false);
 		} else {
 			setNewImages(true);
-			setNotCachedCount(tempNotCachedCount);
+			setShowNewImageModal(true);
 		}
 	}, []);
 
 	useEffect(() => {
-		storeImageThumbnails();
 		cacheImageThumbnails();
 	}, []);
 
@@ -127,8 +120,6 @@ export default function Page() {
 					</div>
 				</div>
 
-				{newImages && <h4 className={mobileView ? 'ms-2 mt-3 mb-4' : 'ms-5 mt-3 mb-4'}>New Images!</h4>}
-
 				<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Sydney</h3>
 				<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 					{pictures
@@ -142,7 +133,7 @@ export default function Page() {
 									<span
 										onClick={() => displayImage(pictures.indexOf(img))}
 										key={img.img_id}
-										className={`image-container ${img.cached && newImages ? 'old-img' : !img.cached && newImages ? 'new-img' : ''}`}>
+										className={`image-container ${newImages ? (cachedIds.includes(img.img_id) ? 'old-img' : 'new-img') : ''}`}>
 										<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
 									</span>
 								);
@@ -165,7 +156,7 @@ export default function Page() {
 									<span
 										onClick={() => displayImage(pictures.indexOf(img))}
 										key={img.img_id}
-										className={`image-container ${img.cached && newImages ? 'old-img' : !img.cached && newImages ? 'new-img' : ''}`}>
+										className={`image-container ${newImages ? (cachedIds.includes(img.img_id) ? 'old-img' : 'new-img') : ''}`}>
 										<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
 									</span>
 								);
@@ -289,6 +280,7 @@ export default function Page() {
 			</div>
 
 			<ImageModal close={close} show={showImageModal} imgIndex={selectedImage} imageArray={pictures} />
+			<NewImagesModal show={showNewImageModal} close={close} />
 		</AppLayout>
 	);
 }
