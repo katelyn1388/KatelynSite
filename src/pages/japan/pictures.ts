@@ -466,7 +466,7 @@ export const pictures: ImageType[] = [
   { img_id: '1GQj7BZnTUniGQEs4KMapkUmSXkHqpSgB',
     description: 'Tokyo; Cityscape' },
   { img_id: '1GOIvblkGmlSdP0HGMxZkY5E62o4lB_9R',
-    description: 'Tokyo; Sea Urchin, Salmon Roe, and Mined Fatty Tuna on Rice Bowl; food' },
+    description: 'Tokyo; Sea Urchin, Salmon Roe, and Minced Fatty Tuna on Rice Bowl; food' },
     { img_id: '1Petsri8DkCN7cGxvPpq-hLB_HrQIKaO9',
     description: 'Tokyo; Capsule Vending Machine' },
   { img_id: '1Pc_dlrDgTM5wCkz9zJkeGR9ExRIslzzb',

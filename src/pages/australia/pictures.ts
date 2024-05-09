@@ -291,4 +291,7 @@ export const pictures: ImageType[] = [
   description: 'Taronga Zoo; Meerkat; animal' },
 { img_id: '15vOZ03P2zNqewj9gpVMHTeiCgZEyzyUi',
   description: 'Taronga Zoo; Wallaby; animal' },
+{ img_id: '1RHbuPQ5DOj8aYy7pIDj5uHc1WriTVFB_',
+  description: 'Sydney; Cityscape - Sydney Town Hall'
+}
 ]
