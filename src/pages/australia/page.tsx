@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ImageComponent } from '../../components/image-component';
 import NewImagesModal from '../../components/new-images-modal';
+import { faEye } from '@fortawesome/free-regular-svg-icons';
 
 export default function Page() {
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
@@ -193,7 +194,9 @@ export default function Page() {
 							</li>
 							<ul>
 								<li>Korean</li>
-								<li>Good seafood pancake</li>
+								<li onClick={() => setSearchString('Seafood pancake')} className='clickable-text'>
+									<FontAwesomeIcon icon={faEye} /> Good seafood pancake
+								</li>
 							</ul>
 							<li style={{ listStyleType: 'square' }}>
 								<a
@@ -205,7 +208,9 @@ export default function Page() {
 								</a>
 							</li>
 							<ul>
-								<li>Meat Skewers</li>
+								<li onClick={() => setSearchString('Meat Skewers')} className='clickable-text'>
+									<FontAwesomeIcon icon={faEye} /> Meat Skewers
+								</li>
 							</ul>
 							<li style={{ listStyleType: 'square' }}>
 								<a
@@ -217,7 +222,9 @@ export default function Page() {
 								</a>
 							</li>
 							<ul>
-								<li>Japanese Cheesecake and other goodies</li>
+								<li onClick={() => setSearchString('japanese cheesecake')} className='clickable-text'>
+									<FontAwesomeIcon icon={faEye} /> Japanese Cheesecake and other goodies
+								</li>
 							</ul>
 							<li style={{ listStyleType: 'square' }}>
 								<a
@@ -243,7 +250,9 @@ export default function Page() {
 							</li>
 							<ul>
 								<li>Indian</li>
-								<li>FIRE garlic cheese naan</li>
+								<li onClick={() => setSearchString('garlic cheese naan')} className='clickable-text'>
+									<FontAwesomeIcon icon={faEye} /> FIRE garlic cheese naan
+								</li>
 							</ul>
 							<li style={{ listStyleType: 'square' }}>
 								<a
@@ -256,7 +265,10 @@ export default function Page() {
 							</li>
 							<ul>
 								<li>Thai</li>
-								<li>Good Pad See Ew and Garlic and Pepper Squid</li>
+								<li onClick={() => setSearchString('Pad See Ew')} className='clickable-text'>
+									<FontAwesomeIcon icon={faEye} /> Pad See Ew
+								</li>
+								<li>Garlic and Pepper Squid</li>
 							</ul>
 							<li style={{ listStyleType: 'square' }}>
 								<a
@@ -268,7 +280,66 @@ export default function Page() {
 								</a>
 							</li>
 							<ul>
-								<li>Cream Puffs</li>
+								<li onClick={() => setSearchString("emperor's puffs")} className='clickable-text'>
+									<FontAwesomeIcon icon={faEye} /> Emperor's Puffs
+								</li>
+							</ul>
+							<li style={{ listStyleType: 'square' }}>
+								<a
+									target='_blank'
+									rel='noreferrer'
+									className='custom-link'
+									href='https://www.google.com/search?q=spice+paradise&rlz=1C1CHBF_enUS1039US1039&oq=spice+paradise&gs_lcrp=EgZjaHJvbWUyCQgAEEUYORiABDIMCAEQIxgnGIAEGIoFMg0IAhAuGK8BGMcBGIAEMgcIAxAAGIAEMg0IBBAuGK8BGMcBGIAEMgcIBRAAGIAEMgcIBhAAGIAEMgcIBxAAGIAEMgcICBAAGIAEMgcICRAAGIAE0gEIMjcwN2owajeoAgCwAgA&sourceid=chrome&ie=UTF-8'>
+									Spice Paradise
+								</a>
+							</li>
+							<ul>
+								<li onClick={() => setSearchString('Braised Beef Chunk with Chili and Potato')} className='clickable-text'>
+									<FontAwesomeIcon icon={faEye} /> Braised Beef Chunk with Chili and Potato
+								</li>
+								<li
+									onClick={() => setSearchString('Stir Fried Chicken Chunk with Fresh Chili and Black Fungus')}
+									className='clickable-text'>
+									<FontAwesomeIcon icon={faEye} /> Stir Fried Chicken Chunk with Fresh Chili and Black Fungus
+								</li>
+							</ul>
+							<li style={{ listStyleType: 'square' }}>
+								<a
+									target='_blank'
+									rel='noreferrer'
+									className='custom-link'
+									href='https://www.google.com/search?q=edomae+sushi+yokocho&rlz=1C1CHBF_enUS1039US1039&oq=edomae+sushi+yoko&gs_lcrp=EgZjaHJvbWUqCggAEAAY4wIYgAQyCggAEAAY4wIYgAQyDQgBEC4YrwEYxwEYgAQyBggCEEUYOTIICAMQABgWGB4yCAgEEAAYFhgeMg0IBRAAGIYDGIAEGIoFMg0IBhAAGIYDGIAEGIoFMg0IBxAAGIYDGIAEGIoFMgoICBAAGIAEGKIEMgoICRAAGIAEGKIEqAIAsAIA&sourceid=chrome&ie=UTF-8									'>
+									Edomae Sushi Yokocho
+								</a>
+							</li>
+							<ul>
+								<li>Sushi Train</li>
+							</ul>
+							<li style={{ listStyleType: 'square' }}>
+								<a
+									target='_blank'
+									rel='noreferrer'
+									className='custom-link'
+									href='https://www.google.com/search?q=rei+izakaya&sca_esv=8cdee197d32e0965&sca_upv=1&rlz=1C1CHBF_enUS1039US1039&sxsrf=ADLYWIJZ5MghpnIbqYqoExVRgOPjgsdvXA%3A1715490383897&ei=T05AZoiyNo_e2roP-cUQ&ved=0ahUKEwjIlcrXq4eGAxUPr1YBHfkiBAAQ4dUDCBE&uact=5&oq=rei+izakaya&gs_lp=Egxnd3Mtd2l6LXNlcnAiC3JlaSBpemFrYXlhMhkQLhiABBixAxhDGIMBGMcBGIoFGI4FGK8BMgUQABiABDIFEAAYgAQyBRAAGIAEMgQQABgeMgQQABgeMgQQABgeMgQQABgeMgIQJjILEAAYgAQYhgMYigUyKBAuGIAEGLEDGEMYgwEYxwEYigUYjgUYrwEYlwUY3AQY3gQY4ATYAQFI6mNQ1R9YnF1wBHgBkAEAmAHgAaAB4gqqAQUwLjQuM7gBA8gBAPgBAZgCCqAC_gnCAgoQABiwAxjWBBhHwgIQEC4YgAQYQxjHARiKBRivAcICDRAAGIAEGJIDGBQYhwLCAgsQABiABBiSAxiKBcICDRAAGIAEGEMYyQMYigXCAgoQABiABBhDGIoFwgIQEAAYgAQYsQMYQxiDARiKBcICCxAAGIAEGLEDGIMBwgILEC4YgAQYxwEYrwHCAh8QLhiABBhDGMcBGIoFGK8BGJcFGNwEGN4EGOAE2AEBwgIKEAAYgAQYFBiHAsICBhAAGAcYHsICDRAAGIAEGLEDGIMBGA3CAg0QLhiABBjHARgNGK8BwgIQEC4YgAQYxwEYDRiOBRivAcICBxAAGIAEGA2YAwCIBgGQBgi6BgYIARABGBSSBwU0LjIuNKAHm1o&sclient=gws-wiz-serp									'>
+									Rei Izakaya
+								</a>
+							</li>
+							<ul>
+								<li>Japanese Yakitori</li>
+							</ul>
+							<li style={{ listStyleType: 'square' }}>
+								<a
+									target='_blank'
+									rel='noreferrer'
+									className='custom-link'
+									href='https://www.google.com/search?q=oh%21matcha&sca_esv=8cdee197d32e0965&sca_upv=1&rlz=1C1CHBF_enUS1039US1039&sxsrf=ADLYWIKpDoXuTKraVBG5Tc9-LY8P7QvpkQ%3A1715490664446&ei=aE9AZu_TGt-k2roP5p-E6Ac&ved=0ahUKEwjvp63drIeGAxVfklYBHeYPAX0Q4dUDCBE&uact=5&oq=oh%21matcha&gs_lp=Egxnd3Mtd2l6LXNlcnAiCW9oIW1hdGNoYTIOEC4YgAQYxwEYjgUYrwEyChAAGIAEGEMYigUyChAAGIAEGEMYigUyChAAGIAEGEMYigUyBhAAGAcYHjIFEAAYgAQyBhAAGAcYHjIGEAAYBxgeMgYQABgHGB4yBhAAGAcYHjIdEC4YgAQYxwEYjgUYrwEYlwUY3AQY3gQY4ATYAQJIlwxQ1gVY7QhwAXgBkAEAmAGmAqABzQOqAQUwLjEuMbgBA8gBAPgBAZgCA6AC4QPCAgoQABiwAxjWBBhHwgINEAAYgAQYsAMYQxiKBcICHBAuGIAEGLADGEMYxwEYyAMYigUYjgUYrwHYAQHCAhkQLhiABBiwAxhDGMcBGMgDGIoFGK8B2AEBwgIZEC4YgAQYsAMY0QMYQxjHARjIAxiKBdgBAcICExAuGIAEGLADGEMYyAMYigXYAQHCAhAQLhiABBjHARgKGI4FGK8BwgIfEC4YgAQYxwEYChiOBRivARiXBRjcBBjeBBjgBNgBApgDAIgGAZAGFLoGBggBEAEYCLoGBggCEAEYFJIHBzEuMS4wLjGgB7UQ&sclient=gws-wiz-serp									'>
+									Oh!Matcha
+								</a>
+							</li>
+							<ul>
+								<li onClick={() => setSearchString('Matcha Ice Cream')} className='clickable-text'>
+									<FontAwesomeIcon icon={faEye} /> Matcha Ice Cream, Mochi, etc
+								</li>
 							</ul>
 						</ul>
 					</div>
