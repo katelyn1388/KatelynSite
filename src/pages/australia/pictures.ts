@@ -387,5 +387,9 @@ export const pictures: ImageType[] = [
   { img_id: '1TnpnfHN2jYg_lcDPaWLq8RK2nqUjqRG0',
     description: 'Sydney; Emperor\'s Puffs; food; cream puffs' },
   { img_id: '1TogKI3KZWPknRWcKWGPOynWpIoQBMtnF',
-    description: 'Sydney; Cityscape - Sydney Town Hall' }
+    description: 'Sydney; Cityscape - Sydney Town Hall' },
+    { img_id: '1VIqSBm3q2ykAiJK2yMMNbM401sPRQXbh',
+    description: 'Sydney; Korean Food ' },
+  { img_id: '1VFVGJ-Q_U6fI66oJfgU7BKtlzrz0LF8y',
+    description: 'Sydney; Korean Food - Pan Fried Spicy Pork' },
 ]
