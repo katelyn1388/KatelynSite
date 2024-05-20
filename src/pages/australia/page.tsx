@@ -341,6 +341,21 @@ export default function Page() {
 									<FontAwesomeIcon icon={faEye} /> Matcha Ice Cream, Mochi, etc
 								</li>
 							</ul>
+							<li style={{ listStyleType: 'square' }}>
+								<a
+									target='_blank'
+									rel='noreferrer'
+									className='custom-link'
+									href='https://www.google.com/search?q=yk+mini+hot+pot+hapymarket&rlz=1C1CHBF_enUS1039US1039&oq=yk+mini+hot+pot+hapymarket&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQIRgKGKABMgkIAhAhGAoYoAEyCQgDECEYChigAdIBCDcxODNqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8'>
+									YX Mini Hot Pot Haymarket
+								</a>
+							</li>
+							<ul>
+								<li onClick={() => setSearchString('Hot Pot')} className='clickable-text'>
+									<FontAwesomeIcon icon={faEye} /> Hot Pot
+								</li>
+								<li>Warning - Very expensive (but very good)</li>
+							</ul>
 						</ul>
 					</div>
 				)}
