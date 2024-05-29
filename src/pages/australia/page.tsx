@@ -144,6 +144,29 @@ export default function Page() {
 						})}
 				</div>
 
+				<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Random</h3>
+				<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
+					{pictures
+						.sort((a, b) => a.description.localeCompare(b.description))
+						.map((img) => {
+							if (
+								img.description.startsWith('Random') &&
+								(searchString.length > 0 ? img.description.toLowerCase().includes(searchString.toLowerCase()) : true)
+							) {
+								return (
+									<span
+										onClick={() => displayImage(pictures.indexOf(img))}
+										key={img.img_id}
+										className={`image-container ${newImages ? (cachedIds.includes(img.img_id) ? 'old-img' : 'new-img') : ''}`}>
+										<ImageComponent imgId={img.img_id} linkEnd={thumbnail2} />
+									</span>
+								);
+							} else {
+								return <span key={img.img_id}></span>;
+							}
+						})}
+				</div>
+
 				<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Taronga Sydney Zoo</h3>
 				<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
 					{pictures
