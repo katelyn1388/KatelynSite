@@ -576,7 +576,7 @@ export const pictures: ImageType[] = [
   { img_id: '1e2SqIZK5V8PBL8WSPgGqIsAT17u9IFOQ',
     description: 'Random; Kiama; katelyn' },
   { img_id: '1dzROmFp7QmuGNBJ_mEUUrI6UG-6EuKI_',
-    description: 'Sydney; Kiama Relaxing; katelyn' },
+    description: 'Random; Kiama Relaxing; katelyn' },
   { img_id: '1dyj6kcNg6Y2p733llfqFg-sQAz8o9AIi',
     description: 'Random; Kiama - Little Blowhole; katelyn' },
   { img_id: '1dxFf4CVzLGu4BI2m0Q3mLPgVs3_WzFHz',

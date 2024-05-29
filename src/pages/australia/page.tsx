@@ -204,7 +204,9 @@ export default function Page() {
 								</a>
 							</li>
 							<ul>
-								<li>Japanese BBQ</li>
+								<li onClick={() => setSearchString('japanese bbq')} className='clickable-text'>
+									<FontAwesomeIcon icon={faEye} /> Japanese BBQ
+								</li>
 							</ul>
 							<li style={{ listStyleType: 'square' }}>
 								<a
