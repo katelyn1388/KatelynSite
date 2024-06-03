@@ -234,7 +234,7 @@ export default function Page() {
 			</div>
 
 			<ImageModal close={close} show={showImageModal} imgIndex={selectedImage} imageArray={pictures} />
-			<NewsModal close={close} show={showNewsModal} newsString='We went to Japan for a week and here are pictures to prove it!' />
+			{/* <NewsModal close={close} show={showNewsModal} newsString='We went to Japan for a week and here are pictures to prove it!' /> */}
 		</AppLayout>
 	);
 }
