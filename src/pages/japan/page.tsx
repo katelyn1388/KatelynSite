@@ -23,6 +23,7 @@ export default function Page() {
 	const [searchString, setSearchString] = useState<string>('');
 	const [newImages, setNewImages] = useState(false);
 	const [cachedIds, setCachedIds] = useState('');
+	const [countryError, setCountryError] = useState(false);
 
 	const displayImage = useCallback((img: number) => {
 		setShowImageModal(true);
@@ -91,7 +92,7 @@ export default function Page() {
 			<div className='d-print-none'>
 				<div className={mobileView ? 'justify-content-center d-flex' : ''}>
 					<div className='country-header'>
-						<CountryBigFacts country='Japan' />
+						{!countryError && <CountryBigFacts country='Japan' setCountryError={setCountryError} />}
 						<Weather lat={35.652832} long={139.839478} date={japanDate} />
 					</div>
 				</div>

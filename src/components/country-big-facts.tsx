@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { CountryBigFactsType } from '../types/country-big-facts-type';
 
-export default function CountryBigFacts({ country }: { country: string }) {
+export default function CountryBigFacts({ country, setCountryError }: { country: string; setCountryError: (error: boolean) => void }) {
 	const [countryFacts, setCountryFacts] = useState<CountryBigFactsType[] | undefined>();
 
 	useEffect(() => {
@@ -10,40 +10,48 @@ export default function CountryBigFacts({ country }: { country: string }) {
 				.then((res) => res.json())
 				.then((result) => {
 					setCountryFacts(result);
+				})
+				.catch((error) => {
+					setCountryError(error);
+					setCountryFacts(undefined);
 				});
 		};
 		fetchData();
-	}, [country]);
+	}, [country, setCountryError]);
 
 	return (
-		<div className='country-facts'>
-			{countryFacts?.map((country) => {
-				return (
-					<div key={country.name.common} className='big-facts'>
-						<h5 className='text-decoration-underline'>{country.name.common}</h5>
-						<div className='d-flex justify-content-between'>
-							<div>
-								<h6>Capital</h6>
-								<p>{country.capital}</p>
+		<span>
+			{countryFacts !== undefined && (
+				<div className='country-facts'>
+					{countryFacts?.map((country) => {
+						return (
+							<div key={country.name.common} className='big-facts'>
+								<h5 className='text-decoration-underline'>{country.name.common}</h5>
+								<div className='d-flex justify-content-between'>
+									<div>
+										<h6>Capital</h6>
+										<p>{country.capital}</p>
+									</div>
+									<div>
+										<h6>Population</h6>
+										<p>{country.population.toLocaleString()}</p>
+									</div>
+								</div>
+								<div className='flags'>
+									<div>
+										<h6>Flag</h6>
+										<img src={country.flags.png} alt={country.flags.alt}></img>
+									</div>
+									<div className='mt-3'>
+										<h6>Coat of Arms</h6>
+										<img src={country.coatOfArms.png} alt='Coat of arms' width='200rem'></img>
+									</div>
+								</div>
 							</div>
-							<div>
-								<h6>Population</h6>
-								<p>{country.population.toLocaleString()}</p>
-							</div>
-						</div>
-						<div className='flags'>
-							<div>
-								<h6>Flag</h6>
-								<img src={country.flags.png} alt={country.flags.alt}></img>
-							</div>
-							<div className='mt-3'>
-								<h6>Coat of Arms</h6>
-								<img src={country.coatOfArms.png} alt='Australia coat of arms' width='200rem'></img>
-							</div>
-						</div>
-					</div>
-				);
-			})}
-		</div>
+						);
+					})}
+				</div>
+			)}
+		</span>
 	);
 }

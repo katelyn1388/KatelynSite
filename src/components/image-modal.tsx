@@ -171,6 +171,7 @@ export default function ImageModal({
 										<p>Image Failed</p>
 									</div>
 								}
+								style={imageArray[index].flipped ? { transform: 'rotate(180deg)' } : {}}
 							/>
 						)}
 					</div>

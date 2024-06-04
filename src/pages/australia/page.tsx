@@ -26,6 +26,7 @@ export default function Page() {
 	const [newImages, setNewImages] = useState(false);
 	const [cachedIds, setCachedIds] = useState('');
 	const [showNewImageModal, setShowNewImageModal] = useState(false);
+	const [countryError, setCountryError] = useState(false);
 
 	const displayImage = useCallback((img: number) => {
 		setShowImageModal(true);
@@ -96,7 +97,7 @@ export default function Page() {
 			<div className='d-print-none'>
 				<div className={mobileView ? 'justify-content-center d-flex' : ''}>
 					<div className='country-header'>
-						<CountryBigFacts country='Australia' />
+						{!countryError ? <CountryBigFacts country='Australia' setCountryError={setCountryError} /> : null}
 						<Weather lat={-33.865143} long={151.2099} date={sydneyDate} />
 					</div>
 				</div>

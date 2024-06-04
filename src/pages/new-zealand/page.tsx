@@ -24,6 +24,7 @@ export default function Page() {
 	);
 	const [searchString, setSearchString] = useState<string>('');
 	const [newImages, setNewImages] = useState(false);
+	const [countryError, setCountryError] = useState(false);
 
 	const displayImage = useCallback((img: number) => {
 		setShowImageModal(true);
@@ -94,7 +95,7 @@ export default function Page() {
 			<div className='d-print-none'>
 				<div className={mobileView ? 'justify-content-center d-flex' : ''}>
 					<div className='country-header'>
-						<CountryBigFacts country='New Zealand' />
+						{!countryError && <CountryBigFacts country='New Zealand' setCountryError={setCountryError} />}
 						<Weather lat={-36.850109} long={174.7677} date={newZealandDate} />
 					</div>
 				</div>
@@ -145,7 +146,7 @@ export default function Page() {
 				</div>
 				<br />
 
-				{/* <div className='d-flex justify-content-center'>
+				<div className='d-flex justify-content-center'>
 					{searchString.length === 0 || 'skyline auckland video skyjump'.includes(searchString.toLowerCase()) ? (
 						<iframe
 							src='https://www.youtube.com/embed/8Ymew8YpAGM'
@@ -157,7 +158,7 @@ export default function Page() {
 					) : (
 						<span></span>
 					)}
-				</div> */}
+				</div>
 
 				<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Hamilton Gardens</h3>
 				<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
@@ -205,34 +206,39 @@ export default function Page() {
 						})}
 				</div>
 				<br />
-				{/* <div className='d-flex justify-content-center'>
-					{searchString.length === 0 || 'Skyline Rotorua video sky swing luge zipline'.includes(searchString) ? (
-						<iframe
-							src='https://www.youtube.com/embed/2pHpjD82wUo'
-							title='Skyline Rotorua'
-							allowFullScreen
-							width={videoWidth}
-							height={videoHeight}
-						/>
-					) : (
-						<span></span>
-					)}
-
-					{searchString.length === 0 || 'Skyline Rotorua video luge ride '.includes(searchString) ? (
-						<iframe
-							src='https://www.youtube.com/embed/M51vGr-fg80'
-							title='Luge Ride'
-							allowFullScreen
-							width={videoWidth}
-							height={videoHeight}
-						/>
-					) : (
-						<span></span>
-					)}
-				</div> */}
+				<div className='d-flex justify-content-center'>
+					<div className='d-flex flex-column'>
+						<div>
+							{searchString.length === 0 || 'Skyline Rotorua video sky swing luge zipline'.includes(searchString) ? (
+								<iframe
+									src='https://www.youtube.com/embed/2pHpjD82wUo'
+									title='Skyline Rotorua'
+									allowFullScreen
+									width={videoWidth}
+									height={videoHeight}
+								/>
+							) : (
+								<span></span>
+							)}
+						</div>
+						<div>
+							{searchString.length === 0 || 'Skyline Rotorua video luge ride '.includes(searchString) ? (
+								<iframe
+									src='https://www.youtube.com/embed/M51vGr-fg80'
+									title='Luge Ride'
+									allowFullScreen
+									width={videoWidth}
+									height={videoHeight}
+								/>
+							) : (
+								<span></span>
+							)}
+						</div>
+					</div>
+				</div>
 
 				<h3 className={mobileView ? 'mt-2 ms-2' : 'mt-2 ms-5'}>Random</h3>
-				<div className={mobileView ? 'd-flex justify-content-center flex-wrap' : 'ps-5 pe-4'}>
+				<div className='d-flex justify-content-center flex-wrap'>
 					{pictures
 						.sort((a, b) => a.description.localeCompare(b.description))
 						.map((img) => {
