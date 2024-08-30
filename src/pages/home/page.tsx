@@ -6,8 +6,15 @@ import { ImageComponent } from '../../components/image-component';
 import { Weather } from '../../components/weather';
 import { UseMobileView } from '../../hooks/use-mobile-view';
 import NewsModal from './news-modal';
+import ReactGA from 'react-ga4';
 
 export default function Page() {
+	ReactGA.send({
+		hitType: 'pageview',
+		page: '/',
+		title: 'Home',
+	});
+
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
 	const [showImageModal, setShowImageModal] = useState(false);
 	const modalLinkFirst = useMemo(() => 'https://lh3.googleusercontent.com/d/', []);

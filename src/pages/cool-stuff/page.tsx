@@ -7,8 +7,15 @@ import { UseMobileView } from '../../hooks/use-mobile-view';
 import { AgeGuesser } from './games/age-guessing';
 import DogLoadingAnimation from '../../components/loaders/dog-loader';
 import PolaroidLoading from '../../components/loaders/polaroid-animation';
+import ReactGA from 'react-ga4';
 
 export default function Page() {
+	ReactGA.send({
+		hitType: 'pageview',
+		page: '/coolstuff',
+		title: 'Cool Stuff',
+	});
+
 	const { mobileView } = UseMobileView();
 
 	return (

@@ -8,8 +8,15 @@ import { UseMobileView } from '../../hooks/use-mobile-view';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ImageComponent } from '../../components/image-component';
+import ReactGA from 'react-ga4';
 
 export default function Page() {
+	ReactGA.send({
+		hitType: 'pageview',
+		page: '/newzealand',
+		title: 'New Zealand',
+	});
+
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
 	const [showImageModal, setShowImageModal] = useState(false);
 	const { mobileView } = UseMobileView();

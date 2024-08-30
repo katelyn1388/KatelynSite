@@ -528,7 +528,7 @@ export const pictures: ImageType[] = [
   { img_id: '1O-AVjIKEtjNHzDEGfy4nkwvkydUdKx_s',
     description: 'Tokyo; Sumo Show; katelyn; kylee' },
   { img_id: '1O2bYhoLW0jonsxSCGZgxzduCT5VWHQjg',
-    description: 'Tokyo; Sumo Show With Chick Hot Pot' },
+    description: 'Tokyo; Sumo Show With Chicken Hot Pot', flipped: true },
   { img_id: '1LZd-VoBnIHAgmNC2LHkQRJeme2IjXgLl',
     description: 'Tokyo; Sumo Show' },
   { img_id: '1LYtq5p97oSKtXn6gJlzjh2-g2f1HahRT',

@@ -10,8 +10,15 @@ import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ImageComponent } from '../../components/image-component';
 import NewImagesModal from '../../components/new-images-modal';
 import { faEye } from '@fortawesome/free-regular-svg-icons';
+import ReactGA from 'react-ga4';
 
 export default function Page() {
+	ReactGA.send({
+		hitType: 'pageview',
+		page: '/australia',
+		title: 'Australia',
+	});
+
 	const [selectedImage, setSelectedImage] = useState<number | null>(null);
 	const [showImageModal, setShowImageModal] = useState(false);
 	const { mobileView } = UseMobileView();
