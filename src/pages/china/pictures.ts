@@ -378,7 +378,7 @@ export const pictures: ImageType[] = [
     { img_id: '1qb6hYAfhix-IoPeZYXTN5kPyQysrYAww',
     description: 'Guangzhou; Shaiman Island; katelyn' },
     { img_id: '1L8R_gT-PE3sBBUgQqoAcC414OrBvIRZD',
-    description: 'Guangzhou; Photo recreation - Katelyn and Kylee the cool kids - 2012' },
+    description: 'Guangzhou; Photo recreation - Katelyn and Kylee the cool kids - 2025' },
     { img_id: '1xSWW-jsaX0Dwt3ekvXoZI8LUiSprEQZG',
     description: 'Guangzhou; Katelyn and Sylus' },
     { img_id: '1ODUFy1YwPcffnxQsJO07ubJzshEeTEtu',

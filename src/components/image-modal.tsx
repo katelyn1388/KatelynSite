@@ -1,5 +1,5 @@
 import Modal from 'react-bootstrap/Modal';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { UseMobileView } from '../hooks/use-mobile-view';
 import { ImageType } from '../types/image-type';
 import { Img } from 'react-image';
@@ -26,6 +26,7 @@ export default function ImageModal({
 	const [imgWidth, setImgWidth] = useState('100%');
 	const [ratio, setRatio] = useState(0);
 	const [modalSize, setModalSize] = useState<ModalSize>(undefined);
+	const retryCount = useRef<number>(0);
 
 	useEffect(() => {
 		const handleKeyPress = (event: KeyboardEvent) => {
@@ -130,6 +131,14 @@ export default function ImageModal({
 		},
 		[imageArray, index]
 	);
+	const handleError = () => {
+		console.log('Image failed to load, retrying...');
+		if (retryCount.current < 5) {
+			setTimeout(() => {
+				retryCount.current += 1;
+			}, 1000);
+		}
+	};
 
 	return (
 		<div>
@@ -140,7 +149,8 @@ export default function ImageModal({
 					<div className='justify-content-center d-flex align-items-center'>
 						{index !== null && index !== undefined && (
 							<Img
-								src={`${modalLinkFirst}${imageArray[index].img_id}${modalLinkSecond}`}
+								key={`img-${retryCount.current}`}
+								src={`${modalLinkFirst}${imageArray[index].img_id}${modalLinkSecond}?retry=${retryCount.current}`}
 								onLoad={(e) => {
 									const image = e.target as HTMLImageElement;
 									const aspectRatio = image.naturalWidth / image.naturalHeight;
@@ -171,6 +181,7 @@ export default function ImageModal({
 										<p>Image Failed</p>
 									</div>
 								}
+								onError={handleError}
 								style={imageArray[index].flipped ? { transform: 'rotate(180deg)' } : {}}
 							/>
 						)}

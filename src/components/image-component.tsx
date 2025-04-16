@@ -4,7 +4,7 @@ import DogLoadingAnimation from './loaders/dog-loader';
 import { useEffect, useRef } from 'react';
 
 export function ImageComponent({ imgId, linkEnd }: { imgId: string; linkEnd: string }) {
-	const retryCount = useRef<number>();
+	const retryCount = useRef<number>(0);
 
 	useEffect(() => {
 		if (retryCount.current === undefined) {
@@ -14,9 +14,10 @@ export function ImageComponent({ imgId, linkEnd }: { imgId: string; linkEnd: str
 
 	const handleError = () => {
 		console.log('Image failed to load, retrying...');
-		if (retryCount.current !== undefined && retryCount.current < 3) {
-			retryCount.current += 1;
-			window.location.reload();
+		if (retryCount.current < 3) {
+			setTimeout(() => {
+				retryCount.current += 1;
+			}, 1000);
 		}
 	};
 
