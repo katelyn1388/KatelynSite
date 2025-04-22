@@ -431,8 +431,6 @@ export const pictures: ImageType[] = [
     description: 'Dali; Erhai Lake; katelyn; kylee' },
     { img_id: '1pmXA3akokwZRShCHociyepnrkHnZOF6m',
     description: 'Dali; Food time; katelyn; kylee; brother' },
-    { img_id: '1VZ09P2SU-vXKZbHr1t5Z6CjFtj_One7s',
-    description: 'Dali; Ancient town Ew Cult Cafe; katelyn' },
     { img_id: '1wCyd6Le6WpqGulPMpigllY5QzpsvZIQ1',
     description: 'Dali; Erhai Lake bike ride; katelyn' },
     { img_id: '17y5NroiqChvcRpJkmiSRx1dpUZfrbD_o',

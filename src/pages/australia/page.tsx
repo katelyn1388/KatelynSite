@@ -90,6 +90,7 @@ export default function Page() {
 
 	useEffect(() => {
 		cacheImageThumbnails();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const searchValueChange = useCallback(

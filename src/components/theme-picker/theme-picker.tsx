@@ -34,14 +34,14 @@ export function ThemePicker() {
 		const nextYear = new Date();
 		nextYear.setFullYear(current.getFullYear() + 5);
 		setThemeCookie('theme', theme, { expires: nextYear });
-	}, [theme]);
+	}, [setThemeCookie, theme]);
 
 	useEffect(() => {
 		const current = new Date();
 		const nextYear = new Date();
 		nextYear.setFullYear(current.getFullYear() + 1);
 		setColorChoiceCookie('colorChoice', colorChoices, { expires: nextYear });
-	}, [colorChoices]);
+	}, [colorChoices, setColorChoiceCookie]);
 
 	const close = useCallback(() => {
 		setShowColorPicker(false);

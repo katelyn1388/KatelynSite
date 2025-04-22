@@ -17,6 +17,7 @@ export function AgeGuesser() {
 
 			do {
 				randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+				// eslint-disable-next-line no-loop-func
 			} while (guesses.find((number) => number === randomNumber));
 			return randomNumber;
 		},

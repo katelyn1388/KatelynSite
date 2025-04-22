@@ -67,7 +67,7 @@ export default function Page() {
 		let notCachedCount = 0;
 		let addIds: string = '';
 
-		pictures.map((img) => {
+		pictures.forEach((img) => {
 			if (storedImageIds?.includes(img.img_id)) {
 				img.cached = true;
 			} else {
@@ -88,6 +88,7 @@ export default function Page() {
 	useEffect(() => {
 		storeImageThumbnails();
 		cacheImageThumbnails();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const searchValueChange = useCallback(

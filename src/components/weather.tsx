@@ -15,6 +15,7 @@ export function Weather({ lat, long, date, name }: { lat: number; long: number; 
 				});
 		};
 		fetchData();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (

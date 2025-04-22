@@ -5,7 +5,7 @@ import ImageModal from '../../components/image-modal';
 import { ImageComponent } from '../../components/image-component';
 import { Weather } from '../../components/weather';
 import { UseMobileView } from '../../hooks/use-mobile-view';
-import NewsModal from './news-modal';
+// import NewsModal from './news-modal';
 import ReactGA from 'react-ga4';
 
 export default function Page() {
@@ -25,19 +25,19 @@ export default function Page() {
 	const [currentDate, setCurrentDate] = useState<string | null>(null);
 	const { mobileView } = UseMobileView();
 	const [newImages, setNewImages] = useState(false);
-	const storedImageIds: string = useMemo(() => localStorage.getItem('japanImgs') || '', []);
-	const [showNewsModal, setShowNewsModal] = useState(false);
+	// const storedImageIds: string = useMemo(() => localStorage.getItem('japanImgs') || '', []);
+	// const [showNewsModal, setShowNewsModal] = useState(false);
 
 	const success = useCallback((position: GeolocationPosition) => {
 		setLatitude(position.coords.latitude);
 		setLongitude(position.coords.longitude);
 	}, []);
 
-	useEffect(() => {
-		if (storedImageIds.length === 0) {
-			setShowNewsModal(true);
-		}
-	}, [storedImageIds]);
+	// useEffect(() => {
+	// 	if (storedImageIds.length === 0) {
+	// 		setShowNewsModal(true);
+	// 	}
+	// }, [storedImageIds]);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -93,7 +93,7 @@ export default function Page() {
 		let notCachedCount = 0;
 		let addIds: string = '';
 
-		pictures.map((img) => {
+		pictures.forEach((img) => {
 			if (storedImageIds?.includes(img.img_id)) {
 				img.cached = true;
 			} else {
@@ -115,6 +115,7 @@ export default function Page() {
 		getLocation();
 		storeImageThumbnails();
 		cacheImageThumbnails();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
