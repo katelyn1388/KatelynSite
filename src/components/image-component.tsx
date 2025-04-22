@@ -1,10 +1,11 @@
 import { Img } from 'react-image';
 import ImageUnloaded from './loaders/image-unloaded';
 import DogLoadingAnimation from './loaders/dog-loader';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export function ImageComponent({ imgId, linkEnd }: { imgId: string; linkEnd: string }) {
 	const retryCount = useRef<number>(0);
+	const [retryKey, setRetryKey] = useState(0);
 
 	useEffect(() => {
 		if (retryCount.current === undefined) {
@@ -17,6 +18,7 @@ export function ImageComponent({ imgId, linkEnd }: { imgId: string; linkEnd: str
 		if (retryCount.current < 3) {
 			setTimeout(() => {
 				retryCount.current += 1;
+				setRetryKey((prev) => prev + 1);
 			}, 1000);
 		}
 	};
@@ -28,7 +30,7 @@ export function ImageComponent({ imgId, linkEnd }: { imgId: string; linkEnd: str
 			alt='Sick Pic'
 			className='align-self-center image-thumbnail'
 			unloader={<ImageUnloaded />}
-			key={imgId}
+			key={`${imgId}retry-${retryKey}`}
 			onError={handleError}
 		/>
 	);

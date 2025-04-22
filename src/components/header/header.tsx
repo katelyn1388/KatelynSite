@@ -26,7 +26,7 @@ export function Header({ title }: { title: string }) {
 								<ThemePicker />
 							</span>
 						</div>
-						<ul style={{ display: hamburgerOpen ? 'block' : 'none', minHeight: '9rem' }} className='dropdown-menu'>
+						<ul style={{ display: hamburgerOpen ? 'block' : 'none', minHeight: '11rem' }} className='dropdown-menu'>
 							<li>
 								<Link to='/' className={title === 'Home' ? 'active-page nav-link' : 'nav-link'}>
 									Home

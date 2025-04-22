@@ -27,6 +27,7 @@ export default function ImageModal({
 	const [ratio, setRatio] = useState(0);
 	const [modalSize, setModalSize] = useState<ModalSize>(undefined);
 	const retryCount = useRef<number>(0);
+	const [retryKey, setRetryKey] = useState(0);
 
 	useEffect(() => {
 		const handleKeyPress = (event: KeyboardEvent) => {
@@ -45,34 +46,23 @@ export default function ImageModal({
 	});
 
 	useEffect(() => {
+		if (index === null) return;
+
+		const preloadImage = (src: string) => {
+			const img = new Image();
+			img.src = src;
+		};
+
 		const modalLinkFirst = 'https://lh3.googleusercontent.com/d/';
 		const modalLinkSecond = '=s4000?authuser=0';
-		let previousLinkTag: HTMLLinkElement;
-		let nextLinkTag: HTMLLinkElement;
-		const prefetchImages = () => {
-			if (index !== null && index !== 0 && index !== imageArray.length - 1) {
-				previousLinkTag = document.createElement('link');
-				previousLinkTag.rel = 'prefetch';
-				previousLinkTag.href = modalLinkFirst + imageArray[index - 1].img_id + modalLinkSecond;
 
-				document.head.appendChild(previousLinkTag);
-
-				nextLinkTag = document.createElement('link');
-				nextLinkTag.rel = 'prefetch';
-				nextLinkTag.href = modalLinkFirst + imageArray[index + 1].img_id + modalLinkSecond;
-
-				document.head.appendChild(nextLinkTag);
-			}
-		};
-
-		prefetchImages();
-		return () => {
-			if (index !== null && index !== 0 && index !== imageArray.length - 1) {
-				document.head.removeChild(previousLinkTag);
-				document.head.removeChild(nextLinkTag);
-			}
-		};
-	}, [imageArray, index]);
+		if (index > 0) {
+			preloadImage(modalLinkFirst + imageArray[index - 1].img_id + modalLinkSecond);
+		}
+		if (index < imageArray.length - 1) {
+			preloadImage(modalLinkFirst + imageArray[index + 1].img_id + modalLinkSecond);
+		}
+	}, [index, imageArray]);
 
 	const { mobileView } = UseMobileView();
 	const { tabletView } = UseMobileView();
@@ -131,11 +121,13 @@ export default function ImageModal({
 		},
 		[imageArray, index]
 	);
+
 	const handleError = () => {
 		console.log('Image failed to load, retrying...');
 		if (retryCount.current < 5) {
 			setTimeout(() => {
 				retryCount.current += 1;
+				setRetryKey((prev) => prev + 1);
 			}, 1000);
 		}
 	};
@@ -149,8 +141,8 @@ export default function ImageModal({
 					<div className='justify-content-center d-flex align-items-center'>
 						{index !== null && index !== undefined && (
 							<Img
-								key={`img-${retryCount.current}`}
-								src={`${modalLinkFirst}${imageArray[index].img_id}${modalLinkSecond}?retry=${retryCount.current}`}
+								key={`img-${retryKey}`}
+								src={`${modalLinkFirst}${imageArray[index].img_id}${modalLinkSecond}`}
 								onLoad={(e) => {
 									const image = e.target as HTMLImageElement;
 									const aspectRatio = image.naturalWidth / image.naturalHeight;
