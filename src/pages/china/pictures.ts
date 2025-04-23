@@ -16,7 +16,7 @@ export const pictures: ImageType[] = [
     { img_id: '18rQ4635wj5kUPhHPpxT_jdcngZgMShI6',
         description: 'Lijiang; Yulong Snow Mountain; kylee' },
     { img_id: '1JOy92i__0ddq78JCn8Bsi3vjK5MB0LS6',
-        description: 'Lijiang; Roamnce Park - Hobbiton; katelyn; kylee' },
+        description: 'Lijiang; Romance Park - Hobbiton; katelyn; kylee' },
     { img_id: '1TrzQpcnMLMz5YktLo0T3PhJuOsfqo-PS',
         description: 'Lijiang; Yulong Snow Mountain; katelyn; kylee' },
     { img_id: '1eJvYZYOVtZ5PKYZpv7hZcMGxzaqOVSU2',
