@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.a34967dc.css",
-    "main.js": "/static/js/main.8eb5d345.js",
+    "main.js": "/static/js/main.19eb200b.js",
     "static/media/Merlinie Logo.jpg": "/static/media/Merlinie Logo.edfe8b1a96728c171263.jpg",
     "static/media/bus.svg": "/static/media/bus.1c6ad3c8aa58a0e61c0e70162e4d1839.svg",
     "static/media/book-loading-animation.svg": "/static/media/book-loading-animation.37e199bef1cb210000a24c0f0c0c2db4.svg",
@@ -13,6 +13,6 @@
   },
   "entrypoints": [
     "static/css/main.a34967dc.css",
-    "static/js/main.8eb5d345.js"
+    "static/js/main.19eb200b.js"
   ]
 }
